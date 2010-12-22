@@ -1,0 +1,23 @@
+[user]
+	name = Dennis Wegner
+	email = dennis.wegner@evonik.com
+
+[core]
+    editor = vim -f
+    pager = cat
+
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = true
+    pager = true
+
+[alias] 
+    st = status
+    ci = commit
+    co = checkout
+    w = whatchanged
+
