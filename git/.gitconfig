@@ -1,6 +1,6 @@
 [user]
 	name = Dennis Wegner
-	email = dennis.wegner@evonik.com lalala
+	email = dennis.wegner@evonik.com
 
 [core]
     editor = vim -f
