@@ -20,4 +20,4 @@
     ci = commit
     co = checkout
     w = whatchanged
-
+    br = branch
