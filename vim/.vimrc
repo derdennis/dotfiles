@@ -63,6 +63,9 @@ set smarttab
 " Very painful to live without this (especially with Python)! It means that
 " when you press RETURN and a new line is created, the indent of the new line
 " will match that of the previous line. 
+" 
+" This, of course, destroys Copy & Paste from Browsers etc...
+" To deactivate :set paste, do your thing, and :set nopaste to reverse it.
 set autoindent
 
 " Straight from the standard Debian .vimrc and highly recommended.
@@ -85,3 +88,7 @@ set nobackup
 " Dennis, 02.11.2010
 set linebreak
 set textwidth=80
+
+" Line Numbers, off with nonu
+set nu
+
