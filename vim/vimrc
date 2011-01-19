@@ -92,11 +92,19 @@ set hidden             " Hide buffers when they are abandoned
 " Dennis, 05.10.2010
 set nobackup
 
-" Break whole words when a line ends, Linebreak after 80 chars
+" Break whole words when a line ends, Linebreak after 79 chars
 " via: http://aaron-mueller.de/artikel/vim-mastery-Absatzweise
 " Dennis, 02.11.2010
+set wrap
 set linebreak
-set textwidth=80
+set textwidth=79
+set formatoptions=qrn1
+" See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
+" more information.
+
+" colorcolumn draws a line at the desired column. Helps to avoid
+" spaghetticode, but does not seem to work in Vim 7.2...
+"set colorcolumn=85
 
 " Line Numbers, off with :set nonu
 set nu
