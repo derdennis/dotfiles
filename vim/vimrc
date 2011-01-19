@@ -109,3 +109,20 @@ set formatoptions=qrn1
 " Line Numbers, off with :set nonu
 set nu
 
+" Disabling arrow keys in normal mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" Disabling arrow keys in insert mode (helps to get hjkl working in muscle
+" memory)
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Make j and k move by screen line instead of the archaic move by file line
+nnoremap j gj
+nnoremap k gk
+
