@@ -73,3 +73,8 @@ export PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
 
+# Wiki shortcut for definitions
+# via: http://onethingwell.org/post/2858158431/wikipedia-cli
+wiki() {
+        dig +short txt $1.wp.dg.cx
+    }
