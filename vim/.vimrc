@@ -26,6 +26,24 @@ syntax on
 " Make sure, one can see comments on a dark background
 set background=dark
 
+" Use the Solarized colorscheme (See http://ethanschoonover.com/solarized)
+function! ToggleBackground()
+        if (g:solarized_style=="dark")
+        let g:solarized_style="light"
+        colorscheme solarized
+    else
+        let g:solarized_style="dark"
+        colorscheme solarized
+    endif
+    endfunction
+    command! Togbg call ToggleBackground()
+    nnoremap <F5> :call ToggleBackground()<CR>
+    inoremap <F5> <ESC>:call ToggleBackground()<CR>a
+    vnoremap <F5> <ESC>:call ToggleBackground()<CR>
+
+
+" colorscheme solarized
+
 " Have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
