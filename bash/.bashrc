@@ -111,7 +111,7 @@ alias egrep='egrep --color=auto'
 alias g='grep -i'  # Case insensitive grep
 alias f='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
-alias top='top -o cpu'
+#alias top='top -o cpu'
 alias systail='tail -f /var/log/system.log'
 alias m='more'
 alias df='df -h'
