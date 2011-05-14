@@ -26,6 +26,28 @@ syntax on
 " Make sure, one can see comments on a dark background
 set background=dark
 
+" Set light/dark Switch for solarized on F5-key
+function! ToggleBackground()
+        if (g:solarized_style=="dark")
+        let g:solarized_style="light"
+        colorscheme solarized
+    else
+        let g:solarized_style="dark"
+        colorscheme solarized
+    endif
+    endfunction
+    command! Togbg call ToggleBackground()
+    nnoremap <F5> :call ToggleBackground()<CR>
+    inoremap <F5> <ESC>:call ToggleBackground()<CR>a
+    vnoremap <F5> <ESC>:call ToggleBackground()<CR>
+
+" This is needed to get good results on putty
+" via: http://stackoverflow.com/questions/5560658/ubuntu-vim-and-the-solarized-color-palette
+se t_Co=256
+
+" Turn on the Solarized colorscheme (See http://ethanschoonover.com/solarized)
+colorscheme solarized
+
 " Have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -92,12 +114,37 @@ set hidden             " Hide buffers when they are abandoned
 " Dennis, 05.10.2010
 set nobackup
 
-" Break whole words when a line ends, Linebreak after 80 chars
+" Break whole words when a line ends, Linebreak after 79 chars
 " via: http://aaron-mueller.de/artikel/vim-mastery-Absatzweise
 " Dennis, 02.11.2010
+set wrap
 set linebreak
-set textwidth=80
+set textwidth=79
+set formatoptions=qrn1
+" See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
+" more information.
+
+" colorcolumn draws a line at the desired column. Helps to avoid
+" spaghetticode, but does not seem to work in Vim 7.2...
+"set colorcolumn=85
 
 " Line Numbers, off with :set nonu
 set nu
+
+" Disabling arrow keys in normal mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" Disabling arrow keys in insert mode (helps to get hjkl working in muscle
+" memory)
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Make j and k move by screen line instead of the archaic move by file line
+nnoremap j gj
+nnoremap k gk
 

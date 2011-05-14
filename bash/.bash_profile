@@ -29,6 +29,9 @@ echo -ne "Uptime: "; uptime
 echo -ne "Server time is: "; date
 
 # History Magic ---------------------------------------------------
+# append to the history file, don't overwrite it
+shopt -s histappend
+
 #Commit command to history file immedeately after execution
 PROMPT_COMMAND="history -a"
 
@@ -36,8 +39,7 @@ PROMPT_COMMAND="history -a"
 export HISTTIMEFORMAT='%Y.%m.%d-%T :: ' HISTFILESIZE=50000 HISTSIZE=50000
 
 # no duplicates in history
-export HISTCONTROL=ignoredups
-
+export HISTCONTROL=ignoredups:ignorespace
 
 # If you issue 'h' on its own, then it acts like the history command. 
 # If you issue:

@@ -1,5 +1,7 @@
 # See following for more information: http://www.infinitered.com/blog/?p=19
 
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
 
 # Colors ----------------------------------------------------------
 export TERM=xterm-color
@@ -94,9 +96,14 @@ shopt -s cdable_vars # set the bash option so that no '$' is required when using
 
 
 # Other aliases ----------------------------------------------------
-alias ll='ls -hl'
-alias la='ls -a'
+alias ll='ls -ahlF'
+alias la='ls -A'
 alias lla='ls -lah'
+alias l='ls -CF'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # Misc
 alias g='grep -i'  # Case insensitive grep
@@ -111,12 +118,25 @@ alias df='df -h'
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
 
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 # Editors ----------------------------------------------------------
 #export EDITOR='mate -w'  # OS-X SPECIFIC - TextMate, w is to wait for TextMate window to close
 #export EDITOR='gedit'  #Linux/gnome
 export EDITOR='vim'  #Command line
 export VIM_APP_DIR='/Users/dennis/Programme'
+
+# MiscMisc ---------------------------------------------------------
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Subversion & Diff ------------------------------------------------
 export SV_USER='dennis'  # Change this to your username that you normally use on subversion (only if it is different from your logged in name)
