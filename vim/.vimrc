@@ -49,6 +49,12 @@ set selectmode=mouse
 set listchars=trail:.,tab:>-,eol:$
 set nolist
 
+" Show incomplete paragraphs
+set display+=lastline
+
+" Turn on info ruler at the bottom
+set ruler
+
 
 " Turn on syntax highlighting
 syntax on
