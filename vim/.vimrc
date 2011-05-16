@@ -39,6 +39,11 @@ set fo-=t
 " Turn off the bell
 set vb t_vb=
 
+" Enable the mouse
+set mouse=a
+behave xterm
+set selectmode=mouse
+
 
 " Turn on syntax highlighting
 syntax on
