@@ -115,6 +115,9 @@ alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in 
 alias systail='tail -f /var/log/system.log'
 alias m='more'
 alias df='df -h'
+alias funfact='lynx -dump randomfunfacts.com | grep -A 3 U | sed 1D'
+# Shortcut to md5 on OS X
+#alias md5sum='openssl md5'
 
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
