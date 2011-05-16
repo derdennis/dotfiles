@@ -44,6 +44,11 @@ set mouse=a
 behave xterm
 set selectmode=mouse
 
+" Set list Chars - for showing characters that are not
+" normally displayed i.e. whitespace, tabs, EOL
+set listchars=trail:.,tab:>-,eol:$
+set nolist
+
 
 " Turn on syntax highlighting
 syntax on
