@@ -26,6 +26,19 @@ set titlestring=VIM:\ %F
 " At command line, complete longest common string, then list alternatives.
 set wildmode=longest,list
 
+" Automatically insert the current comment leader
+" after hitting 'o' or 'O' in Normal mode.
+set fo+=o
+
+" Do not automatically insert a comment leader after an enter
+set fo-=r
+
+" Do no auto-wrap text using textwidth (does not apply to comments)
+set fo-=t
+
+" Turn off the bell
+set vb t_vb=
+
 
 " Turn on syntax highlighting
 syntax on
