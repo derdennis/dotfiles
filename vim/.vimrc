@@ -61,6 +61,9 @@ set laststatus=2
 " Make command line two lines high
 set ch=2
 
+" Make window height VERY large so they always maximise on window switch
+set winheight=9999
+
 
 " Turn on syntax highlighting
 syntax on
