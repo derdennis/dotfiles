@@ -19,6 +19,13 @@ set nocompatible
 " turning them off.
 set modelines=0
 
+" Make the window title reflect the file being edited
+set title
+set titlestring=VIM:\ %F
+
+" At command line, complete longest common string, then list alternatives.
+set wildmode=longest,list
+
 
 " Turn on syntax highlighting
 syntax on
