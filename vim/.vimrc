@@ -55,6 +55,12 @@ set display+=lastline
 " Turn on info ruler at the bottom
 set ruler
 
+" Make sure status line is always visible
+set laststatus=2
+
+" Make command line two lines high
+set ch=2
+
 
 " Turn on syntax highlighting
 syntax on
