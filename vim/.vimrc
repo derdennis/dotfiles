@@ -68,8 +68,13 @@ set winheight=9999
 " Turn on syntax highlighting
 syntax on
 
-" Make sure, one can see comments on a dark background
-set background=dark
+" Make sure, one can see comments on a dark background (terminal) while
+" keeping things bright in GUI-mode
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
 
 " Set light/dark Switch for solarized on F5-key
 function! ToggleBackground()
