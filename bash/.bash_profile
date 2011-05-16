@@ -48,6 +48,11 @@ export HISTCONTROL=ignoredups:ignorespace
 # Then it will display all the history with the word 'cd'
 h() { if [ -z "$1" ]; then history; else history | grep "$@"; fi; }
 
+# Search through History with the current entered starting point by pressing
+# down or up arrow key
+bind '"\e[A"':history-search-backward
+bind '"\e[B"':history-search-forward
+
 # Notes: ----------------------------------------------------------
 # When you start an interactive shell (log in, open terminal or iTerm in OS X, 
 # or create a new tab in iTerm) the following files are read and run, in this order:
