@@ -115,7 +115,7 @@ alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in 
 alias systail='tail -f /var/log/system.log'
 alias m='more'
 alias df='df -h'
-alias funfact='lynx -dump randomfunfacts.com | grep -A 3 U | sed 1D'
+alias funfact='lynx -dump randomfunfacts.com | grep -A 8 "Useless tidbits of knowledge to impress your friends with." | sed "1,4d" | grep -v "View More Random Fun Facts" | grep "."'
 # Shortcut to md5 on OS X
 #alias md5sum='openssl md5'
 
