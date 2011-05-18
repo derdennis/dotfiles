@@ -15,7 +15,9 @@ fi
 
 
 # Load in .bashrc -------------------------------------------------
-source ~/.bashrc
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
 
 
 
