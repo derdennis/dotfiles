@@ -84,18 +84,25 @@ alias ...='cd .. ; cd ..'
 #    You can save a directory using an abbreviation of your choosing. Eg. save ms
 #    You can subsequently move to one of the saved directories by using cd with
 #    the abbreviation you chose. Eg. cd ms  (Note that no '$' is necessary.)
-if [ ! -f ~/.dirs ]; then  # if doesn't exist, create it
-	touch ~/.dirs
+
+# if .dirs doesn't exist, create it
+if [ ! -f ~/.dirs ]; then  
+    touch ~/.dirs
 fi
 
+# Alias for showing the saved shortcuts
 alias show='cat ~/.dirs'
 
+# Function to save the current directory with a custom shortcut
 save (){
 	command sed "/$@/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ; 
 }
-source ~/.dirs  # Initialization for the above 'save' facility: source the .sdirs file
-shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
 
+# Initialization for the above 'save' facility: source the .dirs file
+source ~/.dirs  
+
+# set the bash option so that no '$' is required when using the above facility
+shopt -s cdable_vars 
 
 
 # Other aliases ----------------------------------------------------
