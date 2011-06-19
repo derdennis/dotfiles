@@ -24,7 +24,11 @@ set modelines=0
 syntax on
 
 " Make sure, one can see comments on a dark background
-set background=dark
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
 
 " Set light/dark Switch for solarized on F5-key
 function! ToggleBackground()
@@ -47,6 +51,9 @@ se t_Co=256
 
 " Turn on the Solarized colorscheme (See http://ethanschoonover.com/solarized)
 colorscheme solarized
+
+" Use a nice OS X Font, Size 12
+set guifont=Bitstream\ Vera\ Sans\ Mono:h12
 
 " Have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
