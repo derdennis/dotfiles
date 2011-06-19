@@ -131,7 +131,7 @@ fi
 #export EDITOR='mate -w'  # OS-X SPECIFIC - TextMate, w is to wait for TextMate window to close
 #export EDITOR='gedit'  #Linux/gnome
 export EDITOR='vim'  #Command line
-export VIM_APP_DIR='/Users/dennis/Programme'
+export VIM_APP_DIR='/Applications'
 
 # MiscMisc ---------------------------------------------------------
 
