@@ -124,6 +124,10 @@ alias systail='tail -f /var/log/system.log'
 alias m='more'
 alias df='df -h'
 alias funfact='lynx -dump randomfunfacts.com | grep -A 8 "Useless tidbits of knowledge to impress your friends with." | sed "1,4d" | grep -v "View More Random Fun Facts" | grep "."'
+
+# Aliasing the ridiculous long path tho the jekyll binary
+alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
+
 # Shortcut to md5 on OS X
 #alias md5sum='openssl md5'
 
