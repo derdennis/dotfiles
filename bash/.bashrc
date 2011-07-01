@@ -52,11 +52,29 @@ if [ -f /opt/local/etc/bash_completion ]; then
 	. /opt/local/etc/bash_completion
 fi
 
+# Git completion for almost anything (remotes, branches, long forms...)
+# via http://railsdog.com/blog/2009/03/07/custom-bash-prompt-for-git-branches/
+# but needed the (obviously newer) file from:
+# https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
+source ~/.git-completion.bash
 
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+}
 
 # Prompts ----------------------------------------------------------
-export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
+#export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
 # export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
+
+# Primary prompt with only a path like above, but also showing git branches when
+# inside a git repo. Also: Shows a yellow star when uncommited changes are found.
+# Needed to express the colors with numerical values because the git prompt won't
+# work with double quotes...
+export PS1='\[\e[0;32m\]\w > \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]]") '
 
 # This runs before the prompt and sets the title of the xterm* window.  If you set the title in the prompt
 # weird wrapping errors occur on some systems, so this method is superior
