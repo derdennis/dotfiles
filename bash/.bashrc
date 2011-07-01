@@ -118,10 +118,13 @@ alias ll='ls -ahlF'
 alias la='ls -A'
 alias lla='ls -lah'
 alias l='ls -CF'
+alias cl='clear; ls -lhG'
+alias cla='clear; ls -lhAG'
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias pg='ps axw | grep -i'
 
 # Misc
 alias g='grep -i'  # Case insensitive grep
@@ -135,6 +138,42 @@ alias df='df -h'
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
+# List Network Connections
+lsnet(){
+        lsof -i  | awk '{printf("%-14s%-20s%s\n", $10, $1, $9)}' | sort
+}
+
+# Set Finder label color
+label(){
+  if [ $# -lt 2 ]; then
+    echo "USAGE: label [0-7] file1 [file2] ..."
+    echo "Sets the Finder label (color) for files"
+    echo "Default colors:"
+    echo " 0  No color"
+    echo " 1  Orange"
+    echo " 2  Red"
+    echo " 3  Yellow"
+    echo " 4  Blue"
+    echo " 5  Purple"
+    echo " 6  Green"
+    echo " 7  Gray"
+  else
+    osascript - "$@" << EOF
+    on run argv
+        set labelIndex to (item 1 of argv as number)
+        repeat with i from 2 to (count of argv)
+          try
+            tell application "Finder"
+                set theFile to POSIX file (item i of argv) as alias
+                set label index of theFile to labelIndex
+            end tell
+          on error
+          end try
+        end repeat
+    end run
+EOF
+  fi
+}
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
