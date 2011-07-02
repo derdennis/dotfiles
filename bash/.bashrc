@@ -3,6 +3,12 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# Set a Variable to yes if we are on interactive
+INTERACTIVETERM=-YES-
+if [ "$TERM" == "" ]; then INTERACTIVETERM="-NO-"; TERM="vt100"; fi
+if [ "$TERM" == "dumb" ]; then INTERACTIVETERM="-NO-"; TERM="vt100"; fi
+export INTERACTIVETERM
+
 # Colors ----------------------------------------------------------
 export TERM=xterm-color
 
@@ -36,7 +42,37 @@ export COLOR_GRAY='\e[1;30m'
 export COLOR_LIGHT_GRAY='\e[0;37m'
 alias colorslist="set | egrep 'COLOR_\w*'"  # Lists all the colors, uses vars in .bashrc_non-interactive
 
-
+# Set up TPUT color codes
+if [ "$INTERACTIVETERM" == "-YES-" ]; then
+  tReset="$(tput sgr0)"
+  tBold="$(tput bold)"
+  tBlack="$(tput setaf 0)"
+  tRed="$(tput setaf 1)"
+  tGreen="$(tput setaf 2)"
+  tYellow="$(tput setaf 3)"
+  tBlue="$(tput setaf 4)"
+  tPink="$(tput setaf 5)"
+  tCyan="$(tput setaf 6)"
+  tGray="$(tput setaf 7)"
+  tWhite="$(tput setaf 8)"
+  TUNON="$(tput smul)"
+  TUNOFF="$(tput rmul)"
+else
+  tReset=
+  tBold=
+  tBlack=
+  tRed=
+  tGreen=
+  tYellow=
+  tBlue=
+  tPink=
+  tCyan=
+  tGray=
+  tWhite=
+  tUndOn=
+  tUndOff=
+  tRandColor=
+fi
 
 # Misc -------------------------------------------------------------
 shopt -s checkwinsize # After each command, checks the windows size and changes lines and columns
