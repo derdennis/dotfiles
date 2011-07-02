@@ -57,6 +57,9 @@ if [ "$INTERACTIVETERM" == "-YES-" ]; then
   tWhite="$(tput setaf 8)"
   TUNON="$(tput smul)"
   TUNOFF="$(tput rmul)"
+# Use the tRandcolor for a random color when sshing to other boxes like that:
+# export PS1="\[${tRandColor}\]\u@\[${tBold}\]\h\[${tReset}\]:\[${tBlue}\]\w\[${tReset}\] \$ "
+  tRandColor="$(tput setaf $(( $(hostname | openssl sha1 | sed 's/.*\([0-9]\).*/\1/') % 6 + 1 )) )"
 else
   tReset=
   tBold=
