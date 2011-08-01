@@ -55,6 +55,9 @@ h() { if [ -z "$1" ]; then history; else history | grep "$@"; fi; }
 bind '"\e[A"':history-search-backward
 bind '"\e[B"':history-search-forward
 
+# Ruby Version Management as a function
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
 # Notes: ----------------------------------------------------------
 # When you start an interactive shell (log in, open terminal or iTerm in OS X, 
 # or create a new tab in iTerm) the following files are read and run, in this order:
