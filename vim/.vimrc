@@ -64,6 +64,8 @@ set ch=2
 " Make window height VERY large so they always maximise on window switch
 set winheight=9999
 
+" change the mapleader from \ to ,
+let mapleader=","
 
 " Turn on syntax highlighting
 syntax on
