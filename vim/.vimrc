@@ -191,10 +191,10 @@ nnoremap <right> <nop>
 
 " Disabling arrow keys in insert mode (helps to get hjkl working in muscle
 " memory)
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
 
 " Make j and k move by screen line instead of the archaic move by file line
 nnoremap j gj
