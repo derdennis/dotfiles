@@ -67,6 +67,10 @@ set winheight=9999
 " change the mapleader from \ to ,
 let mapleader=","
 
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
 " Turn on syntax highlighting
 syntax on
 
@@ -200,3 +204,8 @@ nnoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
+" Easy window navigation, kills the need to do C-w followed by h,j,k,l
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
