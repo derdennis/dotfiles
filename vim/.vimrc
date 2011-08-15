@@ -203,6 +203,10 @@ set hidden             " Hide buffers when they are abandoned
 nnoremap <tab> %
 vnoremap <tab> %
 
+" Show invisible characters (only here to remind me how to turn it on and off)
+" See http://vimcasts.org/episodes/show-invisibles/ for more information
+" "set list
+" set listchars=tab:▸\ ,eol:¬
 
 " Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
 " all over the place...
