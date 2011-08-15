@@ -173,7 +173,10 @@ autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 " (Almost) straight from the standard Debian .vimrc and highly recommended.
 
 " Searching stuff
-"
+
+" Make the ack plugin work even faster
+nnoremap <leader>a :Ack
+
 " Fix Vim’s horribly broken default regex “handling” by automatically
 " inserting a \v before any string you search for. This turns off Vim’s
 " crazy default regex characters and makes searches use normal regexes.
@@ -247,7 +250,10 @@ nnoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-" Easy window navigation, kills the need to do C-w followed by h,j,k,l
+" Split vertically and change to new view by pressing ,w
+nnoremap <leader>w <C-w>v<C-w>l
+
+" Easy split-window navigation, kills the need to do C-w followed by h,j,k,l
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
