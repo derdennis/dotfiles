@@ -15,7 +15,7 @@ call pathogen#runtime_append_all_bundles()
 set nocompatible
 
 " Make backspace behave nicely on some obscure platforms
-set backspace=indent,eol,stt
+set backspace=indent,eol,start
 
 " There are some security issues with modelines in files. I only have some
 " vague understanding what modelines are anyway, so I'm not that much hurt by
