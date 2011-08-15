@@ -265,6 +265,9 @@ map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap m :silent !open -a Marked.app %:p
 
+" This sets SuperTab’s completion type to “context”. Which lets it determine
+" how things should be tab-completed.
+let g:SuperTabDefaultCompletionType = "context"
 
 " Underline the current line with = or - by hitting ",1" or ",2"
 nnoremap <leader>1 yypVr=
