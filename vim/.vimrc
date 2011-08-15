@@ -19,12 +19,22 @@ set nocompatible
 " turning them off.
 set modelines=0
 
+" We want UTF-8 goodness.
+set encoding=utf-8
+
+" keep 3 lines when scrolling
+set scrolloff=3
+
+" Show me the mode I'm in
+set showmode
+
 " Make the window title reflect the file being edited
 set title
 set titlestring=VIM:\ %F
 
 " At command line, complete longest common string, then list alternatives.
-set wildmode=longest,list
+set wildmenu
+set wildmode=list:longest,full
 
 " Automatically insert the current comment leader
 " after hitting 'o' or 'O' in Normal mode.
