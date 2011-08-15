@@ -80,3 +80,4 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 wiki() {
         dig +short txt $1.wp.dg.cx
     }
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
