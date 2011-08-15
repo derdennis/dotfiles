@@ -170,15 +170,39 @@ autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,
 " Remove any extra whitespace from the ends of lines in *.py files when saving:
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 
-" Straight from the standard Debian .vimrc and highly recommended.
-set showcmd             " Show (partial) command in status line
+" (Almost) straight from the standard Debian .vimrc and highly recommended.
+
+" Searching stuff
+"
+" Fix Vim’s horribly broken default regex “handling” by automatically
+" inserting a \v before any string you search for. This turns off Vim’s
+" crazy default regex characters and makes searches use normal regexes.
+nnoremap / /\v
+vnoremap / /\v
+
 set showmatch           " Show matching brackets
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set incsearch           " Incremental search
+set hlsearch            " Highlight the results
+
+" makes it easy to clear out a search highlight by typing ,<space>
+nnoremap <leader><space> :noh<cr>
+
+" Applies substitutions globally on lines. This is almost always what you
+" want (when was the last time you wanted to only replace the first occurrence
+" of a word on a line?) and if you need the previous behavior you just tack on 
+" the g again.
+set gdefault
+
+set showcmd             " Show (partial) command in status line
 set autowrite           " Automatically save before commands like :next and :make
 set hidden             " Hide buffers when they are abandoned
-"set mouse=a            " Enable mouse usage (all modes)
+
+" make the tab key match bracket pairs. Much easier to type than %
+nnoremap <tab> %
+vnoremap <tab> %
+
 
 " Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
 " all over the place...
