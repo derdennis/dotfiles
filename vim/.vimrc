@@ -14,6 +14,9 @@ call pathogen#runtime_append_all_bundles()
 " This is vim not vi. Also: 1970 is gone.
 set nocompatible
 
+" Make backspace behave nicely on some obscure platforms
+set backspace=indent,eol,stt
+
 " There are some security issues with modelines in files. I only have some
 " vague understanding what modelines are anyway, so I'm not that much hurt by
 " turning them off.
