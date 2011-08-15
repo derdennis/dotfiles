@@ -209,3 +209,9 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+
+" Underline the current line with = or - by hitting ",1" or ",2"
+nnoremap <leader>1 yypVr=
+nnoremap <leader>2 yypVr-
+
