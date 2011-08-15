@@ -21,12 +21,14 @@ set modelines=0
 
 " We want UTF-8 goodness.
 set encoding=utf-8
-
 " keep 3 lines when scrolling
 set scrolloff=3
-
+" Higlight the current line (use set cursorcolumn for the current column
+set cursorline
 " Show me the mode I'm in
 set showmode
+" Todays terminals are quite fast. This setting smoothes scrolling
+set ttyfast
 
 " Make the window title reflect the file being edited
 set title
@@ -224,4 +226,11 @@ map <C-l> <C-w>l
 " Underline the current line with = or - by hitting ",1" or ",2"
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
+
+" Vim 7.3 (Not very widespread, therfore commented) features:
+"
+" Enable relative line numbers. Very useful for move commands
+"set relativenumber
+" Keep a <filename>.un~ file to enable undo even after :q
+"set undofile
 
