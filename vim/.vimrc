@@ -259,6 +259,12 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Switch on the nerdtree with ,n
+map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR> 
+
+" Open the current file with Marked.app for a Markdown preview (OS X only)
+nnoremap m :silent !open -a Marked.app %:p
+
 
 " Underline the current line with = or - by hitting ",1" or ",2"
 nnoremap <leader>1 yypVr=
