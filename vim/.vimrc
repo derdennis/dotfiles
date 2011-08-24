@@ -59,9 +59,10 @@ set mouse=a
 behave xterm
 set selectmode=mouse
 
-" Set list Chars - for showing characters that are not
-" normally displayed i.e. whitespace, tabs, EOL
-set listchars=trail:.,tab:>-,eol:$
+" Show invisible characters (only here to remind me how to turn it on and off)
+" See http://vimcasts.org/episodes/show-invisibles/ for more information
+set listchars=trail:.,tab:>-,eol:¬
+"set list
 set nolist
 
 " Show incomplete paragraphs
@@ -214,29 +215,22 @@ set hidden             " Hide buffers when they are abandoned
 nnoremap <tab> %
 vnoremap <tab> %
 
-" Show invisible characters (only here to remind me how to turn it on and off)
-" See http://vimcasts.org/episodes/show-invisibles/ for more information
-" "set list
-" set listchars=tab:▸\ ,eol:¬
+" make Y copy until end of line, use yy to copy whole line
+" same way D & dd and C & CC are working...
+map Y y$
 
 " Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
 " all over the place...
-" Dennis, 05.10.2010
 set nobackup
 
 " Break whole words when a line ends, Linebreak after 79 chars
 " via: http://aaron-mueller.de/artikel/vim-mastery-Absatzweise
-" Dennis, 02.11.2010
 set wrap
 set linebreak
 set textwidth=79
 set formatoptions=qrn1
 " See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
 " more information.
-
-" colorcolumn draws a line at the desired column. Helps to avoid
-" spaghetticode, but does not seem to work in Vim 7.2...
-"set colorcolumn=85
 
 " Line Numbers, off with :set nonu
 set nu
@@ -287,4 +281,7 @@ nnoremap <leader>2 yypVr-
 "set relativenumber
 " Keep a <filename>.un~ file to enable undo even after :q
 "set undofile
+" colorcolumn draws a line at the desired column. Helps to avoid
+" spaghetticode
+"set colorcolumn=85
 
