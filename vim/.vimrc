@@ -14,17 +14,32 @@ call pathogen#runtime_append_all_bundles()
 " This is vim not vi. Also: 1970 is gone.
 set nocompatible
 
+" Make backspace behave nicely on some obscure platforms
+set backspace=indent,eol,start
+
 " There are some security issues with modelines in files. I only have some
 " vague understanding what modelines are anyway, so I'm not that much hurt by
 " turning them off.
 set modelines=0
+
+" We want UTF-8 goodness.
+set encoding=utf-8
+" keep 3 lines when scrolling
+set scrolloff=3
+" Higlight the current line (use set cursorcolumn for the current column
+set cursorline
+" Show me the mode I'm in
+set showmode
+" Todays terminals are quite fast. This setting smoothes scrolling
+set ttyfast
 
 " Make the window title reflect the file being edited
 set title
 set titlestring=VIM:\ %F
 
 " At command line, complete longest common string, then list alternatives.
-set wildmode=longest,list
+set wildmenu
+set wildmode=list:longest,full
 
 " Automatically insert the current comment leader
 " after hitting 'o' or 'O' in Normal mode.
@@ -44,9 +59,10 @@ set mouse=a
 behave xterm
 set selectmode=mouse
 
-" Set list Chars - for showing characters that are not
-" normally displayed i.e. whitespace, tabs, EOL
-set listchars=trail:.,tab:>-,eol:$
+" Show invisible characters (only here to remind me how to turn it on and off)
+" See http://vimcasts.org/episodes/show-invisibles/ for more information
+set listchars=trail:.,tab:>-,eol:¬
+"set list
 set nolist
 
 " Show incomplete paragraphs
@@ -64,6 +80,20 @@ set ch=2
 " Make window height VERY large so they always maximise on window switch
 set winheight=9999
 
+" Make Syntastic show syntax errors in the statusline and at the side
+" Use SyntasticEnable and SyntasticDisable to turn it on and off
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+
+" change the mapleader from \ to ,
+let mapleader=","
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Turn on syntax highlighting
 syntax on
@@ -149,34 +179,58 @@ autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,
 " Remove any extra whitespace from the ends of lines in *.py files when saving:
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 
-" Straight from the standard Debian .vimrc and highly recommended.
-set showcmd             " Show (partial) command in status line
+" (Almost) straight from the standard Debian .vimrc and highly recommended.
+
+" Searching stuff
+
+" Make the ack plugin work even faster
+nnoremap <leader>a :Ack
+
+" Fix Vim’s horribly broken default regex “handling” by automatically
+" inserting a \v before any string you search for. This turns off Vim’s
+" crazy default regex characters and makes searches use normal regexes.
+nnoremap / /\v
+vnoremap / /\v
+
 set showmatch           " Show matching brackets
 set ignorecase          " Do case insensitive matching
 set smartcase           " Do smart case matching
 set incsearch           " Incremental search
+set hlsearch            " Highlight the results
+
+" makes it easy to clear out a search highlight by typing ,<space>
+nnoremap <leader><space> :noh<cr>
+
+" Applies substitutions globally on lines. This is almost always what you
+" want (when was the last time you wanted to only replace the first occurrence
+" of a word on a line?) and if you need the previous behavior you just tack on 
+" the g again.
+set gdefault
+
+set showcmd             " Show (partial) command in status line
 set autowrite           " Automatically save before commands like :next and :make
 set hidden             " Hide buffers when they are abandoned
-"set mouse=a            " Enable mouse usage (all modes)
+
+" make the tab key match bracket pairs. Much easier to type than %
+nnoremap <tab> %
+vnoremap <tab> %
+
+" make Y copy until end of line, use yy to copy whole line
+" same way D & dd and C & CC are working...
+map Y y$
 
 " Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
 " all over the place...
-" Dennis, 05.10.2010
 set nobackup
 
 " Break whole words when a line ends, Linebreak after 79 chars
 " via: http://aaron-mueller.de/artikel/vim-mastery-Absatzweise
-" Dennis, 02.11.2010
 set wrap
 set linebreak
 set textwidth=79
 set formatoptions=qrn1
 " See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
 " more information.
-
-" colorcolumn draws a line at the desired column. Helps to avoid
-" spaghetticode, but does not seem to work in Vim 7.2...
-"set colorcolumn=85
 
 " Line Numbers, off with :set nonu
 set nu
@@ -189,12 +243,45 @@ nnoremap <right> <nop>
 
 " Disabling arrow keys in insert mode (helps to get hjkl working in muscle
 " memory)
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
 
 " Make j and k move by screen line instead of the archaic move by file line
 nnoremap j gj
 nnoremap k gk
+
+" Split vertically and change to new view by pressing ,w
+nnoremap <leader>w <C-w>v<C-w>l
+
+" Easy split-window navigation, kills the need to do C-w followed by h,j,k,l
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Switch on the nerdtree with ,n
+map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR> 
+
+" Open the current file with Marked.app for a Markdown preview (OS X only)
+nnoremap m :silent !open -a Marked.app %:p
+
+" This sets SuperTab’s completion type to “context”. Which lets it determine
+" how things should be tab-completed.
+let g:SuperTabDefaultCompletionType = "context"
+
+" Underline the current line with = or - by hitting ",1" or ",2"
+nnoremap <leader>1 yypVr=
+nnoremap <leader>2 yypVr-
+
+" Vim 7.3 (Not very widespread, therfore commented) features:
+"
+" Enable relative line numbers. Very useful for move commands
+"set relativenumber
+" Keep a <filename>.un~ file to enable undo even after :q
+"set undofile
+" colorcolumn draws a line at the desired column. Helps to avoid
+" spaghetticode
+"set colorcolumn=85
 
