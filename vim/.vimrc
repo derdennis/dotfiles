@@ -261,6 +261,9 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Make CTRL-m jump to the next diff in vimdiff
+map <C-m> ]c
+
 " Switch on the nerdtree with ,n
 map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR> 
 
