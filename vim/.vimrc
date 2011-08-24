@@ -79,6 +79,14 @@ set ch=2
 " Make window height VERY large so they always maximise on window switch
 set winheight=9999
 
+" Make Syntastic show syntax errors in the statusline and at the side
+" Use SyntasticEnable and SyntasticDisable to turn it on and off
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+
 " change the mapleader from \ to ,
 let mapleader=","
 
