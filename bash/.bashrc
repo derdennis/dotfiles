@@ -68,6 +68,10 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
+# Rake task completion
+# via: http://project.ioni.st/post/213#quote_213
+complete -C ~/.rake-completion.rb -o default rake
+
 # Prompts ----------------------------------------------------------
 #export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
 # export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
