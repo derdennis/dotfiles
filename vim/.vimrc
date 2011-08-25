@@ -80,6 +80,21 @@ set ch=2
 " Make window height VERY large so they always maximise on window switch
 set winheight=9999
 
+" Fix the height of the preview window (would be one line otherwise
+" because of the winheight of 9999). Fix via:
+" http://stackoverflow.com/questions/3712725/can-i-change-vim-completion
+" -preview-window-height
+set previewheight=20
+au BufEnter ?* call PreviewHeightWorkAround()
+func PreviewHeightWorkAround()
+    if &previewwindow
+        exec 'setlocal winheight='.&previewheight
+    endif
+endfunc
+
+" Show the current branch in the statusline
+set statusline+=%{fugitive#statusline()}
+
 " Make Syntastic show syntax errors in the statusline and at the side
 " Use SyntasticEnable and SyntasticDisable to turn it on and off
 set statusline+=%#warningmsg#
