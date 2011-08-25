@@ -72,6 +72,9 @@ function parse_git_branch {
 # via: http://project.ioni.st/post/213#quote_213
 complete -C ~/.rake-completion.rb -o default rake
 
+# Ruby Version Management as a function
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
 # Prompts ----------------------------------------------------------
 #export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
 # export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
@@ -126,6 +129,30 @@ source ~/.dirs
 # set the bash option so that no '$' is required when using the above facility
 shopt -s cdable_vars 
 
+# History Magic ---------------------------------------------------
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+#Commit command to history file immedeately after execution
+PROMPT_COMMAND="history -a"
+
+# quite long bash history with date and time
+export HISTTIMEFORMAT='%Y.%m.%d-%T :: ' HISTFILESIZE=50000 HISTSIZE=50000
+
+# no duplicates in history
+export HISTCONTROL=ignoredups:ignorespace
+
+
+# If you issue 'h' on its own, then it acts like the history command. 
+# If you issue:
+# h cd
+# Then it will display all the history with the word 'cd'
+h() { if [ -z "$1" ]; then history; else history | grep "$@"; fi; }
+
+# Search through History with the current entered starting point by pressing
+# down or up arrow key
+bind '"\e[A"':history-search-backward
+bind '"\e[B"':history-search-forward
 
 # Other aliases ----------------------------------------------------
 alias ll='ls -ahlF'
