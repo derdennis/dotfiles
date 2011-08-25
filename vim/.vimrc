@@ -198,8 +198,14 @@ autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 
 " Searching stuff
 
-" Make the ack plugin work even faster
-nnoremap <leader>a :Ack
+" Shortcuts for ack:
+" o to open (same as enter)
+" go to preview file (open but maintain focus on ack.vim results)
+" t to open in new tab
+" T to open in new tab silently
+" q to close the quickfix window
+" Make the ack plugin work even faster (Notice the space at EOL of next line)
+nnoremap <leader>a :Ack --smart-case -a 
 
 " Fix Vim’s horribly broken default regex “handling” by automatically
 " inserting a \v before any string you search for. This turns off Vim’s
@@ -275,6 +281,10 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+" Easy Tab navigation
+nmap <C-H> :tabprev<CR>
+nmap <C-L> :tabnext<CR>
 
 " Make CTRL-m jump to the next diff in vimdiff
 map <C-m> ]c
