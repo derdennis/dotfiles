@@ -1,5 +1,7 @@
-# See following for more information: http://www.infinitered.com/blog/?p=19
-
+# Dennis .bash_profile 
+#
+# Just set a path, greet the user and hand things over to .bashrc
+#
 # Notes: ----------------------------------------------------------
 # When you start an interactive shell (log into the console, open terminal/xterm/iTerm, or create a new tab in iTerm) the following files are read and run, in this order:
 # 
@@ -12,9 +14,13 @@
 # 
 # /etc/bashrc
 # ~/.bashrc
+# 
+# via:
+# http://blog.toddwerth.com/entries/4
 
 # Path ------------------------------------------------------------
 # export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin/:$PATH  # OS-X Specific, with MacPorts, Git and MySQL installed
+
 #export PATH=/opt/local/bin:/opt/local/sbin:$PATH  # OS-X Specific, with MacPorts installed
 
 # OS X specific for some self compiled stuff. ie upslug2 for installin nslu2...
@@ -24,15 +30,6 @@ if [ -d ~/bin ]; then
 	export PATH=:~/bin:$PATH  # add your bin folder to the path, if you have it.  It's a good place to add all your scripts
 fi
 
-
-
-# Load in .bashrc -------------------------------------------------
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
-
-
-
 # Hello Messsage --------------------------------------------------
 echo -e "Kernel Information: " `uname -smr`
 #echo -e "${COLOR_BROWN}`bash --version`"
@@ -41,5 +38,10 @@ echo -e "Kernel Information: " `uname -smr`
 #echo -e "`bash --version`"
 echo -ne "Uptime: "; uptime
 echo -ne "Server time is: "; date
+
+# Load in .bashrc -------------------------------------------------
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
 
 
