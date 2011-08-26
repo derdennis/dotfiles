@@ -286,8 +286,13 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " Easy Tab navigation
-nmap <C-H> :tabprev<CR>
-nmap <C-L> :tabnext<CR>
+map th :tabfirst<CR>
+map tj :tabnext<CR>
+map tk :tabprev<CR>
+map tl :tablast<CR>
+map tt :tabedit<Space>
+map tn :tabnext<Space>
+map tm :tabm<Space>
 
 " Make CTRL-m jump to the next diff in vimdiff
 map <C-m> ]c
