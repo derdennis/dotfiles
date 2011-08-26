@@ -105,6 +105,13 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
+# Rake task completion
+# via: http://project.ioni.st/post/213#quote_213
+complete -C ~/.rake-completion.rb -o default rake
+
+# Ruby Version Management as a function
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
 # Prompts ----------------------------------------------------------
 #export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
 # export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
@@ -139,18 +146,50 @@ alias ...='cd .. ; cd ..'
 #    You can save a directory using an abbreviation of your choosing. Eg. save ms
 #    You can subsequently move to one of the saved directories by using cd with
 #    the abbreviation you chose. Eg. cd ms  (Note that no '$' is necessary.)
-if [ ! -f ~/.dirs ]; then  # if doesn't exist, create it
-	touch ~/.dirs
+
+# if .dirs doesn't exist, create it
+if [ ! -f ~/.dirs ]; then  
+    touch ~/.dirs
 fi
 
+# Alias for showing the saved shortcuts
 alias show='cat ~/.dirs'
+
+# Function to save the current directory with a custom shortcut
 save (){
-	command sed "/!$/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ; 
+	command sed "/$@/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ; 
 }
-source ~/.dirs  # Initialization for the above 'save' facility: source the .sdirs file
-shopt -s cdable_vars # set the bash option so that no '$' is required when using the above facility
+
+# Initialization for the above 'save' facility: source the .dirs file
+source ~/.dirs  
+
+# set the bash option so that no '$' is required when using the above facility
+shopt -s cdable_vars 
+
+# History Magic ---------------------------------------------------
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+#Commit command to history file immedeately after execution
+PROMPT_COMMAND="history -a"
+
+# quite long bash history with date and time
+export HISTTIMEFORMAT='%Y.%m.%d-%T :: ' HISTFILESIZE=50000 HISTSIZE=50000
+
+# no duplicates in history
+export HISTCONTROL=ignoredups:ignorespace
 
 
+# If you issue 'h' on its own, then it acts like the history command. 
+# If you issue:
+# h cd
+# Then it will display all the history with the word 'cd'
+h() { if [ -z "$1" ]; then history; else history | grep "$@"; fi; }
+
+# Search through History with the current entered starting point by pressing
+# down or up arrow key
+bind '"\e[A"':history-search-backward
+bind '"\e[B"':history-search-forward
 
 # Other aliases ----------------------------------------------------
 alias ll='ls -ahlF'
@@ -173,6 +212,13 @@ alias top='top -o cpu'
 alias systail='tail -f /var/log/system.log'
 alias m='more'
 alias df='df -h'
+alias funfact='lynx -dump randomfunfacts.com | grep -A 8 "Useless tidbits of knowledge to impress your friends with." | sed "1,4d" | grep -v "View More Random Fun Facts" | grep "."'
+
+# Aliasing the ridiculous long path tho the jekyll binary
+alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
+
+# Shortcut to md5 on OS X
+#alias md5sum='openssl md5'
 
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
