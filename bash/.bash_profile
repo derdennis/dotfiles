@@ -28,8 +28,17 @@
 #Darwin MacBookPro.local 11.1.0 Darwin Kernel Version 11.1.0: Tue Jul 26 16:07:11 PDT 2011; root:xnu-1699.22.81~1/RELEASE_X86_64 x86_64
 #~ >  echo $OSTYPE
 #darwin11
+#
+# uname output thingies from UbuntuVM (dokuWiki)
+# ~ >  uname
+# Linux
+# ~ >  uname -a
+# Linux dokuwiki 2.6.32-33-generic-pae #72-Ubuntu SMP Fri Jul 29 22:06:29 UTC 2011 i686 GNU/Linux
+# ~ >  echo $OSTYPE
+# linux-gnu
+#
 
-xport PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin/:$PATH  # OS-X Specific, with MacPorts, Git and MySQL installed
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin/:$PATH  # OS-X Specific, with MacPorts, Git and MySQL installed
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH  # OS-X Specific, with MacPorts installed
 
 # OS X specific for some self compiled stuff. ie upslug2 for installin nslu2...
