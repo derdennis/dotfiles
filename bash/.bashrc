@@ -141,6 +141,12 @@ function xtitle {  # change the title of your xterm* window
 alias ..='cd ..'
 alias ...='cd .. ; cd ..'
 
+# Function to mkdir a whole tree and cd into it
+mkcd () {
+    mkdir -p "$*"
+    cd "$*"
+}
+
 # I got the following from, and mod'd it: http://www.macosxhints.com/article.php?story=20020716005123797
 #    The following aliases (save & show) are for saving frequently used directories
 #    You can save a directory using an abbreviation of your choosing. Eg. save ms
