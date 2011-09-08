@@ -120,7 +120,8 @@ complete -C ~/.rake-completion.rb -o default rake
 # inside a git repo. Also: Shows a yellow star when uncommited changes are found.
 # Needed to express the colors with numerical values because the git prompt won't
 # work with double quotes...
-export PS1='\[\e[0;32m\]\w > \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]]") '
+# Also: Shows the currently used Ruby- and Gemset-Version by using the rvm-prompt.
+export PS1='\[\e[01;34m\]$(~/.rvm/bin/rvm-prompt) \[\e[0;32m\]\w > \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]]") '
 
 # This runs before the prompt and sets the title of the xterm* window.  If you set the title in the prompt
 # weird wrapping errors occur on some systems, so this method is superior
