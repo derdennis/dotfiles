@@ -87,8 +87,8 @@ bind "set show-all-if-ambiguous On" # show list automatically, without double ta
 
 # Turn on advanced bash completion if the file exists (get it here: http://www.caliban.org/bash/index.shtml#completion)
 
-if [ -f /opt/local/etc/bash_completion ]; then
-	. /opt/local/etc/bash_completion
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+  . `brew --prefix`/etc/bash_completion
 fi
 
 # Git completion for almost anything (remotes, branches, long forms...)
