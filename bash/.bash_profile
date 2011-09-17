@@ -30,6 +30,7 @@
 #darwin11
 #
 # uname output thingies from UbuntuVM (dokuWiki)
+#
 # ~ >  uname
 # Linux
 # ~ >  uname -a
@@ -37,6 +38,14 @@
 # ~ >  echo $OSTYPE
 # linux-gnu
 #
+# uname output thingies from deviou.us (OpenBSD 4.7)
+#
+# derdennis@wolfman $ uname
+# OpenBSD
+# derdennis@wolfman $ uname -a
+# OpenBSD wolfman.devio.us 4.7 BOGGIS#0 i386
+# derdennis@wolfman $ echo $OSTYPE
+# openbsd4.7
 
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin/:$PATH  # OS-X Specific, with MacPorts, Git and MySQL installed
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH  # OS-X Specific, with MacPorts installed
