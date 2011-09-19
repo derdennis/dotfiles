@@ -9,6 +9,26 @@ if [ "$TERM" == "" ]; then INTERACTIVETERM="-NO-"; TERM="vt100"; fi
 if [ "$TERM" == "dumb" ]; then INTERACTIVETERM="-NO-"; TERM="vt100"; fi
 export INTERACTIVETERM
 
+# Detect platform by uname
+# via: http://stackoverflow.com/questions/394230/detect-os-from-a-bash-script
+platform='unknown'
+unamestr=$(uname)
+
+case $unamestr in
+    'Linux')
+        platform='linux'
+        ;;
+    'FreeBSD')
+        platform='freebsd'
+        ;;
+    'OpenBSD')
+        platform='openbsd'
+        ;;
+    'Darwin')
+        platform='macosx'
+        ;;
+esac
+
 # Colors ----------------------------------------------------------
 export TERM=xterm-color
 
@@ -85,11 +105,21 @@ bind "set completion-ignore-case on" # note: bind used instead of sticking these
 bind "set bell-style none" # no bell
 bind "set show-all-if-ambiguous On" # show list automatically, without double tab
 
-# Turn on advanced bash completion if the file exists (get it here: http://www.caliban.org/bash/index.shtml#completion)
+# Turn on advanced bash completion if the file exists (Different incarnation for different platforms)
 
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
-fi
+case $platform in
+    'linux')
+        if [ -f /etc/bash_completion ]; then
+            . /etc/bash_completion
+        fi
+        ;;
+   'macosx')
+        if [ -f `brew --prefix`/etc/bash_completion ]; then
+            . `brew --prefix`/etc/bash_completion
+        fi
+        ;;
+esac
+
 
 # Git completion for almost anything (remotes, branches, long forms...)
 # via http://railsdog.com/blog/2009/03/07/custom-bash-prompt-for-git-branches/
