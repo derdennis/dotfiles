@@ -112,6 +112,15 @@ complete -C ~/.rake-completion.rb -o default rake
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
+# Wiki shortcut for definitions
+# via: http://onethingwell.org/post/2858158431/wikipedia-cli
+wiki() {
+        dig +short txt $1.wp.dg.cx
+    }
+
+
+
+
 # Prompts ----------------------------------------------------------
 #export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
 # export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
