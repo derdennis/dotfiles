@@ -20,6 +20,9 @@ case $unamestr in
     'Darwin')
         platform='macosx'
         ;;
+    'MINGW32_NT-5.1')
+        platform='windows'
+        ;;
 esac
 
 # Path ------------------------------------------------------------
@@ -57,6 +60,9 @@ case $platform in
         ;;
     'macosx')
         echo 'This is Mac OS X'
+        ;;
+    'windows')
+        echo 'This is Windows'
         ;;
     *)
         echo 'Unknown platform'
