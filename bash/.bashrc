@@ -280,6 +280,9 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias pg='ps axw | grep -i'
 
+# Quickly ack all files, ignoring case
+alias a='ack -ai'
+
 # Misc
 alias g='grep -i'  # Case insensitive grep
 alias f='find . -iname'
