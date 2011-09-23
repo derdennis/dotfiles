@@ -101,9 +101,22 @@ fi
 shopt -s checkwinsize # After each command, checks the windows size and changes lines and columns
 
 # bash completion settings (actually, these are readline settings)
-bind "set completion-ignore-case on" # note: bind used instead of sticking these in .inputrc
-bind "set bell-style none" # no bell
-bind "set show-all-if-ambiguous On" # show list automatically, without double tab
+# Added here instead of maintaining ~/.inputrc
+#
+# When completing case will not be taken into consideration.
+bind "set completion-ignore-case On" 
+# replace completed part with "...", so it's easy to see what to type next
+bind "set completion-prefix-display-length 2"
+# make Ctrl-j and Ctrl-k cycle through the available completions
+bind "Control-j: menu-complete"
+bind "Control-k: menu-complete-backward"
+# show list automatically, without double tab
+bind "set show-all-if-ambiguous On" 
+bind "set show-all-if-unmodified On"
+
+# no bell
+bind "set bell-style none" 
+
 
 # Turn on advanced bash completion if the file exists (Different incarnation for different platforms)
 
