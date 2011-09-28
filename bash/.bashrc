@@ -180,6 +180,38 @@ fk () {
     unset IFS
 }
 
+# OS X only: Edit Markdown File from Writing directory
+# Finds Markdown files matching a Spotlight-style search query
+# If there's more than one, you get a menu
+case $platform in
+    'macosx')
+        edmd () {
+            WRITINGDIR="~/Dropbox/Writing"
+            EDITCMD="mate"
+            filelist=$(mdfind -onlyin "$WRITINGDIR" "($@) AND kind:markdown")
+            listlength=$(mdfind -onlyin "$WRITINGDIR" -count "($@) AND kind:markdown")
+            if [[ $listlength > 0 ]]; then
+                if [[ $listlength == 1 ]]; then
+                    $EDITCMD $filelist
+                else
+                    IFS=$'\n'
+                    PS3='Edit which file? (1 to cancel): '
+                    select OPT in "Cancel" $filelist; do
+                        if [ $OPT != "Cancel" ]; then
+                            $EDITCMD $OPT
+                        fi
+                        break
+                    done
+                fi
+            else
+                return 1
+            fi
+            return 0
+        }  
+        ;;
+esac
+
+
 # Prompts ----------------------------------------------------------
 #export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
 # export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
