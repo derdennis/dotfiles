@@ -282,11 +282,15 @@ shopt -s cdable_vars
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-#Commit command to history file immedeately after execution
-PROMPT_COMMAND="history -a"
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # quite long bash history with date and time
-export HISTTIMEFORMAT='%Y.%m.%d-%T :: ' HISTFILESIZE=50000 HISTSIZE=50000
+export HISTTIMEFORMAT='%Y.%m.%d-%T :: '
+
+# Real big history
+HISTSIZE=100000
+HISTFILESIZE=100000
 
 # no duplicates in history
 export HISTCONTROL=ignoredups:ignorespace
