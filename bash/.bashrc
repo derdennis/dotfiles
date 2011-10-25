@@ -340,7 +340,7 @@ alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
 #alias md5sum='openssl md5'
 
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
-alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
+alias profileme="history | awk '{print \$4}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
 # List Network Connections
 lsnet(){
