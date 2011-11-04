@@ -327,8 +327,15 @@ alias a='ack -ai'
 alias g='grep -i'  # Case insensitive grep
 alias f='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
-alias top='top -o cpu'
-alias systail='tail -f /var/log/system.log'
+
+# Mac OS X only aliases
+case $platform in
+    'macosx')
+        alias top='top -o cpu'
+        alias systail='tail -f /var/log/system.log'
+        ;;
+esac
+
 alias m='more'
 alias df='df -h'
 alias funfact='lynx -dump randomfunfacts.com | grep -A 8 "Useless tidbits of knowledge to impress your friends with." | sed "1,4d" | grep -v "View More Random Fun Facts" | grep "."'
