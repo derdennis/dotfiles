@@ -327,8 +327,15 @@ alias a='ack -ai'
 alias g='grep -i'  # Case insensitive grep
 alias f='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
-alias top='top -o cpu'
-alias systail='tail -f /var/log/system.log'
+
+# Mac OS X only aliases
+case $platform in
+    'macosx')
+        alias top='top -o cpu'
+        alias systail='tail -f /var/log/system.log'
+        ;;
+esac
+
 alias m='more'
 alias df='df -h'
 alias funfact='lynx -dump randomfunfacts.com | grep -A 8 "Useless tidbits of knowledge to impress your friends with." | sed "1,4d" | grep -v "View More Random Fun Facts" | grep "."'
@@ -338,6 +345,9 @@ alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
 
 # Shortcut to md5 on OS X
 #alias md5sum='openssl md5'
+
+# Make tmux use 256 colors
+alias tmux='TERM=screen-256color tmux'
 
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
 alias profileme="history | awk '{print \$4}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
