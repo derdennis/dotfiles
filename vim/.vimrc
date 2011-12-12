@@ -121,6 +121,11 @@ else
     set background=dark
 endif
 
+" If no GUI is running make sure to display 256 colors
+if !has("gui_running")
+        set term=screen-256color
+    endif
+
 " Set light/dark Switch for solarized on F5-key
 function! ToggleBackground()
         if (g:solarized_style=="dark")

@@ -152,6 +152,10 @@ function parse_git_branch {
 # via: http://project.ioni.st/post/213#quote_213
 complete -C ~/.rake-completion.rb -o default rake
 
+# todo.txt completion
+# via: https://github.com/ginatrapani/todo.txt-cli/wiki/Tips-and-Tricks
+source ~/.todo-completion
+
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
@@ -179,6 +183,38 @@ fk () {
     done
     unset IFS
 }
+
+# OS X only: Edit Markdown File from Writing directory
+# Finds Markdown files matching a Spotlight-style search query
+# If there's more than one, you get a menu
+case $platform in
+    'macosx')
+        edmd () {
+            WRITINGDIR="~/Dropbox/Writing"
+            EDITCMD="mate"
+            filelist=$(mdfind -onlyin "$WRITINGDIR" "($@) AND kind:markdown")
+            listlength=$(mdfind -onlyin "$WRITINGDIR" -count "($@) AND kind:markdown")
+            if [[ $listlength > 0 ]]; then
+                if [[ $listlength == 1 ]]; then
+                    $EDITCMD $filelist
+                else
+                    IFS=$'\n'
+                    PS3='Edit which file? (1 to cancel): '
+                    select OPT in "Cancel" $filelist; do
+                        if [ $OPT != "Cancel" ]; then
+                            $EDITCMD $OPT
+                        fi
+                        break
+                    done
+                fi
+            else
+                return 1
+            fi
+            return 0
+        }  
+        ;;
+esac
+
 
 # Prompts ----------------------------------------------------------
 #export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
@@ -246,11 +282,15 @@ shopt -s cdable_vars
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-#Commit command to history file immedeately after execution
-PROMPT_COMMAND="history -a"
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # quite long bash history with date and time
-export HISTTIMEFORMAT='%Y.%m.%d-%T :: ' HISTFILESIZE=50000 HISTSIZE=50000
+export HISTTIMEFORMAT='%Y.%m.%d-%T :: '
+
+# Real big history
+HISTSIZE=100000
+HISTFILESIZE=100000
 
 # no duplicates in history
 export HISTCONTROL=ignoredups:ignorespace
@@ -287,8 +327,15 @@ alias a='ack -ai'
 alias g='grep -i'  # Case insensitive grep
 alias f='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
-alias top='top -o cpu'
-alias systail='tail -f /var/log/system.log'
+
+# Mac OS X only aliases
+case $platform in
+    'macosx')
+        alias top='top -o cpu'
+        alias systail='tail -f /var/log/system.log'
+        ;;
+esac
+
 alias m='more'
 alias df='df -h'
 alias funfact='lynx -dump randomfunfacts.com | grep -A 8 "Useless tidbits of knowledge to impress your friends with." | sed "1,4d" | grep -v "View More Random Fun Facts" | grep "."'
@@ -299,8 +346,11 @@ alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
 # Shortcut to md5 on OS X
 #alias md5sum='openssl md5'
 
+# Make tmux use 256 colors
+alias tmux='TERM=screen-256color tmux'
+
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
-alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
+alias profileme="history | awk '{print \$4}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
 # List Network Connections
 lsnet(){
@@ -353,6 +403,16 @@ fi
 #export EDITOR='gedit'  #Linux/gnome
 export EDITOR='vim'  #Command line
 export VIM_APP_DIR='/Applications'
+
+
+# Todo.txt ---------------------------------------------------------
+# Aliasing the todo script to t
+alias t='todo.sh -d ~/.dotfiles/todo/todo.cfg'
+# setting default action to ls
+export TODOTXT_DEFAULT_ACTION=ls
+# Timestamp on adding a task by default
+export  TODOTXT_DATE_ON_ADD=1
+
 
 # MiscMisc ---------------------------------------------------------
 
