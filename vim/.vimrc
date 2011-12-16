@@ -316,7 +316,7 @@ map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>'
 
 " Open the current file with Marked.app for a Markdown preview (OS X only)
-nnoremap m :silent !open -a Marked.app %:p
+nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 
 " This sets SuperTab’s completion type to “context”. Which lets it determine
 " how things should be tab-completed.
