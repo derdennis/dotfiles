@@ -332,9 +332,33 @@ alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in 
 case $platform in
     'macosx')
         alias top='top -o cpu'
-        alias systail='tail -f /var/log/system.log'
         ;;
 esac
+
+# function to explore system.log on OS X and syslog on Linux
+case $platform in
+    'macosx')
+        function systail () {
+        if [[ $# > 0 ]]; then
+            query=$(echo "$*"|tr -s ' ' '|')
+            tail -f /var/log/system.log|grep -i --color=auto -E "$query"
+        else
+            tail -f /var/log/system.log
+        fi
+        }
+    ;;
+    'linux')
+        function systail () {
+        if [[ $# > 0 ]]; then
+            query=$(echo "$*"|tr -s ' ' '|')
+            tail -f /var/log/syslog|grep -i --color=auto -E "$query"
+        else
+            tail -f /var/log/syslog
+        fi
+        }
+    ;;
+esac
+
 
 alias m='more'
 alias df='df -h'
