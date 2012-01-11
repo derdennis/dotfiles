@@ -428,16 +428,6 @@ fi
 export EDITOR='vim'  #Command line
 export VIM_APP_DIR='/Applications'
 
-
-# Todo.txt ---------------------------------------------------------
-# Aliasing the todo script to t
-alias t='todo.sh -d ~/.dotfiles/todo/todo.cfg'
-# setting default action to ls
-export TODOTXT_DEFAULT_ACTION=ls
-# Timestamp on adding a task by default
-export  TODOTXT_DATE_ON_ADD=1
-
-
 # MiscMisc ---------------------------------------------------------
 
 # make less more friendly for non-text input files, see lesspipe(1)
