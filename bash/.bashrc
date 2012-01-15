@@ -152,10 +152,6 @@ function parse_git_branch {
 # via: http://project.ioni.st/post/213#quote_213
 complete -C ~/.rake-completion.rb -o default rake
 
-# todo.txt completion
-# via: https://github.com/ginatrapani/todo.txt-cli/wiki/Tips-and-Tricks
-source ~/.todo-completion
-
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
