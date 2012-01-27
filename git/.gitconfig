@@ -25,7 +25,9 @@
     histfull = log --pretty=format:'%Cred%h%Creset %C(bold blue)<%an>%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset%n%w(80,8,8)%s%n' --graph --name-status
     type = cat-file -t
     dump = cat-file -p
-	d = difftool
+    d = difftool
+    track = !sh -c 'git branch --track "$0" "$1" && git checkout "$0"'
+    ignored = "!git ls-files --others --exclude-standard"
 
 [diff]
 	tool = vimdiff
