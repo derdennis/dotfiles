@@ -326,6 +326,11 @@ let g:SuperTabDefaultCompletionType = "context"
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
+" Make vim complete lists starting with a "-"
+" via:
+" http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
+set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
+
 " Vim 7.3 (Not very widespread, therfore commented) features:
 "
 " Enable relative line numbers. Very useful for move commands
