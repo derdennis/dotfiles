@@ -292,8 +292,8 @@ map <C-l> <C-w>l
 
 " Easy Tab navigation
 map th :tabfirst<CR>
-map tj :tabnext<CR>
-map tk :tabprev<CR>
+map tk :tabnext<CR>
+map tj :tabprev<CR>
 map tl :tablast<CR>
 map tt :tabedit<Space>
 map tn :tabnext<Space>
