@@ -105,6 +105,8 @@ shopt -s checkwinsize # After each command, checks the windows size and changes 
 #
 # When completing case will not be taken into consideration.
 bind "set completion-ignore-case On" 
+# Apply similar insensitivity between hyphens and underscores
+bind "set completion-map-case on"
 # replace completed part with "...", so it's easy to see what to type next
 bind "set completion-prefix-display-length 2"
 # make Ctrl-j and Ctrl-k cycle through the available completions
@@ -113,6 +115,10 @@ bind "Control-k: menu-complete-backward"
 # show list automatically, without double tab
 bind "set show-all-if-ambiguous On" 
 bind "set show-all-if-unmodified On"
+# Do not show me possible completions page wise
+bind "set page-completions off"
+# Show me 1000 possible completions at a time
+bind "set completion-query-items 1000"
 
 # no bell
 bind "set bell-style none" 

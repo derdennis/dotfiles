@@ -41,6 +41,11 @@ set titlestring=VIM:\ %F
 set wildmenu
 set wildmode=list:longest,full
 
+" If available, ignore the case of the completion
+if exists("&wildignorecase")
+    set wildignorecase
+endif
+
 " Automatically insert the current comment leader
 " after hitting 'o' or 'O' in Normal mode.
 set fo+=o
