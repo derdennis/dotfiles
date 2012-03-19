@@ -307,6 +307,14 @@ map tm :tabm<Space>
 " Make CTRL-m jump to the next diff in vimdiff
 map <C-m> ]c
 
+" Map some shortcuts for fugitive.vim
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+
 " Switch on the nerdtree with ,n
 map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR> 
 
