@@ -126,8 +126,13 @@ bind "set bell-style none"
 # Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many systems until it is resumed with Ctrl+Q. Thus, it is turned off here.
 stty -ixon
 
-# Do not bell *at all*.
-setterm -bfreq 0
+# Do not bell *at all* when on Linux.
+case $platform in
+    'linux')
+    setterm -bfreq 0
+    ;;
+esac
+
 
 # Turn on advanced bash completion if the file exists (Different incarnation for different platforms)
 
