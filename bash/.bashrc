@@ -259,6 +259,9 @@ function xtitle {  # change the title of your xterm* window
 alias ..='cd ..'
 alias ...='cd .. ; cd ..'
 
+# Correct things like dropped or swapped characters in the path you type
+shopt -s cdspell
+
 # Function to mkdir a whole tree and cd into it
 mkcd () {
     mkdir -p "$*"
