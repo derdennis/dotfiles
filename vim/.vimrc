@@ -331,6 +331,11 @@ map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>'
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 
+" Use formd to transfer markdown from inline to reference links and vice versa
+" see: http://drbunsen.github.com/formd/
+nmap <leader>fr :%! ~/bin/formd -r<CR>
+nmap <leader>fi :%! ~/bin/formd -i<CR>
+
 " This sets SuperTab’s completion type to “context”. Which lets it determine
 " how things should be tab-completed.
 let g:SuperTabDefaultCompletionType = "context"
