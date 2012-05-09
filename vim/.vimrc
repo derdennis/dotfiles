@@ -132,19 +132,7 @@ if !has("gui_running")
 endif
 
 " Set light/dark Switch for solarized on F5-key
-function! ToggleBackground()
-        if (g:solarized_style=="dark")
-        let g:solarized_style="light"
-        colorscheme solarized
-    else
-        let g:solarized_style="dark"
-        colorscheme solarized
-    endif
-    endfunction
-    command! Togbg call ToggleBackground()
-    nnoremap <F5> :call ToggleBackground()<CR>
-    inoremap <F5> <ESC>:call ToggleBackground()<CR>a
-    vnoremap <F5> <ESC>:call ToggleBackground()<CR>
+call togglebg#map("<F5>")
 
 " This is needed to get good results on putty
 " via: http://stackoverflow.com/questions/5560658/ubuntu-vim-and-the-solarized-color-palette
