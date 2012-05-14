@@ -120,6 +120,17 @@ bind "set page-completions off"
 # Show me 1000 possible completions at a time
 bind "set completion-query-items 1000"
 
+# mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving Xterm Style
+bind '"\e[1;5C": forward-word'
+bind '"\e[1;5D": backward-word'
+bind '"\e[5C": forward-word'
+bind '"\e[5D": backward-word'
+bind '"\e\e[C": forward-word'
+bind '"\e\e[D": backward-word'
+# PuTTY Style
+bind '"\eOC":forward-word'
+bind '"\eOD":backward-word'
+
 # no bell
 bind "set bell-style none" 
 
