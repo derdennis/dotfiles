@@ -324,6 +324,9 @@ nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 nmap <leader>fr :%! ~/bin/formd -r<CR>
 nmap <leader>fi :%! ~/bin/formd -i<CR>
 
+" Setting default fileformat for markdown and textile to octopress
+autocmd BufNewFile,BufRead *.markdown,*.textile set filetype=octopress
+
 " This sets SuperTab’s completion type to “context”. Which lets it determine
 " how things should be tab-completed.
 let g:SuperTabDefaultCompletionType = "context"
