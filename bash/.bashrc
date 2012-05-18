@@ -148,7 +148,8 @@ bind '"\eOD":backward-word'
 # no bell
 bind "set bell-style none" 
 
-# Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many systems until it is resumed with Ctrl+Q. Thus, it is turned off here.
+# Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many
+# systems until it is resumed with Ctrl+Q. Thus, it is turned off here.
 stty -ixon
 
 # Do not bell *at all* when on Linux.
@@ -159,7 +160,8 @@ case $platform in
 esac
 
 
-# Turn on advanced bash completion if the file exists (Different incarnation for different platforms)
+# Turn on advanced bash completion if the file exists (Different incarnation
+# for different platforms)
 
 case $platform in
     'linux')
@@ -175,8 +177,8 @@ case $platform in
 esac
 
 
-# Git completion for almost anything (remotes, branches, long forms...)
-# via http://railsdog.com/blog/2009/03/07/custom-bash-prompt-for-git-branches/
+# Git completion for almost anything (remotes, branches, long forms...) via
+# http://railsdog.com/blog/2009/03/07/custom-bash-prompt-for-git-branches/
 # but needed the (obviously newer) file from:
 # https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
 source ~/.git-completion.bash
