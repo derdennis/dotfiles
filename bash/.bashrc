@@ -29,10 +29,24 @@ case $unamestr in
         ;;
 esac
 
+# Grep Options ----------------------------------------------------
+
+# Add color to greps output
+GREP_OPTIONS='--color=auto' 
+# Use green instead of red
+GREP_COLOR='1;32'
+# If the grep supports it, exclude some version control dirs
+if grep --help | grep -- --exclude-dir &>/dev/null; then
+    for PATTERN in .cvs .git .hg .svn; do
+        GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=$PATTERN"
+    done
+fi
+
+export GREP_OPTIONS
+export GREP_COLOR
+
 # Colors ----------------------------------------------------------
 export TERM=xterm-color
-
-export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 
 export CLICOLOR=1 
 
