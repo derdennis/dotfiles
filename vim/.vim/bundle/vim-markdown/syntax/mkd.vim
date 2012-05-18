@@ -42,7 +42,14 @@ syn region htmlBold     start=/\\\@<!\(^\|\A\)\@=_\@<!___\@!/         end=/\\\@<
 syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=_\@<!__\@!/          end=/\\\@<!_\@<!__\@!\($\|\A\)\@=/        contains=htmlBold,@Spell
 
 " [link](URL) | [link][id] | [link][]
-syn region mkdLink matchgroup=mkdDelimiter      start="[^\\]\!\?\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite
+"
+" This line highlights everything after nonlinked square brackets
+"syn region mkdLink matchgroup=mkdDelimiter      start="[^\\]\!\?\[" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite
+" This line does not highlight all text after nonlinked square brackets, but
+" does not highlight markdown footnotes in the text... Neither does it
+" highlight the regular md link titles...
+" see: https://github.com/plasticboy/vim-markdown/issues/15
+syn region mkdLink matchgroup=mkdDelimiter      start="[^\\]\!\?\[.\{-}\ze\][[(]" end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite
 syn region mkdID matchgroup=mkdDelimiter        start="\["    end="\]" contained
 syn region mkdURL matchgroup=mkdDelimiter       start="("     end=")"  contained
 " mkd  inline links:           protocol   optional  user:pass@       sub/domain                 .com, .co.uk, etc      optional port   path/querystring/hash fragment
