@@ -27,7 +27,7 @@ endif
 if b:octopress_filetype == "textile"
     runtime! syntax/textile.vim
 else
-    runtime! syntax/markdown.vim
+    runtime! syntax/mkd.vim
 endif
 unlet! b:current_syntax
 
