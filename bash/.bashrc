@@ -196,6 +196,10 @@ complete -C ~/.rake-completion.rb -o default rake
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
+# Save me from performing UPDATE or DELETE operations on any table if neither
+# a LIMIT nor a WHERE condition based on an indexed field is specified. 
+alias mysql='mysql --safe-updates'
+
 # Wiki shortcut for definitions
 # via: http://onethingwell.org/post/2858158431/wikipedia-cli
 wiki() {
