@@ -129,22 +129,10 @@ endif
 " If no GUI is running make sure to display 256 colors
 if !has("gui_running")
         set term=screen-256color
-    endif
+endif
 
 " Set light/dark Switch for solarized on F5-key
-function! ToggleBackground()
-        if (g:solarized_style=="dark")
-        let g:solarized_style="light"
-        colorscheme solarized
-    else
-        let g:solarized_style="dark"
-        colorscheme solarized
-    endif
-    endfunction
-    command! Togbg call ToggleBackground()
-    nnoremap <F5> :call ToggleBackground()<CR>
-    inoremap <F5> <ESC>:call ToggleBackground()<CR>a
-    vnoremap <F5> <ESC>:call ToggleBackground()<CR>
+call togglebg#map("<F5>")
 
 " This is needed to get good results on putty
 " via: http://stackoverflow.com/questions/5560658/ubuntu-vim-and-the-solarized-color-palette
@@ -330,6 +318,14 @@ map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>'
 
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
+
+" Use formd to transfer markdown from inline to reference links and vice versa
+" see: http://drbunsen.github.com/formd/
+nmap <leader>fr :%! ~/bin/formd -r<CR>
+nmap <leader>fi :%! ~/bin/formd -i<CR>
+
+" Setting default fileformat for markdown and textile to octopress
+autocmd BufNewFile,BufRead *.markdown,*.textile set filetype=octopress
 
 " This sets SuperTab’s completion type to “context”. Which lets it determine
 " how things should be tab-completed.
