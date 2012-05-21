@@ -3,7 +3,7 @@
 	email = dennis@instant-thinking.de
 
 [core]
-    editor = vim -f
+    editor = /usr/bin/vim -f
     pager = cat
 
 
