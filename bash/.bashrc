@@ -29,10 +29,24 @@ case $unamestr in
         ;;
 esac
 
+# Grep Options ----------------------------------------------------
+
+# Add color to greps output
+GREP_OPTIONS='--color=auto' 
+# Use green instead of red
+GREP_COLOR='1;32'
+# If the grep supports it, exclude some version control dirs
+if grep --help | grep -- --exclude-dir &>/dev/null; then
+    for PATTERN in .cvs .git .hg .svn; do
+        GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=$PATTERN"
+    done
+fi
+
+export GREP_OPTIONS
+export GREP_COLOR
+
 # Colors ----------------------------------------------------------
 export TERM=xterm-color
-
-export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 
 export CLICOLOR=1 
 
@@ -120,10 +134,22 @@ bind "set page-completions off"
 # Show me 1000 possible completions at a time
 bind "set completion-query-items 1000"
 
+# mappings for Ctrl-left-arrow and Ctrl-right-arrow for word moving Xterm Style
+bind '"\e[1;5C": forward-word'
+bind '"\e[1;5D": backward-word'
+bind '"\e[5C": forward-word'
+bind '"\e[5D": backward-word'
+bind '"\e\e[C": forward-word'
+bind '"\e\e[D": backward-word'
+# PuTTY Style
+bind '"\eOC":forward-word'
+bind '"\eOD":backward-word'
+
 # no bell
 bind "set bell-style none" 
 
-# Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many systems until it is resumed with Ctrl+Q. Thus, it is turned off here.
+# Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many
+# systems until it is resumed with Ctrl+Q. Thus, it is turned off here.
 stty -ixon
 
 # Do not bell *at all* when on Linux.
@@ -134,7 +160,8 @@ case $platform in
 esac
 
 
-# Turn on advanced bash completion if the file exists (Different incarnation for different platforms)
+# Turn on advanced bash completion if the file exists (Different incarnation
+# for different platforms)
 
 case $platform in
     'linux')
@@ -150,8 +177,8 @@ case $platform in
 esac
 
 
-# Git completion for almost anything (remotes, branches, long forms...)
-# via http://railsdog.com/blog/2009/03/07/custom-bash-prompt-for-git-branches/
+# Git completion for almost anything (remotes, branches, long forms...) via
+# http://railsdog.com/blog/2009/03/07/custom-bash-prompt-for-git-branches/
 # but needed the (obviously newer) file from:
 # https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
 source ~/.git-completion.bash
@@ -170,6 +197,10 @@ complete -C ~/.rake-completion.rb -o default rake
 
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+# Save me from performing UPDATE or DELETE operations on any table if neither
+# a LIMIT nor a WHERE condition based on an indexed field is specified. 
+alias mysql='mysql --safe-updates'
 
 # Wiki shortcut for definitions
 # via: http://onethingwell.org/post/2858158431/wikipedia-cli
