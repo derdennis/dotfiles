@@ -340,13 +340,17 @@ nnoremap <leader>2 yypVr-
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
 set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 
-" Vim 7.3 (Not very widespread, therfore commented) features:
-"
-" Enable relative line numbers. Very useful for move commands
-"set relativenumber
-" Keep a <filename>.un~ file to enable undo even after :q
-"set undofile
-" colorcolumn draws a line at the desired column. Helps to avoid
-" spaghetticode
-"set colorcolumn=85
+" Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
+if v:version >= 703
+    " Enable relative line numbers. Very useful for move commands
+    set relativenumber
+    " Keep a <filename>.un~ file to enable undo even after :q. Keep all
+    " undo-files in a separate undodir
+    set undodir=~/.vim_runtime/undodir"
+    set undofile
+    " colorcolumn draws a line at the desired column. Helps to avoid
+    " spaghetticode
+    set colorcolumn=85
+
+endif
 
