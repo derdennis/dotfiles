@@ -306,6 +306,9 @@ nnoremap <silent> <leader>gp :Git push<CR>
 " Switch on the nerdtree with ,n
 map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR> 
 
+" Open the Command-T window with ,t
+nnoremap <silent> <Leader>t :CommandT<CR>
+
 " double percentage sign in command mode is expanded
 " to directory of current file - http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
