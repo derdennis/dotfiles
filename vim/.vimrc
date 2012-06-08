@@ -97,7 +97,11 @@ func PreviewHeightWorkAround()
     endif
 endfunc
 
-" Show the current branch in the statusline
+" Show filename, file content type and current column and line in the status
+" bar. Add a space at the end to seperate the possibly showing fugitive status
+set statusline=%t\ %y\ [%c,%l]\ 
+
+" Append the current branch in the statusline if we are in a git repository
 set statusline+=%{fugitive#statusline()}
 
 " Make Syntastic show syntax errors in the statusline and at the side
