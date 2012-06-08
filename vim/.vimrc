@@ -308,15 +308,6 @@ map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " Open the Command-T window with ,t
 nnoremap <silent> <Leader>t :CommandT<CR>
-" Mappings for starting a file search with Command-T:
-" Start a project-wide search with ,f and search the
-" directory of the current file with ,F:
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>'
-
-" double percentage sign in command mode is expanded
-" to directory of current file - http://vimcasts.org/e/14
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
