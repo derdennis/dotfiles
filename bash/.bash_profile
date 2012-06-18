@@ -44,34 +44,40 @@ export LANG=de:DE.UTF-8
 export LC_ALL=de_DE.UTF-8
 
 # Hello Messsage --------------------------------------------------
-echo -e "Kernel Information: " `uname -smr`
-#echo -e "${COLOR_BROWN}`bash --version`"
-#echo -ne "${COLOR_GRAY}Uptime: "; uptime
-#echo -ne "${COLOR_GRAY}Server time is: "; date
-#echo -e "`bash --version`"
-echo -ne "Uptime: "; uptime
-echo -ne "Server time is: "; date
-echo ""
-case $platform in
-    'linux')
-        echo 'This is Linux'
-        ;;
-    'freebsd')
-        echo 'This is FreeBSD'
-        ;;
-    'openbsd')
-        echo 'This is OpenBSD'
-        ;;
-    'macosx')
-        echo 'This is Mac OS X'
-        ;;
-    'windows')
-        echo 'This is Windows'
-        ;;
-    *)
-        echo 'Unknown platform'
-        ;;
-esac
+
+# Don't greet me on DTerm...
+if [[ "$TERM_PROGRAM" != "DTerm" ]]; then
+
+    echo -e "Kernel Information: " `uname -smr`
+    #echo -e "${COLOR_BROWN}`bash --version`"
+    #echo -ne "${COLOR_GRAY}Uptime: "; uptime
+    #echo -ne "${COLOR_GRAY}Server time is: "; date
+    #echo -e "`bash --version`"
+    echo -ne "Uptime: "; uptime
+    echo -ne "Server time is: "; date
+    echo ""
+    case $platform in
+        'linux')
+            echo 'This is Linux'
+            ;;
+        'freebsd')
+            echo 'This is FreeBSD'
+            ;;
+        'openbsd')
+            echo 'This is OpenBSD'
+            ;;
+        'macosx')
+            echo 'This is Mac OS X'
+            ;;
+        'windows')
+            echo 'This is Windows'
+            ;;
+        *)
+            echo 'Unknown platform'
+            ;;
+    esac
+
+fi
 
 # Load in .bashrc -------------------------------------------------
 if [ -f ~/.bashrc ]; then

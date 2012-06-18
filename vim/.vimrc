@@ -97,7 +97,11 @@ func PreviewHeightWorkAround()
     endif
 endfunc
 
-" Show the current branch in the statusline
+" Show filename, file content type and current column and line in the status
+" bar. Use %= to right aline the possibly following fugitive and syntastic status
+set statusline=%t\ %y\ [%c,%l]%=
+
+" Append the current branch in the statusline if we are in a git repository
 set statusline+=%{fugitive#statusline()}
 
 " Make Syntastic show syntax errors in the statusline and at the side
@@ -306,15 +310,8 @@ nnoremap <silent> <leader>gp :Git push<CR>
 " Switch on the nerdtree with ,n
 map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR> 
 
-" double percentage sign in command mode is expanded
-" to directory of current file - http://vimcasts.org/e/14
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
-
-" Mappings for starting a file search with Command-T:
-" Start a project-wide search with ,f and search the
-" directory of the current file with ,F:
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>'
+" Open the Command-T window with ,t
+nnoremap <silent> <Leader>t :CommandT<CR>
 
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
@@ -340,13 +337,17 @@ nnoremap <leader>2 yypVr-
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
 set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 
-" Vim 7.3 (Not very widespread, therfore commented) features:
-"
-" Enable relative line numbers. Very useful for move commands
-"set relativenumber
-" Keep a <filename>.un~ file to enable undo even after :q
-"set undofile
-" colorcolumn draws a line at the desired column. Helps to avoid
-" spaghetticode
-"set colorcolumn=85
+" Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
+if v:version >= 703
+    " Enable relative line numbers. Very useful for move commands
+    set relativenumber
+    " Keep a <filename>.un~ file to enable undo even after :q. Keep all
+    " undo-files in a separate undodir
+    set undodir=~/.vim_runtime/undodir"
+    set undofile
+    " colorcolumn draws a line at the desired column. Helps to avoid
+    " spaghetticode
+    set colorcolumn=85
+
+endif
 
