@@ -149,8 +149,12 @@ bind '"\eOD":backward-word'
 bind "set bell-style none" 
 
 # Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many
-# systems until it is resumed with Ctrl+Q. Thus, it is turned off here.
-stty -ixon
+# systems until it is resumed with Ctrl+Q. Thus, it is turned off here. Does not
+# work in DTerm, so wrapped in an if statement...
+
+if [[ "$TERM_PROGRAM" != "DTerm" ]]; then
+    stty -ixon
+fi
 
 # Do not bell *at all* when on Linux.
 case $platform in
@@ -469,10 +473,17 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Editors ----------------------------------------------------------
-#export EDITOR='mate -w'  # OS-X SPECIFIC - TextMate, w is to wait for TextMate window to close
-#export EDITOR='gedit'  #Linux/gnome
 export EDITOR='vim'  #Command line
 export VIM_APP_DIR='/Applications'
+# Alias vim to the MacVim flavour if we are on OS X and we got MacVim installed
+case $platform in
+    'macosx')
+        if [[ -f /Applications/MacVim.app/Contents/MacOS/Vim ]]; then
+            alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+        fi
+        ;;
+esac
+
 
 # MiscMisc ---------------------------------------------------------
 
