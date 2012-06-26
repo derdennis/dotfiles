@@ -254,7 +254,7 @@ set nobackup
 set wrap
 set linebreak
 set textwidth=79
-set formatoptions=qrn1
+set formatoptions=tcroqln1
 " See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
 " more information.
 
