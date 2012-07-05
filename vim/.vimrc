@@ -253,10 +253,14 @@ set nobackup
 " via: http://aaron-mueller.de/artikel/vim-mastery-Absatzweise
 set wrap
 set linebreak
+" Quick Cheatsheet for reformating to 79 chars per line:
+" gggqG: Reformat the whole enchilada
+" gqap: Reformat the current paragraph
+" (visual-selection) gq: Reformart the selection
 set textwidth=79
-set formatoptions=tcroqln1
 " See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
 " more information.
+set formatoptions=tcroqln1
 
 " Line Numbers, off with :set nonu
 set nu
