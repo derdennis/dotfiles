@@ -274,6 +274,10 @@ nnoremap <right> <nop>
 "inoremap <left> <nop>
 "inoremap <right> <nop>
 
+" Make cursor move as expected with wrapped lines in insert mode
+inoremap <up> <C-o>gk
+inoremap <down> <C-o>gj
+
 " Make j and k move by screen line instead of the archaic move by file line
 nnoremap j gj
 nnoremap k gk
