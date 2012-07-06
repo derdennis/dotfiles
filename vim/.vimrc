@@ -332,6 +332,12 @@ nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 nmap <leader>fr :%! ~/bin/formd -r<CR>
 nmap <leader>fi :%! ~/bin/formd -i<CR>
 
+" Macros to insert Markdownlinks from the clipboard
+" see: http://blog.dsiw-it.de/2012/03/24/vim-makro-link-in-markdown-einfugen/
+au Filetype markdown,mkd,octopress nmap <leader>mlw i[xepa("+P
+au Filetype markdown,mkd,octopress nmap <leader>mlW i[xEpa("+P
+au Filetype markdown,mkd,octopress vmap <leader>ml s[lxhf]hxa("+Pl
+
 " Setting default fileformat for markdown and textile to octopress
 autocmd BufNewFile,BufRead *.markdown,*.textile set filetype=octopress
 
