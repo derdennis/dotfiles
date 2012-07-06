@@ -262,6 +262,9 @@ set textwidth=79
 " more information.
 set formatoptions=tcroqln1
 
+" Start at level 10 with foldings
+set foldlevelstart=10
+
 " Line Numbers, off with :set nonu
 set nu
 
