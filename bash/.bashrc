@@ -371,7 +371,7 @@ alias egrep='egrep --color=auto'
 alias pg='ps axw | grep -i'
 
 # Quickly ack all files, ignoring case
-alias a='ack -ai'
+alias aa='ack -ai'
 
 # Misc
 alias g='grep -i'  # Case insensitive grep
