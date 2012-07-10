@@ -354,6 +354,19 @@ nnoremap <leader>2 yypVr-
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
 set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 
+" automatically give executable permissions if file begins with #! and contains
+" '/bin/' in the path
+function ModeChange()
+  if getline(1) =~ "^#!"
+    if getline(1) =~ "/bin/"
+      silent !chmod a+x  <afile>
+    endif
+  endif
+endfunction
+
+au BufWritePost * call ModeChange()
+
+
 " Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
 if v:version >= 703
     " Enable relative line numbers. Very useful for move commands
