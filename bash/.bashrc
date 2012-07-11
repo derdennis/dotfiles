@@ -399,7 +399,7 @@ fi
 
 # Misc
 alias g='grep -i'  # Case insensitive grep
-alias f='find . -iname'
+alias ff='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 
 # Mac OS X only aliases
