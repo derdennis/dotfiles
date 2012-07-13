@@ -253,10 +253,17 @@ set nobackup
 " via: http://aaron-mueller.de/artikel/vim-mastery-Absatzweise
 set wrap
 set linebreak
+" Quick Cheatsheet for reformating to 79 chars per line:
+" gggqG: Reformat the whole enchilada
+" gqap: Reformat the current paragraph
+" (visual-selection) gq: Reformart the selection
 set textwidth=79
-set formatoptions=qrn1
 " See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
 " more information.
+set formatoptions=tcroqln1
+
+" Start at level 10 with foldings
+set foldlevelstart=10
 
 " Line Numbers, off with :set nonu
 set nu
@@ -273,6 +280,10 @@ nnoremap <right> <nop>
 "inoremap <down> <nop>
 "inoremap <left> <nop>
 "inoremap <right> <nop>
+
+" Make cursor move as expected with wrapped lines in insert mode
+inoremap <up> <C-o>gk
+inoremap <down> <C-o>gj
 
 " Make j and k move by screen line instead of the archaic move by file line
 nnoremap j gj
@@ -321,6 +332,12 @@ nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 nmap <leader>fr :%! ~/bin/formd -r<CR>
 nmap <leader>fi :%! ~/bin/formd -i<CR>
 
+" Macros to insert Markdownlinks from the clipboard
+" see: http://blog.dsiw-it.de/2012/03/24/vim-makro-link-in-markdown-einfugen/
+au Filetype markdown,mkd,octopress nmap <leader>mlw i[xepa("+P
+au Filetype markdown,mkd,octopress nmap <leader>mlW i[xEpa("+P
+au Filetype markdown,mkd,octopress vmap <leader>ml s[lxhf]hxa("+Pl
+
 " Setting default fileformat for markdown and textile to octopress
 autocmd BufNewFile,BufRead *.markdown,*.textile set filetype=octopress
 
@@ -336,6 +353,19 @@ nnoremap <leader>2 yypVr-
 " via:
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
 set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
+
+" automatically give executable permissions if file begins with #! and contains
+" '/bin/' in the path
+function ModeChange()
+  if getline(1) =~ "^#!"
+    if getline(1) =~ "/bin/"
+      silent !chmod a+x  <afile>
+    endif
+  endif
+endfunction
+
+au BufWritePost * call ModeChange()
+
 
 " Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
 if v:version >= 703

@@ -9,7 +9,7 @@ endif
 
 " This mostly loads HTML-related code, so it should not interfere
 " with Textile.
-runtime! ftplugin/markdown.vim
+runtime! ftplugin/mkd.vim
 
 unlet! b:did_ftplugin
 

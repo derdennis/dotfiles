@@ -303,6 +303,12 @@ mkcd () {
     cd "$*"
 }
 
+# Function to check if a command exists. Returns 0 if command is found, 1 if
+# not
+command_exists () {
+    type "$1" &> /dev/null ;
+}
+
 # I got the following from, and mod'd it: http://www.macosxhints.com/article.php?story=20020716005123797
 #    The following aliases (save & show) are for saving frequently used directories
 #    You can save a directory using an abbreviation of your choosing. Eg. save ms
@@ -371,11 +377,29 @@ alias egrep='egrep --color=auto'
 alias pg='ps axw | grep -i'
 
 # Quickly ack all files, ignoring case
-alias a='ack -ai'
+alias aa='ack -ai'
+
+# Use fasd if available on the system
+if command_exists fasd ; then
+    eval "$(fasd --init auto)"
+    # fasd default aliases
+    alias a='fasd -a'        # any
+    alias s='fasd -s'        # show / search / select
+    alias d='fasd -d'        # directory
+    alias f='fasd -f'        # file
+    alias sd='fasd -sid'     # interactive directory selection
+    alias sf='fasd -sif'     # interactive file selection
+    alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+    alias zz='fasd_cd -d -i' # cd with interactive selection
+
+    # fasd custom aliases
+    alias v='f -e vim' # quick opening files with vim
+
+fi
 
 # Misc
 alias g='grep -i'  # Case insensitive grep
-alias f='find . -iname'
+alias ff='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 
 # Mac OS X only aliases
@@ -422,6 +446,9 @@ alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
 
 # Make tmux use 256 colors
 alias tmux='TERM=screen-256color tmux'
+
+# Be nice to your computer
+alias please='sudo'
 
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
 alias profileme="history | awk '{print \$4}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"

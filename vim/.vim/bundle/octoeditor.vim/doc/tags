@@ -1,0 +1,11 @@
+octoeditor	octoeditor.txt	/*octoeditor*
+octoeditor-:OctopressDeploy	octoeditor.txt	/*octoeditor-:OctopressDeploy*
+octoeditor-:OctopressGenerate	octoeditor.txt	/*octoeditor-:OctopressGenerate*
+octoeditor-:OctopressGrep	octoeditor.txt	/*octoeditor-:OctopressGrep*
+octoeditor-:OctopressList	octoeditor.txt	/*octoeditor-:OctopressList*
+octoeditor-:OctopressNew	octoeditor.txt	/*octoeditor-:OctopressNew*
+octoeditor-about	octoeditor.txt	/*octoeditor-about*
+octoeditor-author	octoeditor.txt	/*octoeditor-author*
+octoeditor-commands	octoeditor.txt	/*octoeditor-commands*
+octoeditor.txt	octoeditor.txt	/*octoeditor.txt*
+octopress-template	octoeditor.txt	/*octopress-template*
