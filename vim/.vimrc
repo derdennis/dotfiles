@@ -366,6 +366,11 @@ endfunction
 
 au BufWritePost * call ModeChange()
 
+" Abbreviations
+ab ddit dennis@instant-thinking.de
+ab oomore <!-- more -->
+ab oofancy {% fancy center image.jpg 400 %}
+
 
 " Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
 if v:version >= 703
