@@ -36,7 +36,7 @@ GREP_OPTIONS='--color=auto'
 # Use green instead of red
 GREP_COLOR='1;32'
 # If the grep supports it, exclude some version control dirs
-if grep --help | grep -- --exclude-dir &>/dev/null; then
+if man grep | col -b | grep -- --exclude-dir &>/dev/null; then
     for PATTERN in .cvs .git .hg .svn; do
         GREP_OPTIONS="$GREP_OPTIONS --exclude-dir=$PATTERN"
     done
