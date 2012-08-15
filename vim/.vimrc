@@ -370,7 +370,9 @@ au BufWritePost * call ModeChange()
 ab ddit dennis@instant-thinking.de
 ab oomore <!-- more -->
 ab oofancy {% fancy center image.jpg 400 %}
-
+" Date and time stamps
+ab <expr> dds strftime("%Y-%m-%d")
+ab <expr> tts strftime("%Y-%m-%d - %H:%M:%S")
 
 " Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
 if v:version >= 703
