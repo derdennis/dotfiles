@@ -444,8 +444,15 @@ alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
 # Shortcut to md5 on OS X
 #alias md5sum='openssl md5'
 
-# Make tmux use 256 colors
-alias tmux='TERM=screen-256color tmux'
+# Make tmux work with the OS X clipboard and launchctl by using an OS
+# X specific config file if running on a Mac
+# In any case: Make tmux use 256 colors by exporting the according TERM
+# variable and, for good measure use the -2 switch
+if [[ "$platform" = "macosx" ]]; then
+    alias tmux='TERM=screen-256color tmux -2 -f ~/.tmux-osx.conf'
+else
+    alias tmux='TERM=screen-256color tmux -2'
+fi
 
 # Be nice to your computer
 alias please='sudo'
