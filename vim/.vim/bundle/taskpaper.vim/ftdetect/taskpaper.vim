@@ -5,5 +5,5 @@
 " Last Change:  2011-03-28
 "
 augroup taskpaper
-     au! BufRead,BufNewFile *.taskpaper   setfiletype taskpaper
+     au! BufRead,BufNewFile *.{taskpaper,todopaper}  setfiletype taskpaper
 augroup END
