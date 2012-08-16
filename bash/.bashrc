@@ -519,6 +519,11 @@ case $platform in
 esac
 
 
+# Use tmux-vim when running inside tmux
+if [[ -n $TMUX ]]; then
+    vim() { ~/bin/tmux-vim "$@"; }
+fi
+
 # MiscMisc ---------------------------------------------------------
 
 # make less more friendly for non-text input files, see lesspipe(1)
