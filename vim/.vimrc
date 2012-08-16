@@ -356,7 +356,7 @@ set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 
 " automatically give executable permissions if file begins with #! and contains
 " '/bin/' in the path
-function ModeChange()
+function! ModeChange()
   if getline(1) =~ "^#!"
     if getline(1) =~ "/bin/"
       silent !chmod a+x  <afile>
