@@ -367,12 +367,27 @@ endfunction
 au BufWritePost * call ModeChange()
 
 " Abbreviations
+
+" General things
 ab ddit dennis@instant-thinking.de
+
+" Octopress snippets
 ab oomore <!-- more -->
 ab oofancy {% fancy center image.jpg 400 %}
+ab oocode 
+\<CR>{% codeblock [title] [lang:language] [url] [link text] %}
+\<CR>
+\<CR>{% endcodeblock %}
+ab ooquote 
+\<CR>{% blockquote [author[, source]] [link] [source_link_title] %}
+\<CR>
+\<CR>{% endblockquote %}
+
 " Date and time stamps
 ab <expr> dds strftime("%Y-%m-%d")
 ab <expr> tts strftime("%Y-%m-%d - %H:%M:%S")
+
+" End of Abbreviations
 
 " Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
 if v:version >= 703
