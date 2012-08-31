@@ -274,6 +274,9 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
+" J Joins lines, K kracks lines. Makes that K splits the current line
+map K i<CR><Esc>
+
 " Disabling arrow keys in insert mode (helps to get hjkl working in muscle
 " memory)
 "inoremap <up> <nop>
@@ -367,11 +370,28 @@ endfunction
 au BufWritePost * call ModeChange()
 
 " Abbreviations
-
+"
 " General things
+ab ddw Dennis Wegner
+
+" Mail
 ab ddit dennis@instant-thinking.de
+ab ddst dennis.wegner@steag.com
 
 " Octopress snippets
+" YAML Frontmatter
+ab ooyaml 
+\<CR>---
+\<CR>layout: post
+\<CR>title: "Post title here"
+\<CR>date: YYYY-MM-DD HH:MM
+\<CR>comments: true
+\<CR>published: false
+\<CR>tags:
+\<CR>-
+\<CR>-
+\<CR>----
+\<CR>
 ab oomore <!-- more -->
 ab oofancy {% fancy center image.jpg 400 %}
 ab oocode 
@@ -385,7 +405,7 @@ ab ooquote
 
 " Date and time stamps
 ab <expr> dds strftime("%Y-%m-%d")
-ab <expr> tts strftime("%Y-%m-%d - %H:%M:%S")
+ab <expr> tts strftime("%Y-%m-%d %H:%M")
 
 " End of Abbreviations
 
