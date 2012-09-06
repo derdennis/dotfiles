@@ -303,12 +303,12 @@ map <C-l> <C-w>l
 
 " Easy Tab navigation
 map th :tabfirst<CR>
+map tl :tablast<CR>
 map tk :tabnext<CR>
 map tj :tabprev<CR>
-map tl :tablast<CR>
-map tt :tabedit<Space>
-map tn :tabnext<Space>
-map tm :tabm<Space>
+map tn :tabnew<Space>
+map tm :tabm<Space> " Tabmove to position #
+map tx :tabclose<CR>
 
 " Make CTRL-m jump to the next diff in vimdiff
 map <C-m> ]c
