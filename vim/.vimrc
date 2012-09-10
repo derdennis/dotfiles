@@ -432,10 +432,14 @@ if v:version >= 703
 
     " Keep a <filename>.un~ file to enable undo even after :q. Keep all
     " undo-files in a separate undodir
-    set undodir=~/.vim_runtime/undodir"
+    set undodir=~/.vim_local/undodir
     set undofile
-    " colorcolumn draws a line at the desired column. Helps to avoid
-    " spaghetticode
+    " maximum number of changes that can be undone
+    set undolevels=1000 
+    " maximum number lines to save for undo on a buffer reload
+    set undoreload=10000 
+
+    " colorcolumn draws a line at the desired column. Helps to avoid spaghetticode
     set colorcolumn=85
 
 endif
