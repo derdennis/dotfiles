@@ -411,8 +411,25 @@ ab <expr> tts strftime("%Y-%m-%d %H:%M")
 
 " Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
 if v:version >= 703
+    " Relative Line numbers
     " Enable relative line numbers. Very useful for move commands
     set relativenumber
+    " When vim is not in focus, set absolute numbers
+    :au FocusLost * :set number
+    :au FocusGained * :set relativenumber
+    " Use absolute numbers in insert mode
+    autocmd InsertEnter * :set number
+    autocmd InsertLeave * :set relativenumber
+    " Function to toggle the relative numbering with ctrl-n
+    function! NumberToggle()
+        if(&relativenumber == 1)
+            set number
+        else
+            set relativenumber
+        endif
+    endfunc
+    nnoremap <C-n> :call NumberToggle()<cr>
+
     " Keep a <filename>.un~ file to enable undo even after :q. Keep all
     " undo-files in a separate undodir
     set undodir=~/.vim_runtime/undodir"
