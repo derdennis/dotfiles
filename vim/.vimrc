@@ -344,6 +344,11 @@ au Filetype markdown,mkd,octopress vmap <leader>ml s[lxhf]hxa("+Pl
 " Setting default fileformat for markdown and textile to octopress
 autocmd BufNewFile,BufRead *.markdown,*.textile set filetype=octopress
 
+" Make snipMate's markdown snippets work with the octopress filetype
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['octopress'] = 'markdown'
+
 " This sets SuperTab’s completion type to “context”. Which lets it determine
 " how things should be tab-completed.
 let g:SuperTabDefaultCompletionType = "context"
