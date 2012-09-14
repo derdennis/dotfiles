@@ -378,35 +378,11 @@ au BufWritePost * call ModeChange()
 "
 " General things
 ab ddw Dennis Wegner
+ab mfg Mit freundlichen Grüßen
 
 " Mail
 ab ddit dennis@instant-thinking.de
 ab ddst dennis.wegner@steag.com
-
-" Octopress snippets
-" YAML Frontmatter
-ab ooyaml 
-\<CR>---
-\<CR>layout: post
-\<CR>title: "Post title here"
-\<CR>date: YYYY-MM-DD HH:MM
-\<CR>comments: true
-\<CR>published: false
-\<CR>tags:
-\<CR>-
-\<CR>-
-\<CR>----
-\<CR>
-ab oomore <!-- more -->
-ab oofancy {% fancy center image.jpg 400 %}
-ab oocode 
-\<CR>{% codeblock [title] [lang:language] [url] [link text] %}
-\<CR>
-\<CR>{% endcodeblock %}
-ab ooquote 
-\<CR>{% blockquote [author[, source]] [link] [source_link_title] %}
-\<CR>
-\<CR>{% endblockquote %}
 
 " Date and time stamps
 ab <expr> dds strftime("%Y-%m-%d")

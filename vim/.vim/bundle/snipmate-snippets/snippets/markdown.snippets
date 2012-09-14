@@ -2,6 +2,27 @@
 
 # Includes octopress (http://octopress.org/) snippets
 
+# My custom Octopress snippets
+snippet yaml
+	---
+	layout: post
+	title: "${1:Post Title}"
+	date: `strftime("%Y-%m-%d %H:%M")`
+	comments: true
+	published: false
+	tags:
+	- ${2:a tag}
+	- ${3:another tag... hit enter after entering this}
+	----
+
+snippet more
+	<!-- more -->
+
+snippet fancy
+	{% fancy ${3:center} ${1:image_file.jpg} ${2:image_width} %}
+
+# End of my custom Octopress snippets
+
 snippet [
 	[${1:text}](http://${2:address} "${3:title}")
 snippet [*
