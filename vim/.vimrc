@@ -91,7 +91,7 @@ set winheight=9999
 " -preview-window-height
 set previewheight=20
 au BufEnter ?* call PreviewHeightWorkAround()
-func PreviewHeightWorkAround()
+func! PreviewHeightWorkAround()
     if &previewwindow
         exec 'setlocal winheight='.&previewheight
     endif
@@ -389,6 +389,17 @@ ab <expr> dds strftime("%Y-%m-%d")
 ab <expr> tts strftime("%Y-%m-%d %H:%M")
 
 " End of Abbreviations
+
+" Distraction free writing
+" via: http://laktek.com/2012/09/05/distraction-free-writing-with-vim/
+" Call via leader df
+map <leader>df :call ToggleDistractionFreeWriting()<CR>
+" Settings for distraction free writing
+let g:fullscreen_colorscheme = "iawriter"
+let g:fullscreen_font = "Cousine:h14"
+let g:normal_colorscheme = "codeschool"
+let g:normal_font="Inconsolata:h14"
+
 
 " Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
 if v:version >= 703
