@@ -202,8 +202,12 @@ autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 " (Almost) straight from the standard Debian .vimrc and highly recommended.
 
 " Searching stuff
-
-" Shortcuts for ack:
+"
+" Cheatsheet for searching inline
+" fx: Search forward for x
+" Fx: Search backward for x
+"
+" Cheatsheet for ack:
 " o to open (same as enter)
 " go to preview file (open but maintain focus on ack.vim results)
 " t to open in new tab
@@ -211,6 +215,11 @@ autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 " q to close the quickfix window
 " Make the ack plugin work even faster (Notice the space at EOL of next line)
 nnoremap <leader>a :Ack --smart-case -a 
+
+" Remap search characters to space (forward search) and ctrl-space (backward
+" search)
+map <space> /
+map <c-space> ?
 
 " Fix Vim’s horribly broken default regex “handling” by automatically
 " inserting a \v before any string you search for. This turns off Vim’s
