@@ -310,6 +310,9 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Access MiniBufferExplorer via ,b
+map <Leader>b :MiniBufExplorer<cr>
+
 " Easy Tab navigation
 map th :tabfirst<CR>
 map tl :tablast<CR>
