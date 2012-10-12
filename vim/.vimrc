@@ -224,6 +224,9 @@ nnoremap <leader>a :Ack --smart-case -a
 map <space> /
 map <c-space> ?
 
+" Map the YankRing Window toggle to F11
+:nnoremap <silent> <F11> :YRShow<CR>
+
 " Fix Vim’s horribly broken default regex “handling” by automatically
 " inserting a \v before any string you search for. This turns off Vim’s
 " crazy default regex characters and makes searches use normal regexes.
