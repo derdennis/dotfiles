@@ -207,6 +207,9 @@ autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 " fx: Search forward for x
 " Fx: Search backward for x
 "
+" Cheatsheet for Most Recently used Files (MRU):
+" Just enter :MRU in normal mode to get the MRU window...
+"
 " Cheatsheet for ack:
 " o to open (same as enter)
 " go to preview file (open but maintain focus on ack.vim results)
