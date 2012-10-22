@@ -148,6 +148,10 @@ colorscheme solarized
 " Use a nice OS X Font, Size 12
 set guifont=Bitstream\ Vera\ Sans\ Mono:h12
 
+" Powerline FontStuff
+"set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
+let g:Powerline_symbols = 'fancy'
+
 " Have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
