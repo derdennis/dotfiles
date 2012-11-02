@@ -145,11 +145,9 @@ se t_Co=256
 " Turn on the Solarized colorscheme (See http://ethanschoonover.com/solarized)
 colorscheme solarized
 
-" Use a nice OS X Font, Size 12
-set guifont=Bitstream\ Vera\ Sans\ Mono:h12
-
 " Powerline FontStuff
-"set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
+" Use the patched DejaVu Font for gvim and macvim
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 let g:Powerline_symbols = 'fancy'
 
 " Have Vim jump to the last position when reopening a file
@@ -437,7 +435,6 @@ function! ToggleSpell()
 endfunction
 
 nmap <silent> <F7> :call ToggleSpell()<CR>
-
 
 " Vim 7.3 (Not very widespread under Linux, therfore ifed) features:
 if v:version >= 703
