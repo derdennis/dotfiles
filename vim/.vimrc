@@ -272,7 +272,9 @@ set wrap
 set linebreak
 " Quick Cheatsheet for reformating to 79 chars per line:
 " gggqG: Reformat the whole enchilada
-" gqap: Reformat the current paragraph
+nnoremap <leader>Q gggqG
+" gqip: Reformat the current paragraph
+nnoremap <leader>q gqip
 " (visual-selection) gq: Reformart the selection
 set textwidth=79
 " See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
