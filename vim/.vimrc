@@ -201,6 +201,9 @@ autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,
 " Remove any extra whitespace from the ends of lines in *.py files when saving:
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 
+" Remove all trailing whitespace in the current file by hitting ,W
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
 " (Almost) straight from the standard Debian .vimrc and highly recommended.
 
 " Searching stuff
