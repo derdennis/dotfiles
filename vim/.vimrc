@@ -7,7 +7,7 @@
 " Enabling pathogen.vim
 " The filetype off statement is needed on some linux distros.
 " see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
-filetype off 
+filetype off
 call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 
@@ -182,12 +182,12 @@ set expandtab
 " Use the "shiftwidth" setting for inserting <TAB>s instead of the "tabstop"
 " setting, when at the beginning of a line. This may be redundant for most
 " people, but some poeple like to keep their tabstop=8 for compatability when
-" loading files, but setting shiftwidth=4 for nicer coding style. 
+" loading files, but setting shiftwidth=4 for nicer coding style.
 set smarttab
 " Very painful to live without this (especially with Python)! It means that
 " when you press RETURN and a new line is created, the indent of the new line
-" will match that of the previous line. 
-" 
+" will match that of the previous line.
+"
 " This, of course, destroys Copy & Paste from Browsers etc...
 " To deactivate :set paste, do your thing, and :set nopaste to reverse it.
 set autoindent
@@ -196,7 +196,7 @@ set autoindent
 " after typing lines which start with any of the keywords in the list (ie. def,
 " class, if, etc) the next line will automatically indent itself to the next
 " level of indentation:
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class 
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 " Remove any extra whitespace from the ends of lines in *.py files when saving:
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
@@ -222,7 +222,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " T to open in new tab silently
 " q to close the quickfix window
 " Make the ack plugin work even faster (Notice the space at EOL of next line)
-nnoremap <leader>a :Ack --smart-case -a 
+nnoremap <leader>a :Ack --smart-case -a
 
 " Remap search characters to space (forward search) and ctrl-space (backward
 " search)
@@ -249,7 +249,7 @@ nnoremap <leader><space> :noh<cr>
 
 " Applies substitutions globally on lines. This is almost always what you
 " want (when was the last time you wanted to only replace the first occurrence
-" of a word on a line?) and if you need the previous behavior you just tack on 
+" of a word on a line?) and if you need the previous behavior you just tack on
 " the g again.
 set gdefault
 
@@ -344,7 +344,7 @@ nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 
 " Switch on the nerdtree with ,n
-map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR> 
+map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " Open the Command-T window with ,t
 nnoremap <silent> <Leader>t :CommandT<CR>
@@ -464,9 +464,9 @@ if v:version >= 703
     set undodir=~/.vim_local/undodir
     set undofile
     " maximum number of changes that can be undone
-    set undolevels=1000 
+    set undolevels=1000
     " maximum number lines to save for undo on a buffer reload
-    set undoreload=10000 
+    set undoreload=10000
 
     " colorcolumn draws a line at the desired column. Helps to avoid spaghetticode
     set colorcolumn=85
