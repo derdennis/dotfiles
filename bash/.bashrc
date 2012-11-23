@@ -273,9 +273,16 @@ esac
 # work with double quotes...
 # Also: Shows the currently used Ruby- and Gemset-Version by using the rvm-prompt.
 # RVM part via: http://collectiveidea.com/blog/archives/2011/08/02/command-line-feedback-from-rvm-and-git/?
-# FIXME 
-# Fix the prompt to not error on each enter on machines without rvm...
-export PS1='\[\e[01;34m\]$(~/.rvm/bin/rvm-prompt) \[\e[0;32m\]\w > \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]]") '
+# Check if the rvm-prompt binary is present before adding it to the prompt.
+if [ -f  ~/.rvm/bin/rvm-prompt ];
+then
+    export PS1='\[\e[01;34m\]$(~/.rvm/bin/rvm-prompt) \[\e[0;32m\]\w > \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]]") '
+else
+    # If no rvm-prompt is present, do not include it in the prompt...
+    export PS1='\[\e[0;32m\]\w > \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]]") '
+fi
+
+
 
 # This runs before the prompt and sets the title of the xterm* window.  If you set the title in the prompt
 # weird wrapping errors occur on some systems, so this method is superior
