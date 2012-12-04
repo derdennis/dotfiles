@@ -290,6 +290,18 @@ set foldlevelstart=10
 " Line Numbers, off with :set nonu
 set nu
 
+" Command Mode mappings
+" $q is super useful when browsing on the command line. It deletes everything until
+" the last slash:
+cno $q <C-\>eDeleteTillSlash()<cr>
+" Bash like keys for the command line:
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+
 " Disabling arrow keys in normal mode
 nnoremap <up> <nop>
 nnoremap <down> <nop>
