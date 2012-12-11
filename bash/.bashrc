@@ -45,6 +45,9 @@ fi
 export GREP_OPTIONS
 export GREP_COLOR
 
+# SSH Agent Magic located in the sshag.sh script in ~/bin/
+source ~/bin/sshag.sh
+
 # Colors ----------------------------------------------------------
 export TERM=xterm-color
 
