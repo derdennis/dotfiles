@@ -66,7 +66,7 @@ set selectmode=mouse
 
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
-set listchars=trail:.,tab:>-,eol:¬
+set listchars=trail:·,tab:→\ ,eol:¬
 "set list
 set nolist
 
