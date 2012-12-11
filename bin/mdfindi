@@ -1,0 +1,112 @@
+#!/bin/sh
+# Author Robert Harder
+# http://blog.iharder.net
+
+# Fetch results now, so we only run mdfind once
+SEARCHPARAMS="$@"
+RESULTSFILE="$(mktemp -t mdfindi)"
+trap "rm -f '$RESULTSFILE'" 0               # EXIT
+trap "rm -f '$RESULTSFILE'; exit 1" 2       # INT
+trap "rm -f '$RESULTSFILE'; exit 1" 1 15    # HUP TERM
+
+
+# Perform search (once)
+(tput sc; echo "Searching..."; mdfind $* > "$RESULTSFILE"; tput rc)
+
+# Formatting
+_RESET=$(tput sgr0)
+_BOLD=$(tput bold)
+_UNDERON=$(tput smul)
+_UNDEROFF=$(tput rmul)
+_BLACK=$(tput setaf 0)
+_RED=$(tput setaf 1)
+_GREEN=$(tput setaf 2)
+_YELLOW=$(tput setaf 3)
+_BLUE=$(tput setaf 4)
+_PURPLE=$(tput setaf 5)
+_CYAN=$(tput setaf 6)
+_WHITE=$(tput setaf 7)
+
+# Styles
+_PROMPT="${_GREEN}${_BOLD}"
+_FEEDBACK="${_BLUE}${_BOLD}"
+_HEADER="${_UNDERON}${_BOLD}"
+
+
+# No results?
+if [ ! -s "$RESULTSFILE" ]; then
+	echo "No results"
+	rm "$RESULTSFILE"
+	exit
+fi
+
+
+while(true); do
+	
+	# Repeat user's request
+	echo "Search command: ${_FEEDBACK}mdfind ${SEARCHPARAMS}${_RESET}"
+	
+	# Display summary of each file type
+	echo
+	echo "${_HEADER}File Type${_RESET}     ${_HEADER}Count${_RESET}"
+	awk -F '.'  '{ \
+		if( length($NF) < 20) \
+			count[$NF]++; \
+		else \
+			invalid++; \
+	} \
+	END \
+	{ \
+		for(j in count) { \
+			printf("%-12s  %-5d\n",j,count[j]); \
+		} \
+		if( invalid > 0 ) \
+			printf("%-12s  %-5d\n","(too long)",invalid); \
+	}' "$RESULTSFILE" | sort -nr -k2
+	
+	
+	
+	# Prompt for which file type to display
+	echo
+	read -p "${_PROMPT}Enter file type to list: ${_FEEDBACK}" FILETYPE
+	/bin/echo -n "${_RESET}"
+
+	# Asking to quit?
+	if [ "$FILETYPE" == "q" -o "$FILETYPE" == "Q" ]; then
+		break
+	fi
+
+	# Loop, displaying file names and waiting for review
+	while(true); do
+	
+		# Display filtered results
+	#	echo "Displaying files of type: ${_FEEDBACK}$FILETYPE${_RESET}"
+		echo
+		echo "${_HEADER}File #${_RESET}  ${_HEADER}Filename${_RESET}"
+		grep -i -e ".${FILETYPE}\$" "$RESULTSFILE" | cat -n | more
+
+		# Prompt for which file to display
+		echo
+		read -p "${_PROMPT}Enter file number to display:${_RESET} ${_FEEDBACK}" FILENUM
+		/bin/echo -n "${_RESET}"
+		
+		# Asking to quit?
+		if [ "$FILENUM" == "q" -o "$FILENUM" == "Q" ]; then
+			break 2
+		fi
+		
+		# Asking to backup?
+		if [ "$FILENUM" == "b" -o "$FILENUM" == "B" ]; then
+			break 1
+		fi
+
+		# Display selected file
+		FILENAME=$(grep -i -e ".${FILETYPE}\$" "$RESULTSFILE" | sed -n "${FILENUM}p")
+		echo "Displaying ${FILENAME}"
+		more "$FILENAME"
+		# In case our terminal gets messed up with binary files...
+		/bin/echo -n "${_RESET}"
+	done
+done
+
+
