@@ -261,6 +261,10 @@ set hidden             " Hide buffers when they are abandoned
 nnoremap <tab> %
 vnoremap <tab> %
 
+" ,v mapping to reselect the text that was just pasted so I can perform
+" commands (like indentation) on it
+nnoremap <leader>v V`]
+
 " make Y copy until end of line, use yy to copy whole line
 " same way D & dd and C & CC are working...
 map Y y$
@@ -461,7 +465,7 @@ if v:version >= 703
     " Use absolute numbers in insert mode
     autocmd InsertEnter * :set number
     autocmd InsertLeave * :set relativenumber
-    " Function to toggle the relative numbering with ctrl-n
+    " Function to toggle the relative numbering with F6
     function! NumberToggle()
         if(&relativenumber == 1)
             set number
@@ -469,7 +473,7 @@ if v:version >= 703
             set relativenumber
         endif
     endfunc
-    nnoremap <C-n> :call NumberToggle()<cr>
+    nnoremap <F6> :call NumberToggle()<cr>
 
     " Keep a <filename>.un~ file to enable undo even after :q. Keep all
     " undo-files in a separate undodir
