@@ -1,0 +1,2 @@
+#!/bin/sh
+ldapsearch -x -h esbdc01.steag.de -D "LDAP-Read@steag.de" -w ldap -b "DC=steag,DC=de" "(displayName=${1}*)" | egrep "displayName:|cn:"
