@@ -1,0 +1,25 @@
+# This is the config file for the Pinboard it-bot script
+
+# Feed and cache files
+feed: 'http://feeds.pinboard.in/rss/u:der_dennis/'
+pinboard_time_file: 'pinboard_time.yaml'
+tag_file: 'tags.yaml'
+date_file: 'dates.yaml'
+bookmark_file: 'bookmarks.yaml'
+
+# Absolute path to the _drafts-folder
+blogpost_path: '/Users/dennis/Dropbox/blog/_drafts/'
+#
+# Number of bookmarks per post
+bookmarks_per_post: 10
+
+
+# Mail
+recipient_name: 'Dennis'
+recipient_mail: 'dennis@instant-thinking.de'
+from_name: 'instant-bot'
+from_mail: 'bot@instant-thinking.de'
+smtp_server: 'smtp.gmail.com'
+smtp_port: '587'
+smtp_user: 'bot@instant-thinking.de'
+smtp_password: 'spex-se-zy'
