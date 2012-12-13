@@ -5,7 +5,7 @@ config resizePercentOf screenSize
 config secondsBetweenRepeat 0.1
 config checkDefaultsOnLoad true
 config focusCheckWidthMax 3000
-config keyboardLayout dvorak
+config keyboardLayout qwerty
 config windowHintsShowIcons true
 config windowHintsIgnoreHiddenWindows false
 #config windowHintsDuration 5
@@ -93,9 +93,9 @@ bind e:cmd  ${showNormalHint}
 alias hyper ctrl;shift;alt;cmd
 
 # Location bindings
-bind t:${hyper} ${lefthalf}
-bind n:${hyper} ${full}
-bind s:${hyper} ${righthalf}
+bind left:${hyper} ${lefthalf}
+bind f:${hyper} ${full}
+bind right:${hyper} ${righthalf}
 bind r:${hyper} throw next
 
 # Resize Bindings
@@ -103,10 +103,10 @@ bind r:${hyper} throw next
 #bind g:${hyper} ${rightmost}
 
 # Focus Bindings
-bind right:${hyper}    focus right
-bind left:${hyper}     focus left
-bind up:${hyper}       focus up
-bind down:${hyper}     focus down
+#bind right:${hyper}    focus right
+#bind left:${hyper}     focus left
+#bind up:${hyper}       focus up
+#bind down:${hyper}     focus down
 
 # App bindings
 bind e:${hyper} focus ${browser}
