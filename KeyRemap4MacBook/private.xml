@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
 <root>
-<item>
-    <name>Remap Caps Lock to Hyper</name>
-    <appendix>OS X doesn't have a Hyper. This maps Caps Lock to Control + Shift + Option + Command.</appendix>
+    <item>
+        <name>Remap Caps Lock to Hyper</name>
+        <appendix>OS X doesn't have a Hyper. This maps CapsLock hold to Control+Shift+Option+Command, CapsLock only to Escape.</appendix>
 
-    <identifier>caps_lock_to_hyper</identifier>
+        <identifier>caps_lock_to_hyper</identifier>
 
-    <autogen>
-        --KeyToKey--
-        KeyCode::F19,
-
-        KeyCode::COMMAND_L,
-        ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L
-    </autogen>
-</item>
+        <autogen>
+            --KeyOverlaidModifier--
+            KeyCode::F19,
+            KeyCode::COMMAND_L,
+            ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L,
+            KeyCode::ESCAPE
+        </autogen>
+    </item>
 </root>
-
