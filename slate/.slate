@@ -18,7 +18,11 @@ alias showNormalHint hint ASDFGHJKLQWERTZUIOPYXCVBNM
 # Locations aliases
 alias full          move screenOriginX;screenOriginY screenSizeX;screenSizeY
 alias lefthalf      move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+alias left30        move screenOriginX;screenOriginY screenSizeX*30/100;screenSizeY
+alias left70        move screenOriginX;screenOriginY screenSizeX*70/100;screenSizeY
 alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+alias right30       move screenOriginX+screenSizeX*70/100;screenOriginY screenSizeX*30/100;screenSizeY
+alias right70       move screenOriginX+screenSizeX*30/100;screenOriginY screenSizeX*70/100;screenSizeY
 alias tophalf       push top bar-resize:screenSizeY/2
 alias bottomhalf    push bottom bar-resize:screenSizeY/2
 alias topleft       corner top-left resize:screenSizeX/2;screenSizeY/2
@@ -34,9 +38,10 @@ bind space:${hyper}  ${showNormalHint}
 
 # Location bindings
 
+
 bind f:${hyper}     ${full}
-bind left:${hyper}  ${lefthalf}
-bind right:${hyper} ${righthalf}
+bind left:${hyper}  chain ${lefthalf} | ${left30} | ${left70}
+bind right:${hyper} chain ${righthalf} | ${right30} | ${right70}
 bind up:${hyper}    ${tophalf}
 bind down:${hyper}  ${bottomhalf}
 bind j:${hyper}     ${topleft}
