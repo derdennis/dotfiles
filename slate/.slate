@@ -8,7 +8,7 @@ config focusCheckWidthMax 3000
 config keyboardLayout qwerty
 config windowHintsShowIcons true
 config windowHintsIgnoreHiddenWindows false
-#config windowHintsDuration 5
+config windowHintsDuration 5
 config windowHintsSpread true
 #config windowHintsOrder persist
 
@@ -19,8 +19,6 @@ alias mon-samsung    1
 # Misc Aliases
 alias showHintsLeftHand hint AOEUIYQJKX
 alias showNormalHint hint AOEUIDHTNSYXFBPKGMCW
-alias browser 'Nightly'
-alias editor 'MacVim'
 
 # Abstract positions
 alias full          move screenOriginX;screenOriginY                  screenSizeX;screenSizeY
@@ -84,7 +82,6 @@ bind pad. focus behind
 bind pad* layout 2monitors
 bind pad/ layout 1monitor
 
-bind e:cmd  ${showNormalHint}
 
 # ======================================
 # The HYPER key
@@ -92,15 +89,16 @@ bind e:cmd  ${showNormalHint}
 
 alias hyper ctrl;shift;alt;cmd
 
+bind space:${hyper}  ${showNormalHint}
+
 # Location bindings
 bind left:${hyper} ${lefthalf}
 bind f:${hyper} ${full}
 bind right:${hyper} ${righthalf}
-bind r:${hyper} throw next
 
 # Resize Bindings
-#bind r:${hyper} ${leftmost}
-#bind g:${hyper} ${rightmost}
+bind l:${hyper} ${leftmost}
+bind g:${hyper} ${rightmost}
 
 # Focus Bindings
 #bind right:${hyper}    focus right
@@ -109,10 +107,8 @@ bind r:${hyper} throw next
 #bind down:${hyper}     focus down
 
 # App bindings
-bind e:${hyper} focus ${browser}
-bind u:${hyper} focus ${editor}
-bind x:${hyper} focus 'Xcode'
-bind g:${hyper} focus 'GitHub'
+bind s:${hyper} focus 'Safari'
+bind c:${hyper} focus 'Google Chrome'
+bind v:${hyper} focus 'MacVim'
 bind m:${hyper} focus 'Mail'
 bind i:${hyper} focus 'iTerm'
-bind o:${hyper} focus 'Path Finder'
