@@ -17,6 +17,7 @@ alias showNormalHint hint ASDFGHJKLQWERTZUIOPYXCVBNM
 
 # Locations aliases
 alias full          move screenOriginX;screenOriginY screenSizeX;screenSizeY
+alias center        move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
 alias lefthalf      move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
 alias left30        move screenOriginX;screenOriginY screenSizeX*30/100;screenSizeY
 alias left70        move screenOriginX;screenOriginY screenSizeX*70/100;screenSizeY
@@ -45,9 +46,8 @@ alias hyper ctrl;shift;alt;cmd
 bind space:${hyper}  ${showNormalHint}
 
 # Location bindings
-
-
 bind f:${hyper}     ${full}
+bind c:${hyper}     ${center} 
 bind left:${hyper}  chain ${lefthalf} | ${left30} | ${left70}
 bind right:${hyper} chain ${righthalf} | ${right30} | ${right70}
 bind up:${hyper}    ${tophalf}
@@ -59,7 +59,7 @@ bind l:${hyper}     chain ${bottomright} | ${bottomright30} | ${bottomright70}
 
 # App bindings
 bind s:${hyper} focus 'Safari'
-bind c:${hyper} focus 'Google Chrome'
+bind g:${hyper} focus 'Google Chrome'
 bind v:${hyper} focus 'MacVim'
 bind m:${hyper} focus 'Mail'
 bind i:${hyper} focus 'iTerm'
