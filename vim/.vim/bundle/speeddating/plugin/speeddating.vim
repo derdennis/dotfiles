@@ -80,7 +80,8 @@ SpeedDatingFormat %Y %b %d                      " 'Last Change:' headers of
 SpeedDatingFormat %b %d, %Y                     " Vim runtime files
 SpeedDatingFormat %^v
 SpeedDatingFormat %v
-SpeedDatingFormat %d.%m.%Y                      "Standard German Format
+SpeedDatingFormat %d.%m.%Y                      " Standard German Format
+SpeedDatingFormat %d. %B %Y                     " Standard German Format
 " }}}1
 
 let &cpo = s:cpo_save
