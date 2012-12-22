@@ -82,20 +82,21 @@ set laststatus=2
 " Make command line two lines high
 set ch=2
 
+
 " Make window height VERY large so they always maximise on window switch
-set winheight=9999
+"set winheight=9999
 
 " Fix the height of the preview window (would be one line otherwise
 " because of the winheight of 9999). Fix via:
 " http://stackoverflow.com/questions/3712725/can-i-change-vim-completion
 " -preview-window-height
-set previewheight=20
-au BufEnter ?* call PreviewHeightWorkAround()
-func! PreviewHeightWorkAround()
-    if &previewwindow
-        exec 'setlocal winheight='.&previewheight
-    endif
-endfunc
+"set previewheight=20
+"au BufEnter ?* call PreviewHeightWorkAround()
+"func! PreviewHeightWorkAround()
+    "if &previewwindow
+        "exec 'setlocal winheight='.&previewheight
+    "endif
+"endfunc
 
 " Show filename, file content type and current column and line in the status
 " bar. Use %= to right aline the possibly following fugitive and syntastic status
@@ -232,8 +233,8 @@ map <c-space> ?
 " Map the YankRing Window toggle to F11
 :nnoremap <silent> <F11> :YRShow<CR>
 
-" Map Gundo to F4
-nnoremap <F4> :GundoToggle<CR>
+" Map Gundo to F3
+nnoremap <F3> :GundoToggle<CR>
 
 " Fix Vim’s horribly broken default regex “handling” by automatically
 " inserting a \v before any string you search for. This turns off Vim’s
