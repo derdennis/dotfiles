@@ -298,6 +298,10 @@ set foldlevelstart=10
 " Line Numbers, off with :set nonu
 set nu
 
+" Make clam jump on the !
+nnoremap ! :Clam<space>
+vnoremap ! :ClamVisual<space>
+
 " Command Mode mappings
 " $q is super useful when browsing on the command line. It deletes everything until
 " the last slash:
