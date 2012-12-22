@@ -232,6 +232,9 @@ map <c-space> ?
 " Map the YankRing Window toggle to F11
 :nnoremap <silent> <F11> :YRShow<CR>
 
+" Map Gundo to F4
+nnoremap <F4> :GundoToggle<CR>
+
 " Fix Vim’s horribly broken default regex “handling” by automatically
 " inserting a \v before any string you search for. This turns off Vim’s
 " crazy default regex characters and makes searches use normal regexes.
