@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Display the time a given process has been running
+# # Use the process name when calling the command
+ps -ax -o etime,command -c | grep $1
