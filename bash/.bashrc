@@ -188,7 +188,9 @@ esac
 # http://railsdog.com/blog/2009/03/07/custom-bash-prompt-for-git-branches/
 # but needed the (obviously newer) file from:
 # https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
-source ~/.git-completion.bash
+if [ -f ~/.git-completion.bash ]; then
+    source ~/.git-completion.bash
+fi
 
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
