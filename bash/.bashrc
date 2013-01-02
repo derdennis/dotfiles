@@ -32,7 +32,7 @@ esac
 # Grep Options ----------------------------------------------------
 
 # Add color to greps output
-GREP_OPTIONS='--color=auto' 
+GREP_OPTIONS='--color=auto'
 # Use green instead of red
 GREP_COLOR='1;32'
 # If the grep supports it, exclude some version control dirs
@@ -51,9 +51,9 @@ source ~/bin/sshag.sh
 # Colors ----------------------------------------------------------
 export TERM=xterm-color
 
-# Defining colors for Linux, OS X and BSDs... 
+# Defining colors for Linux, OS X and BSDs...
 #
-# Good explanation: 
+# Good explanation:
 # http://unix.stackexchange.com/questions/2897/clicolor-and-ls-colors-in-bash
 case $platform in
     'linux')
@@ -65,16 +65,16 @@ case $platform in
         ;;
     'macosx')
         # OS X/*BSD specific - the -G command in OS X is for colors, in Linux it's no groups
-        export CLICOLOR=1 
-        alias ls='ls -G'  
+        export CLICOLOR=1
+        alias ls='ls -G'
         ;;
     'freebsd')
-        export CLICOLOR=1 
-        alias ls='ls -G'  
+        export CLICOLOR=1
+        alias ls='ls -G'
         ;;
     'openbsd')
-        export CLICOLOR=1 
-        alias ls='ls -G'  
+        export CLICOLOR=1
+        alias ls='ls -G'
         ;;
 esac
 
@@ -140,7 +140,7 @@ shopt -s checkwinsize # After each command, checks the windows size and changes 
 # Added here instead of maintaining ~/.inputrc
 #
 # When completing case will not be taken into consideration.
-bind "set completion-ignore-case On" 
+bind "set completion-ignore-case On"
 # Apply similar insensitivity between hyphens and underscores
 bind "set completion-map-case on"
 # replace completed part with "...", so it's easy to see what to type next
@@ -149,7 +149,7 @@ bind "set completion-prefix-display-length 2"
 bind "Control-j: menu-complete"
 bind "Control-k: menu-complete-backward"
 # show list automatically, without double tab
-bind "set show-all-if-ambiguous On" 
+bind "set show-all-if-ambiguous On"
 bind "set show-all-if-unmodified On"
 # Do not show me possible completions page wise
 bind "set page-completions off"
@@ -168,7 +168,7 @@ bind '"\eOC":forward-word'
 bind '"\eOD":backward-word'
 
 # no bell
-bind "set bell-style none" 
+bind "set bell-style none"
 
 # Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many
 # systems until it is resumed with Ctrl+Q. Thus, it is turned off here. Does not
@@ -225,7 +225,7 @@ complete -C ~/.rake-completion.rb -o default rake
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 # Save me from performing UPDATE or DELETE operations on any table if neither
-# a LIMIT nor a WHERE condition based on an indexed field is specified. 
+# a LIMIT nor a WHERE condition based on an indexed field is specified.
 alias mysql='mysql --safe-updates'
 
 # Wiki shortcut for definitions
@@ -236,12 +236,12 @@ wiki() {
 
 
 # find and list processes matching a case-insensitive partial-match string
-fp () { 
+fp () {
         ps -Ao pid,comm|awk '{match($0,/[^\/]+$/); print substr($0,RSTART,RLENGTH)": "$1}'|grep -i $1|grep -v grep
 }
 
 # find and kill processes matching a case-insensitive partial-match string
-fk () { 
+fk () {
     IFS=$'\n'
     PS3='Kill which process? (1 to cancel): '
     select OPT in "Cancel" $(fp $1); do
@@ -280,14 +280,14 @@ case $platform in
                 return 1
             fi
             return 0
-        }  
+        }
         ;;
 esac
 
 
 # Prompts ----------------------------------------------------------
 #export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
-# export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
+# export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path
 
 # Primary prompt with only a path like above, but also showing git branches when
 # inside a git repo. Also: Shows a yellow star when uncommited changes are found.
@@ -316,7 +316,7 @@ export PS4='+'     # Prompt 4
 
 function xtitle {  # change the title of your xterm* window
   unset PROMPT_COMMAND
-  echo -ne "\033]0;$1\007" 
+  echo -ne "\033]0;$1\007"
 }
 
 
@@ -347,7 +347,7 @@ command_exists () {
 #    the abbreviation you chose. Eg. cd ms  (Note that no '$' is necessary.)
 
 # if .dirs doesn't exist, create it
-if [ ! -f ~/.dirs ]; then  
+if [ ! -f ~/.dirs ]; then
     touch ~/.dirs
 fi
 
@@ -356,14 +356,14 @@ alias show='cat ~/.dirs'
 
 # Function to save the current directory with a custom shortcut
 save (){
-	command sed "/$@/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ; 
+	command sed "/$@/d" ~/.dirs > ~/.dirs1; \mv ~/.dirs1 ~/.dirs; echo "$@"=\"`pwd`\" >> ~/.dirs; source ~/.dirs ;
 }
 
 # Initialization for the above 'save' facility: source the .dirs file
-source ~/.dirs  
+source ~/.dirs
 
 # set the bash option so that no '$' is required when using the above facility
-shopt -s cdable_vars 
+shopt -s cdable_vars
 
 # History Magic ---------------------------------------------------
 # append to the history file, don't overwrite it
@@ -383,7 +383,7 @@ HISTFILESIZE=100000
 export HISTCONTROL=ignoredups:ignorespace
 
 
-# If you issue 'h' on its own, then it acts like the history command. 
+# If you issue 'h' on its own, then it acts like the history command.
 # If you issue:
 # h cd
 # Then it will display all the history with the word 'cd'
@@ -559,12 +559,12 @@ esac
 export SV_USER='dennis'  # Change this to your username that you normally use on subversion (only if it is different from your logged in name)
 export SVN_EDITOR='${EDITOR}'
 
-alias svshowcommands="echo -e '${COLOR_BROWN}Available commands: 
+alias svshowcommands="echo -e '${COLOR_BROWN}Available commands:
    ${COLOR_GREEN}sv
    ${COLOR_GREEN}sv${COLOR_NC}help
    ${COLOR_GREEN}sv${COLOR_NC}import    ${COLOR_GRAY}Example: import ~/projects/my_local_folder http://svn.foo.com/bar
    ${COLOR_GREEN}sv${COLOR_NC}checkout  ${COLOR_GRAY}Example: svcheckout http://svn.foo.com/bar
-   ${COLOR_GREEN}sv${COLOR_NC}status    
+   ${COLOR_GREEN}sv${COLOR_NC}status
    ${COLOR_GREEN}sv${COLOR_NC}status${COLOR_GREEN}on${COLOR_NC}server
    ${COLOR_GREEN}sv${COLOR_NC}add       ${COLOR_GRAY}Example: svadd your_file
    ${COLOR_GREEN}sv${COLOR_NC}add${COLOR_GREEN}all${COLOR_NC}    ${COLOR_GRAY}Note: adds all files not in repository [recursively]
@@ -575,7 +575,7 @@ alias svshowcommands="echo -e '${COLOR_BROWN}Available commands:
    ${COLOR_GREEN}sv${COLOR_NC}get${COLOR_GREEN}info${COLOR_NC}   ${COLOR_GRAY}Example: svgetinfo your_file
    ${COLOR_GREEN}sv${COLOR_NC}blame     ${COLOR_GRAY}Example: svblame your_file
 '"
-   
+
 alias sv='svn --username ${SV_USER}'
 alias svimport='sv import'
 alias svcheckout='sv checkout'
@@ -586,7 +586,7 @@ alias svcommit='sv commit'
 alias svadd='svn add'
 alias svaddall='svn status | grep "^\?" | awk "{print \$2}" | xargs svn add'
 alias svdelete='sv delete'
-alias svhelp='svn help' 
+alias svhelp='svn help'
 alias svblame='sv blame'
 
 svgetinfo (){
