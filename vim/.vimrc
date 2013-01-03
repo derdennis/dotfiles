@@ -403,6 +403,10 @@ let g:SuperTabDefaultCompletionType = "context"
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
+" Markdownify the current word or the visual selection, ready for pasting the URL in
+nnoremap <Leader>3 ciw[<C-r>"]()<Esc>i
+vnoremap <Leader>3 c[<C-r>"]()<Esc>i
+"
 " Make vim complete lists starting with a "-"
 " via:
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
