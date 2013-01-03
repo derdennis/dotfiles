@@ -24,12 +24,12 @@ snippet fancy
 # End of my custom Octopress snippets
 
 snippet [
-	[${1:text}](http://${2:address} "${3:title}")
+	[${1:text}](${2:http://url} "${3:title}")${4}
 snippet [*
 	[${1:link}](${2:`@*`} "${3:title}")${4}
 
 snippet [:
-	[${1:id}]: http://${2:url} "${3:title}"
+	[${1:id}]: ${2:http://url} "${3:title}"
 snippet [:*
 	[${1:id}]: ${2:`@*`} "${3:title}"
 
