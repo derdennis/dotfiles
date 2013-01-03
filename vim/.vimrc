@@ -403,9 +403,13 @@ let g:SuperTabDefaultCompletionType = "context"
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
-" Markdownify the current word or the visual selection, ready for pasting the URL in
-nnoremap <Leader>3 ciw[<C-r>"]()<Esc>i
-vnoremap <Leader>3 c[<C-r>"]()<Esc>i
+" Create a Markdown-link structure for the current word or visual selection with
+" leader 3. Paste in the URL later. Or use leader 4 to insert the current
+" system clipboard as an URL.
+nnoremap <Leader>3 ciw[<C-r>"]()<Esc>
+vnoremap <Leader>3 c[<C-r>"]()<Esc>
+nnoremap <Leader>4 ciw[<C-r>"](<Esc>"*pli)<Esc>
+vnoremap <Leader>4 c[<C-r>"](<Esc>"*pli)<Esc>
 "
 " Make vim complete lists starting with a "-"
 " via:
