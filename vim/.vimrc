@@ -54,10 +54,16 @@ set showcmd
 set autowrite
 " Hide buffers when they are abandoned
 set hidden
+" Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
+" all over the place...
+set nobackup
 " Have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 " Have Vim load indentation rules and plugins according to the detected filetype.
 filetype plugin indent on
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -203,10 +209,6 @@ nnoremap <leader>a :Ack --smart-case -a
 " search)
 map <space> /
 map <c-space> ?
-" Map the YankRing Window toggle to F11
-:nnoremap <silent> <F11> :YRShow<CR>
-" Map Gundo to F3
-nnoremap <F3> :GundoToggle<CR>
 " Fix Vim’s horribly broken default regex “handling” by automatically
 " inserting a \v before any string you search for. This turns off Vim’s
 " crazy default regex characters and makes searches use normal regexes.
@@ -291,6 +293,32 @@ function! ModeChange()
 endfunction
 
 au BufWritePost * call ModeChange()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Copy & Pasting and Completion
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ,v mapping to reselect the text that was just pasted so I can perform
+" commands (like indentation) on it
+nnoremap <leader>v V`]
+" make Y copy until end of line, use yy to copy whole line
+" same way D & dd and C & CC are working...
+map Y y$
+" Map Gundo to F3
+nnoremap <F3> :GundoToggle<CR>
+" This sets SuperTab’s completion type to “context”. Which lets it determine
+" how things should be tab-completed.
+let g:SuperTabDefaultCompletionType = "context"
+" make the tab key match bracket pairs. Much easier to type than %
+nnoremap <tab> %
+vnoremap <tab> %
+" J Joins lines, K kracks lines. Makes that K splits the current line
+map K i<CR><Esc>
+" Map the YankRing Window toggle to F11
+:nnoremap <silent> <F11> :YRShow<CR>
+" Move the yankring file out of ~ and into the .vim_local dir
+let g:yankring_history_dir = '~/.vim_local'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -486,31 +514,6 @@ set statusline+=%*
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Misc
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-" make the tab key match bracket pairs. Much easier to type than %
-nnoremap <tab> %
-vnoremap <tab> %
-" ,v mapping to reselect the text that was just pasted so I can perform
-" commands (like indentation) on it
-nnoremap <leader>v V`]
-" make Y copy until end of line, use yy to copy whole line
-" same way D & dd and C & CC are working...
-map Y y$
-" Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
-" all over the place...
-set nobackup
-" J Joins lines, K kracks lines. Makes that K splits the current line
-map K i<CR><Esc>
-" This sets SuperTab’s completion type to “context”. Which lets it determine
-" how things should be tab-completed.
-let g:SuperTabDefaultCompletionType = "context"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " EOF
