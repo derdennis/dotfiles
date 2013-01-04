@@ -373,35 +373,29 @@ map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
 " Open the Command-T window with ,t
 nnoremap <silent> <Leader>t :CommandT<CR>
 
-" Open the current file with Marked.app for a Markdown preview (OS X only)
-nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Start of all things Markdown
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Use formd to transfer markdown from inline to reference links and vice versa
-" see: http://drbunsen.github.com/formd/
-nmap <leader>fr :%! ~/bin/formd -r<CR>
-nmap <leader>fi :%! ~/bin/formd -i<CR>
+" Setting default fileformat for markdown and textile to octopress
+autocmd BufNewFile,BufRead *.markdown,*.textile set filetype=octopress
+
+" Make SnipMate's markdown snippets work with the octopress filetype
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['octopress'] = 'markdown'
+
+" Create Headings. Underline the current line with = or - by hitting ",1" or ",2"
+nnoremap <leader>1 yypVr=
+nnoremap <leader>2 yypVr-
 
 " Macros to insert Markdownlinks from the clipboard
 " see: http://blog.dsiw-it.de/2012/03/24/vim-makro-link-in-markdown-einfugen/
 au Filetype markdown,mkd,octopress nmap <leader>mlw i[xepa("+P
 au Filetype markdown,mkd,octopress nmap <leader>mlW i[xEpa("+P
 au Filetype markdown,mkd,octopress vmap <leader>ml s[lxhf]hxa("+Pl
-
-" Setting default fileformat for markdown and textile to octopress
-autocmd BufNewFile,BufRead *.markdown,*.textile set filetype=octopress
-
-" Make snipMate's markdown snippets work with the octopress filetype
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['octopress'] = 'markdown'
-
-" This sets SuperTab’s completion type to “context”. Which lets it determine
-" how things should be tab-completed.
-let g:SuperTabDefaultCompletionType = "context"
-
-" Underline the current line with = or - by hitting ",1" or ",2"
-nnoremap <leader>1 yypVr=
-nnoremap <leader>2 yypVr-
 
 " Create a Markdown-link structure for the current word or visual selection with
 " leader 3. Paste in the URL later. Or use leader 4 to insert the current
@@ -410,12 +404,31 @@ nnoremap <Leader>3 ciw[<C-r>"]()<Esc>
 vnoremap <Leader>3 c[<C-r>"]()<Esc>
 nnoremap <Leader>4 ciw[<C-r>"](<Esc>"*pli)<Esc>
 vnoremap <Leader>4 c[<C-r>"](<Esc>"*pli)<Esc>
-"
+
+" Open the current file with Marked.app for a Markdown preview (OS X only)
+nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
+
+" Use formd to transfer markdown from inline to reference links and vice versa
+" see: http://drbunsen.github.com/formd/
+nmap <leader>fr :%! ~/bin/formd -r<CR>
+nmap <leader>fi :%! ~/bin/formd -i<CR>
+
 " Make vim complete lists starting with a "-"
 " via:
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
 set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" End of all things Markdown
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" This sets SuperTab’s completion type to “context”. Which lets it determine
+" how things should be tab-completed.
+let g:SuperTabDefaultCompletionType = "context"
+
+"
 " automatically give executable permissions if file begins with #! and contains
 " '/bin/' in the path
 function! ModeChange()
