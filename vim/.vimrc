@@ -464,20 +464,6 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Distraction free writing
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" via: http://laktek.com/2012/09/05/distraction-free-writing-with-vim/
-" Call via leader df
-map <leader>df :call ToggleDistractionFreeWriting()<CR>
-" Settings for distraction free writing
-let g:fullscreen_colorscheme = "iawriter"
-let g:fullscreen_font = "Cousine:h14"
-let g:normal_colorscheme = "codeschool"
-let g:normal_font="Inconsolata:h14"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
 " Rechtschreibprüfung / Spellcheck
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
