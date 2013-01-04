@@ -376,12 +376,6 @@ let g:snipMate.scope_aliases['octopress'] = 'markdown'
 " Create Headings. Underline the current line with = or - by hitting ",1" or ",2"
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
-" FIXME Do I need these options or are my own (see below) sufficent?
-" Macros to insert Markdownlinks from the clipboard
-" see: http://blog.dsiw-it.de/2012/03/24/vim-makro-link-in-markdown-einfugen/
-au Filetype markdown,mkd,octopress nmap <leader>mlw i[xepa("+p
-au Filetype markdown,mkd,octopress nmap <leader>mlW i[xEpa("+p
-au Filetype markdown,mkd,octopress vmap <leader>ml s[lxhf]hxa("+pl
 " Create a Markdown-link structure for the current word or visual selection with
 " leader 3. Paste in the URL later. Or use leader 4 to insert the current
 " system clipboard as an URL.
@@ -389,7 +383,6 @@ nnoremap <Leader>3 ciw[<C-r>"]()<Esc>
 vnoremap <Leader>3 c[<C-r>"]()<Esc>
 nnoremap <Leader>4 ciw[<C-r>"](<Esc>"*pli)<Esc>
 vnoremap <Leader>4 c[<C-r>"](<Esc>"*pli)<Esc>
-" End of FIXME
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 " Use formd to transfer markdown from inline to reference links and vice versa
