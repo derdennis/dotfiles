@@ -44,48 +44,16 @@ set ttyfast
 " Make the window title reflect the file being edited
 set title
 set titlestring=VIM:\ %F
-" At command line, complete longest common string, then list alternatives.
-set wildmenu
-set wildmode=list:longest,full
-" If available, ignore the case of the completion
-if exists("&wildignorecase")
-    set wildignorecase
-endif
-" Automatically insert the current comment leader
-" after hitting 'o' or 'O' in Normal mode.
-set fo+=o
-" Do not automatically insert a comment leader after an enter
-set fo-=r
-" Do no auto-wrap text using textwidth (does not apply to comments)
-set fo-=t
 " Turn off the bell
 set vb t_vb=
-" Enable the mouse
-set mouse=a
-behave xterm
-set selectmode=mouse
-" Show invisible characters (only here to remind me how to turn it on and off)
-" See http://vimcasts.org/episodes/show-invisibles/ for more information
-set listchars=trail:·,tab:→\ ,eol:¬
-"set list
-set nolist
-" Show incomplete paragraphs
-set display+=lastline
 " Make command line two lines high
 set ch=2
-" Make window height VERY large so they always maximise on window switch
-"set winheight=9999
-" Fix the height of the preview window (would be one line otherwise
-" because of the winheight of 9999). Fix via:
-" http://stackoverflow.com/questions/3712725/can-i-change-vim-completion
-" -preview-window-height
-"set previewheight=20
-"au BufEnter ?* call PreviewHeightWorkAround()
-"func! PreviewHeightWorkAround()
-    "if &previewwindow
-        "exec 'setlocal winheight='.&previewheight
-    "endif
-"endfunc
+" Show (partial) command in status line
+set showcmd
+" Automatically save before commands like :next and :make
+set autowrite
+" Hide buffers when they are abandoned
+set hidden
 " Have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 " Have Vim load indentation rules and plugins according to the detected filetype.
@@ -101,7 +69,17 @@ let mapleader=","
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Status line settings (Should be overwritten by Powerline-Plugin
+" Mouse settings
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable the mouse
+set mouse=a
+behave xterm
+set selectmode=mouse
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Status line settings (Should be overwritten by Powerline-Plugin)
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn on info ruler at the bottom
@@ -113,19 +91,6 @@ set laststatus=2
 set statusline=%t\ %y\ [%c,%l]%=
 " Append the current branch in the statusline if we are in a git repository
 set statusline+=%{fugitive#statusline()}
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Syntastic checks for Syntax Errors
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Make Syntastic show syntax errors in the statusline and at the side
-" Use SyntasticEnable and SyntasticDisable to turn it on and off
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -156,6 +121,13 @@ colorscheme solarized
 " Use the patched DejaVu Font for gvim and macvim
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 let g:Powerline_symbols = 'fancy'
+" Show invisible characters (only here to remind me how to turn it on and off)
+" See http://vimcasts.org/episodes/show-invisibles/ for more information
+set listchars=trail:·,tab:→\ ,eol:¬
+"set list
+set nolist
+" Show incomplete paragraphs
+set display+=lastline
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -207,7 +179,6 @@ autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 " Remove all trailing whitespace in the current file by hitting ,W
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Search & Find & Change
@@ -255,7 +226,6 @@ nnoremap <leader><space> :noh<cr>
 " the g again.
 set gdefault
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Linebreaks, wrappings and format options
@@ -277,17 +247,29 @@ set textwidth=79
 set formatoptions=tcroqln1
 " Start at level 10 with foldings
 set foldlevelstart=10
-
+" Automatically insert the current comment leader
+" after hitting 'o' or 'O' in Normal mode.
+set fo+=o
+" Do not automatically insert a comment leader after an enter
+set fo-=r
+" Do no auto-wrap text using textwidth (does not apply to comments)
+set fo-=t
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Command mode and shell execution
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" At command line, complete longest common string, then list alternatives.
+set wildmenu
+set wildmode=list:longest,full
+" If available, ignore the case of the completion
+if exists("&wildignorecase")
+    set wildignorecase
+endif
 " Make clam jump on the !
 nnoremap ! :Clam<space>
 vnoremap ! :ClamVisual<space>
-
 " Command Mode mappings
 " $q is super useful when browsing on the command line. It deletes everything until
 " the last slash:
@@ -298,7 +280,6 @@ cnoremap <C-E> <End>
 cnoremap <C-K> <C-U>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
-
 " automatically give executable permissions if file begins with #! and contains
 " '/bin/' in the path
 function! ModeChange()
@@ -348,10 +329,14 @@ map tj :tabprev<CR>
 map tn :tabnew<Space>
 map tm :tabm<Space> " Tabmove to position #
 map tx :tabclose<CR>
+" Switch on the nerdtree with ,n
+map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+" Open the Command-T window with ,t
+nnoremap <silent> <Leader>t :CommandT<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Start of all things Markdown
+" All things Markdown
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Setting default fileformat for markdown and textile to octopress
@@ -366,9 +351,9 @@ nnoremap <leader>2 yypVr-
 " FIXME Do I need these options or are my own (see below) sufficent?
 " Macros to insert Markdownlinks from the clipboard
 " see: http://blog.dsiw-it.de/2012/03/24/vim-makro-link-in-markdown-einfugen/
-au Filetype markdown,mkd,octopress nmap <leader>mlw i[xepa("+P
-au Filetype markdown,mkd,octopress nmap <leader>mlW i[xEpa("+P
-au Filetype markdown,mkd,octopress vmap <leader>ml s[lxhf]hxa("+Pl
+au Filetype markdown,mkd,octopress nmap <leader>mlw i[xepa("+p
+au Filetype markdown,mkd,octopress nmap <leader>mlW i[xEpa("+p
+au Filetype markdown,mkd,octopress vmap <leader>ml s[lxhf]hxa("+pl
 " Create a Markdown-link structure for the current word or visual selection with
 " leader 3. Paste in the URL later. Or use leader 4 to insert the current
 " system clipboard as an URL.
@@ -387,6 +372,21 @@ nmap <leader>fi :%! ~/bin/formd -i<CR>
 " via:
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
 set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Version control and diffing
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make CTRL-m jump to the next diff in vimdiff
+map <C-m> ]c
+" Map some shortcuts for fugitive.vim
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -447,46 +447,9 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Misc
+" Distraction free writing
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-" Show (partial) command in status line
-set showcmd
-" Automatically save before commands like :next and :make
-set autowrite
-" Hide buffers when they are abandoned
-set hidden
-" make the tab key match bracket pairs. Much easier to type than %
-nnoremap <tab> %
-vnoremap <tab> %
-" ,v mapping to reselect the text that was just pasted so I can perform
-" commands (like indentation) on it
-nnoremap <leader>v V`]
-" make Y copy until end of line, use yy to copy whole line
-" same way D & dd and C & CC are working...
-map Y y$
-" Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
-" all over the place...
-set nobackup
-" J Joins lines, K kracks lines. Makes that K splits the current line
-map K i<CR><Esc>
-" Make CTRL-m jump to the next diff in vimdiff
-map <C-m> ]c
-" Map some shortcuts for fugitive.vim
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-" Switch on the nerdtree with ,n
-map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
-" Open the Command-T window with ,t
-nnoremap <silent> <Leader>t :CommandT<CR>
-" Distraction free writing
 " via: http://laktek.com/2012/09/05/distraction-free-writing-with-vim/
 " Call via leader df
 map <leader>df :call ToggleDistractionFreeWriting()<CR>
@@ -509,6 +472,42 @@ function! ToggleSpell()
   echo "spell checking language:" g:myLangList[b:myLang]
 endfunction
 nmap <silent> <F7> :call ToggleSpell()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Syntastic checks for Syntax Errors
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make Syntastic show syntax errors in the statusline and at the side
+" Use SyntasticEnable and SyntasticDisable to turn it on and off
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Misc
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" make the tab key match bracket pairs. Much easier to type than %
+nnoremap <tab> %
+vnoremap <tab> %
+" ,v mapping to reselect the text that was just pasted so I can perform
+" commands (like indentation) on it
+nnoremap <leader>v V`]
+" make Y copy until end of line, use yy to copy whole line
+" same way D & dd and C & CC are working...
+map Y y$
+" Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
+" all over the place...
+set nobackup
+" J Joins lines, K kracks lines. Makes that K splits the current line
+map K i<CR><Esc>
 " This sets SuperTab’s completion type to “context”. Which lets it determine
 " how things should be tab-completed.
 let g:SuperTabDefaultCompletionType = "context"
