@@ -19,7 +19,7 @@ end
 
 # Process fancy tags
 content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
-  if fancy =~ /\{% fancy (\S.*\s+)?(https?:\/\/\S+|\/\S+|\S+\/\s+)(\s+\d+\s+\d+)?(\s+.+)? %\}/i
+  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)(\s+\d+\s+\d+)?(\s+.+)? %\}/i
     classes = $1.strip if $1
     src = $2
     size = $3
