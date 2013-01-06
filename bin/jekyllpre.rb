@@ -19,27 +19,18 @@ end
 
 # Process fancy tags
 content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
-  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)\s{1}?(\d+)?\s{1}?(.*)? %\}/i
+  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)\s{1}(\d*) %\}/i
     classes = $1.strip if $1
     src = $2
     width = $3
-    title = $4
 
-puts "Das ist die src: #{src}"
-puts "Das ist die classes: #{classes}"
-puts "Das ist die width: #{width}"
-puts "Das ist die title: #{title}"
-
-    if /(?:"|')([^"']+)?(?:"|')\s+(?:"|')([^"']+)?(?:"|')/ =~ title
-      title  = $1
-      alt    = $2
-    else
-      alt    = title.gsub!(/"/, '&#34;') if title
-    end
     classes.gsub!(/"/, '') if classes
   end
 
-  %Q{<img src="../images/#{src}" width="#{width}" alt="#{alt}" class="#{classes}" title="#{title}">}
+  style = %Q{ style="float:right;margin:0 0 10px 10px"} if classes =~ /right/
+  style = %Q{ style="float:left;margin:0 10px 10px 0"} if classes =~ /left/
+
+  %Q{<img src="../images/#{src}" width="#{width}" class="#{classes}"#{style}>}
 }
 # Process image Liquid tags
 content.gsub!(/\{% img (.*?) %\}/) {|img|
