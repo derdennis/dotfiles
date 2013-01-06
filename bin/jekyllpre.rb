@@ -27,8 +27,9 @@ content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
     classes.gsub!(/"/, '') if classes
   end
 
-  style = %Q{ style="float:right;margin:0 0 10px 10px"} if classes =~ /right/
-  style = %Q{ style="float:left;margin:0 10px 10px 0"} if classes =~ /left/
+  style = %Q{ style="float:left;margin-right: 1.5em"} if classes =~ /left/
+  style = %Q{ style="float:right;margin-left: 1.5em"} if classes =~ /right/
+  style = %Q{ style="display:block;margin: 0 auto 1.5em"} if classes =~/center/
 
   %Q{<img src="../images/#{src}" width="#{width}" class="#{classes}"#{style}>}
 }
