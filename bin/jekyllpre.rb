@@ -19,10 +19,10 @@ end
 
 # Process fancy tags
 content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
-  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)(\s+\d+\s+\d+)?(\s+.+)? %\}/i
+  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)\s{1}(\d+)?\s{1}(.+)? %\}/i
     classes = $1.strip if $1
     src = $2
-    size = $3
+    width = $3
     title = $4
 
     if /(?:"|')([^"']+)?(?:"|')\s+(?:"|')([^"']+)?(?:"|')/ =~ title
@@ -37,7 +37,7 @@ content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
   style = %Q{ style="float:right;margin:0 0 10px 10px"} if classes =~ /right/
   style = %Q{ style="float:left;margin:0 10px 10px 0"} if classes =~ /left/
 
-  %Q{<img src="../images/#{src}" alt="#{alt}" class="#{classes}" title="#{title}"#{style}>}
+  %Q{<img src="../images/#{src}" width="#{width}" alt="#{alt}" class="#{classes}" title="#{title}"#{style}>}
 }
 # Process image Liquid tags
 content.gsub!(/\{% img (.*?) %\}/) {|img|
