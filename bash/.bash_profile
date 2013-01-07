@@ -29,14 +29,21 @@ esac
 
 case $platform in
     'macosx')
-        # OS-X Specific, with MacPorts, Git and MySQL installed and some self compiled stuff. ie upslug2 for installin nslu2...
+        # OS-X Specific, with MacPorts, Git and MySQL installed and some self
+        # compiled stuff. ie upslug2 for installin nslu2...
         export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin/:/usr/local/sbin:$PATH
         ;;
 esac
 
-# add your bin folder to the path, if you have it.  It's a good place to add all your scripts
+# add your bin folder to the path, if you have it.  It's a good place to add all
+# your scripts
 if [ -d ~/bin ]; then
 	export PATH=:~/bin:$PATH  
+fi
+
+# Add RVM to PATH for scripting if RVM is installed
+if [ -d ~/.rvm/bin ]; then
+    export PATH=$PATH:$HOME/.rvm/bin 
 fi
 
 # UTF-8 locale ----------------------------------------------------
@@ -86,14 +93,18 @@ fi
 
 
 # Notes: ----------------------------------------------------------
-# When you start an interactive shell (log into the console, open terminal/xterm/iTerm, or create a new tab in iTerm) the following files are read and run, in this order:
+# When you start an interactive shell (log into the console, open
+# terminal/xterm/iTerm, or create a new tab in iTerm) the following files are
+# read and run, in this order:
 # 
 # /etc/profile
 # /etc/bashrc
 # ~/.bash_profile
 # ~/.bashrc (Note: only if you call it in .bash_profile or somewhere else)
 #
-# When an interactive shell, that is not a login shell, is started (when you call "bash" from inside a login shell, or open a new tab in Linux) the following files are read and executed, in this order:
+# When an interactive shell, that is not a login shell, is started (when you
+# call "bash" from inside a login shell, or open a new tab in Linux) the
+# following files are read and executed, in this order:
 # 
 # /etc/bashrc
 # ~/.bashrc
