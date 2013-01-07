@@ -489,6 +489,9 @@ else
     alias tmux='TERM=screen-256color tmux -2'
 fi
 
+# Get the current weather in Essen, Germany
+alias weather='weatherman "Essen, Germany"'
+
 # Be nice to your computer
 alias please='sudo'
 
