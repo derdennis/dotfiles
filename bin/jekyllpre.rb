@@ -33,11 +33,13 @@ end
 # <blockquote><p>What good shall I do this day?<br />What good have I done today?</p></blockquote>
 #
 
-content.gsub!(/\{% blockquote(.*?) %\}/) {|blockquote|
-    if parts = blockquote.match(/\{% blockquote ([\d]*) (.*?)?%\}/)
-      blockquote = parts[1].strip
-      file = parts[2].nil? ? '' : "?file-#{parts[2].strip}"
-      %Q{<script src="https://gist.github.com/#{gist_id}.js#{file}"></script>}
+content.gsub!(/\{% blockquote(.*?) %\}$(.*)\{% endblockquote %\}/m) {|blockquote|
+    if blockquote =~ /\{% blockquote(.*?) %\}$(.*)\{% endblockquote %\}/m
+        puts "MATCHING BLOCKQUOTE!!!"
+        author = $1
+        quote = $2
+        puts author
+        puts quote
     else
       ""
     end
