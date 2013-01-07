@@ -20,9 +20,22 @@ def e_sh(str)
 end
 
 # Process blockquote tags
-content.gsub!(/\{% gist(.*?) %\}/) {|gist|
-    if parts = gist.match(/\{% gist ([\d]*) (.*?)?%\}/)
-      gist_id = parts[1].strip
+# 
+# Should turn:
+# 
+# {% blockquote Benjamin Franklin %}
+# What good shall I do this day?
+# What good have I done today?
+# {% endblockquote %}</p>
+# 
+# into:
+# 
+# <blockquote><p>What good shall I do this day?<br />What good have I done today?</p></blockquote>
+#
+
+content.gsub!(/\{% blockquote(.*?) %\}/) {|blockquote|
+    if parts = blockquote.match(/\{% blockquote ([\d]*) (.*?)?%\}/)
+      blockquote = parts[1].strip
       file = parts[2].nil? ? '' : "?file-#{parts[2].strip}"
       %Q{<script src="https://gist.github.com/#{gist_id}.js#{file}"></script>}
     else
