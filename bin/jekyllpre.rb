@@ -19,6 +19,17 @@ def e_sh(str)
   str.to_s.gsub(/(?=[^a-zA-Z0-9_.\/\-\n])/, '\\').gsub(/\n/, "'\n'").sub(/^$/, "''")
 end
 
+# Process blockquote tags
+content.gsub!(/\{% gist(.*?) %\}/) {|gist|
+    if parts = gist.match(/\{% gist ([\d]*) (.*?)?%\}/)
+      gist_id = parts[1].strip
+      file = parts[2].nil? ? '' : "?file-#{parts[2].strip}"
+      %Q{<script src="https://gist.github.com/#{gist_id}.js#{file}"></script>}
+    else
+      ""
+    end
+}
+
 # Process fancy tags
 content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
   if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)\s{1}?(\d*)?\s{1}?(.+)? %\}/i
