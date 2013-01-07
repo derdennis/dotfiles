@@ -21,13 +21,18 @@ end
 
 # Process fancy tags
 content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
-  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)\s{1}?(\d*)? %\}/i
+  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)\s{1}?(\d*)?\s{1}?(.+)? %\}/i
     classes = $1.strip if $1
     src = $2
     width = $3
     title = $4
-    puts RUBY_VERSION
-    puts "MATCHING! #{src}"
+
+    if /(?:"|')([^"']+)?(?:"|')\s+(?:"|')([^"']+)?(?:"|')/ =~ title
+      title  = $1
+      alt    = $2
+    else
+      alt    = title.gsub!(/"/, '&#34;') if title
+    end
     classes.gsub!(/"/, '') if classes
   end
 
@@ -35,8 +40,9 @@ content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
   style = %Q{ style="float:right;margin-left: 1.5em"} if classes =~ /right/
   style = %Q{ style="display:block;margin: 0 auto 1.5em"} if classes =~/center/
 
-  %Q{<img src="../images/#{src}" width="#{width}" class="#{classes}"#{style}>}
+  %Q{<img src="../images/#{src}" alt="#{alt}" width="#{width}" class="#{classes}" title="#{title}"  #{style}>}
 }
+
 # Process image Liquid tags
 content.gsub!(/\{% img (.*?) %\}/) {|img|
   if img =~ /\{% img (\S.*\s+)?(https?:\/\/\S+|\/\S+|\S+\/\s+)(\s+\d+\s+\d+)?(\s+.+)? %\}/i
@@ -44,8 +50,6 @@ content.gsub!(/\{% img (.*?) %\}/) {|img|
     src = $2
     size = $3
     title = $4
-
-
 
     if /(?:"|')([^"']+)?(?:"|')\s+(?:"|')([^"']+)?(?:"|')/ =~ title
       title  = $1
