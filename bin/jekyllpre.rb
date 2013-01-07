@@ -1,5 +1,4 @@
 #!/usr/bin/env /Users/dennis/.rvm/rubies/ruby-1.9.2-p290/bin/ruby
-#encoding: UTF-8
 
 # #!/usr/bin/ruby
 # For use with Marked <http://markedapp.com> and Jekyll _posts
@@ -17,7 +16,7 @@
 content = STDIN.read
 
 def e_sh(str)
-  str.to_s.gsub(/(?=[^a-zA-Z0-9_.\/\-\x7F-\xFF\n])/, '\\').gsub(/\n/, "'\n'").sub(/^$/, "''")
+  str.to_s.gsub(/(?=[^a-zA-Z0-9_.\/\-\n])/, '\\').gsub(/\n/, "'\n'").sub(/^$/, "''")
 end
 
 # Process fancy tags
