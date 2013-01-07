@@ -1,4 +1,7 @@
-#!/usr/bin/ruby
+#!/usr/bin/env /Users/dennis/.rvm/rubies/ruby-1.9.2-p290/bin/ruby
+#encoding: UTF-8
+
+# #!/usr/bin/ruby
 # For use with Marked <http://markedapp.com> and Jekyll _posts
 #   turns
 # {% img alignright /images/heythere.jpg 100 100 "Hey there" "hi" %}
@@ -19,11 +22,13 @@ end
 
 # Process fancy tags
 content.gsub!(/\{% fancy (.*?) %\}/) {|fancy|
-  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)\s{1}(\d*) %\}/i
+  if fancy =~ /\{% fancy (left|right|center)?\s{1}(\S+)\s{1}?(\d*)? %\}/i
     classes = $1.strip if $1
     src = $2
     width = $3
-
+    title = $4
+    puts RUBY_VERSION
+    puts "MATCHING! #{src}"
     classes.gsub!(/"/, '') if classes
   end
 
