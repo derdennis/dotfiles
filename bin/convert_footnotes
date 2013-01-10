@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+def e_sh(str)
+    str.to_s.gsub(/(?=[^a-zA-Z0-9_.\/\-\x7F-\xFF\n])/n, '\\')
+end
+
+input = STDIN.read
+
+footnotes = input.scan(/\(\*(.*?)\*\)/m)
+existing = input.scan(/^\[\^fn(\d+)\]: /i)
+counter = existing.empty? ? 1 : existing.uniq.sort[-1].join.to_i + 1
+
+output = []
+footnotes.each {|note|
+    output << {'orig' => note[0], 'title' => "fn#{counter}", 'footnote' => note[0] }
+    counter += 1
+}
+
+o = []
+output.each_with_index { |x,i|
+    o.push("[^#{x['title']}]: #{x['footnote'].gsub(/\n\n(\s*.)/,"\n\n\t\\1")}")
+    input.gsub!(/\(\*#{e_sh x['orig']}\*\)/m,"[^#{x['title']}]")
+}
+puts input.strip + "\n\n#{o.join("\n\n")}\n"
