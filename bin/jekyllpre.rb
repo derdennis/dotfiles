@@ -33,16 +33,18 @@ end
 # <blockquote><p>What good shall I do this day?<br />What good have I done today?</p></blockquote>
 #
 
-content.gsub!(/\{% blockquote(.*?) %\}$(.*)\{% endblockquote %\}/m) {|blockquote|
-    if blockquote =~ /\{% blockquote(.*?) %\}$(.*)\{% endblockquote %\}/m
-        puts "MATCHING BLOCKQUOTE!!!"
-        author = $1
-        quote = $2
-        puts author
-        puts quote
-    else
-      ""
+content.gsub!(/\{% blockquote(.*?) %\}$(.*?)\{% endblockquote %\}/m) {|blockquote|
+    if blockquote =~ /\{% blockquote(.*?) %\}$(.*?)\{% endblockquote %\}/m
+        author = $1.strip
+        quote = $2.strip.gsub /\n/, '<br />'
+
+        if author =~ /(.+),(.+)/
+            author = $1.strip
+            source = $2.strip
+        end
+
     end
+    %Q{<blockquote><p>#{quote}</p><footer><strong>#{author}</strong> <cite>#{source}</cite></footer></blockquote>}
 }
 
 # Process fancy tags
