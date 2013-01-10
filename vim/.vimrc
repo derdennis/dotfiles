@@ -385,6 +385,11 @@ nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 " see: http://drbunsen.github.com/formd/
 nmap <leader>fr :%! ~/bin/formd -r<CR>
 nmap <leader>fi :%! ~/bin/formd -i<CR>
+" Use convert_footnotes to make MultiMarkdown footnotes out of (*Some
+" footnote*)...
+" Original Script by Brett Terpstra, see:
+" http://brettterpstra.com/2012/01/24/a-service-for-writing-multimarkdown-footnotes-inline/
+nmap <leader>fn :%! ~/bin/convert_footnotes<CR>
 " Make vim complete lists starting with a "-"
 " via:
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
