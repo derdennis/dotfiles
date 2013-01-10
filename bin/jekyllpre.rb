@@ -38,12 +38,20 @@ content.gsub!(/\{% blockquote(.*?) %\}$(.*?)\{% endblockquote %\}/m) {|blockquot
         author = $1.strip
         quote = $2.strip.gsub /\n/, '<br />'
 
+        # Chech for Author with source after comma
         if author =~ /(.+),(.+)/
-            author = $1.strip
+            author = $1
             source = $2.strip
         end
 
+        # Check for Author with source and link
+        if author =~ /(\S.*)\s+(https?:\/\/)(\S+)\s+(.+)/
+            author = $1
+            source = '<a href="'+$2+$3+'">'+$4+'</a>'
+        end
+
     end
+
     %Q{<blockquote><p>#{quote}</p><footer><strong>#{author}</strong> <cite>#{source}</cite></footer></blockquote>}
 }
 
