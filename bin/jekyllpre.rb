@@ -1,6 +1,7 @@
 #!/usr/bin/env /Users/dennis/.rvm/rubies/ruby-1.9.2-p290/bin/ruby
 
 # #!/usr/bin/ruby
+
 # For use with Marked <http://markedapp.com> and Jekyll _posts
 #   turns
 # {% img alignright /images/heythere.jpg 100 100 "Hey there" "hi" %}
@@ -13,7 +14,17 @@
 #
 # Processes final output with /usr/bin/kramdown (install kramdown as system gem: `sudo gem install kramdown`)
 
+%x( export LANG="de:DE.UTF-8" )
+%x( export LC_COLLATE="de_DE.UTF-8" )
+%x( export LC_CTYPE="de_DE.UTF-8" )
+%x( export LC_MESSAGES="de_DE.UTF-8" )
+%x( export LC_MONETARY="de_DE.UTF-8" )
+%x( export LC_NUMERIC="de_DE.UTF-8" )
+%x( export LC_TIME="de_DE.UTF-8" )
+%x( export LC_ALL="de_DE.UTF-8" )
+
 content = STDIN.read
+#content = File.read ARGV[0]
 
 def e_sh(str)
   str.to_s.gsub(/(?=[^a-zA-Z0-9_.\/\-\n])/, '\\').gsub(/\n/, "'\n'").sub(/^$/, "''")
