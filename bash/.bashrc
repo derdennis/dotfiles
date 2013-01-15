@@ -459,6 +459,22 @@ extract () {
      fi
 }
 
+# cf x test.txt xreates a file of x MB named test.txt
+# Defaults to 10 MB and a name of upload_file.txt
+# Via:
+# http://alias.sh/create-arbiturary-size-file
+cf() {
+    upload_file="upload_file.txt"
+    mbs=1048576
+
+    if [ -n "$2" ]; then
+        upload_file="$2"
+    fi
+
+    let size=`expr $mbs*$1`;
+    dd if=/dev/zero of="$upload_file" bs=$size count=1
+}
+
 # Misc
 alias g='grep -i'  # Case insensitive grep
 alias ff='find . -iname'
