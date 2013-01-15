@@ -498,8 +498,7 @@ esac
 
 alias m='more'
 alias df='df -h'
-alias funfact='lynx -dump randomfunfacts.com | grep -A 8 "Useless tidbits of knowledge to impress your friends with." | sed "1,4d" | grep -v "View More Random Fun Facts" | grep "."'
-
+alias funfact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
 # Aliasing the ridiculous long path tho the jekyll binary
 alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
 
@@ -515,6 +514,11 @@ if [[ "$platform" = "macosx" ]]; then
 else
     alias tmux='TERM=screen-256color tmux -2'
 fi
+
+# Use sssh in place of ssh to reconnect or start a new tmux or screen session
+# on the remote side. Via:
+# http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
+sssh (){ ssh -t "$1" 'tmux attach || tmux new || screen -DR'; }
 
 # Get the current weather in Essen, Germany
 alias weather='weatherman "Essen, Germany"'
