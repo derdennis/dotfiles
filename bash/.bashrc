@@ -493,6 +493,8 @@ alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in 
 case $platform in
     'macosx')
         alias top='top -o cpu'
+        # Quick look a file (^C to close)
+        alias ql='qlmanage -p 2>/dev/null'
         ;;
 esac
 
