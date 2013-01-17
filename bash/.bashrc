@@ -417,6 +417,11 @@ alias pg='ps axw | grep -i'
 # Quickly ack all files, ignoring case
 alias aa='ack -ai'
 
+# Use pry instead of irb if available on the system
+if command_exists pry ; then
+    alias irb='pry'
+fi
+
 # Use fasd if available on the system
 if command_exists fasd ; then
     eval "$(fasd --init auto)"
