@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 # Clear my screen
-puts "\e[H\e[2J"
+#puts "\e[H\e[2J"
 
 Dir.glob("#{ENV['HOME']}/*/.git", File::FNM_DOTMATCH).each do |git_dir|
     git_work_tree = git_dir.gsub(/\.git/, '')
