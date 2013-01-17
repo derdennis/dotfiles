@@ -62,9 +62,15 @@ set showcmd
 set autowrite
 " Hide buffers when they are abandoned
 set hidden
+" Remember more commands and search history
+set history=1000
+" Use many muchos levels of undo
+set undolevels=1000
 " Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
 " all over the place...
 set nobackup
+" Don't litter .swp files
+set noswapfile
 " Have Vim jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 " Have Vim load indentation rules and plugins according to the detected filetype.
@@ -289,6 +295,8 @@ function! ModeChange()
 endfunction
 
 au BufWritePost * call ModeChange()
+" sudo to write to files I don't have permission to...
+cmap w!! w !sudo tee % >/dev/null
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
