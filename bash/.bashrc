@@ -495,7 +495,11 @@ case $platform in
         alias top='top -o cpu'
         # Quick look a file (^C to close)
         alias ql='qlmanage -p 2>/dev/null'
-        ;;
+        # pretty man pages in Preview.app
+        function pman() {
+        man $1 -t | open -f -a Preview
+        }
+    ;;
 esac
 
 # function to explore system.log on OS X and syslog on Linux
