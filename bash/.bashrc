@@ -217,6 +217,8 @@ fi
 alias g='git'
 # Autocomplete for 'g' as well
 complete -o default -o nospace -F _git g
+# Get a funky commit message from whatthecommit.com...
+alias gen_commit_message='curl http://whatthecommit.com/index.txt'
 
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
