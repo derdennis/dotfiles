@@ -213,6 +213,11 @@ if [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
+# alias git to g, saving me 66% on typing time! Also, I’m lazy.
+alias g='git'
+# Autocomplete for 'g' as well
+complete -o default -o nospace -F _git g
+
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
@@ -481,7 +486,6 @@ cf() {
 }
 
 # Misc
-alias g='grep -i'  # Case insensitive grep
 alias ff='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 
