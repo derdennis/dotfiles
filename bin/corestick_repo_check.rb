@@ -48,7 +48,7 @@ Dir.glob("#{ENV['HOME']}/*/.git", File::FNM_DOTMATCH).each do |git_dir|
         #puts "Status: #{remote_status}"
     else
         puts "#{git_repo_name} needs your attention.".red
-        #puts "Status: #{remote_status}"
+        puts "Status: #{remote_status}".yellow
     end
 end
 
