@@ -28,9 +28,23 @@
     d = difftool
     track = !sh -c 'git branch --track "$0" "$1" && git checkout "$0"'
     ignored = "!git ls-files --others --exclude-standard"
+    wd = diff --word-diff="color"
+    wds = diff --word-diff="color" --staged
 
 [diff]
 	tool = vimdiff
+    # Allow git diff to do basic rename and copy detection
+	renames = copies
+    # Tell git diff to use mnemonic prefixes (index, work tree, commit, object)
+    # instead of the standard a and b notation
+	mnemonicprefix = true
 
 [difftool]
 	prompt = false
+[branch]
+    # When branching off a remote branch, automatically let the local branch
+    # track the remote branch
+	autosetupmerge = true
+[merge]
+    # Always show a diffstat at the end of a merge
+	stat = true
