@@ -12,7 +12,7 @@ Dir.glob("#{ENV['HOME']}/*/.git", File::FNM_DOTMATCH).each do |git_dir|
     git_work_tree = git_dir.gsub(/\.git/, '')
     git_repo_name = git_work_tree.gsub(/#{ENV['HOME']}/, '').gsub(/\//, '')
 
-    remote_repo=`git --git-dir=/home/dennis/.dotfiles/.git --work-tree=/home/dennis/.dotfiles remote -v | tail -n1`.gsub(/\(.*$/,"").gsub(/^.*?\s/,"").strip
+    remote_repo=`git --git-dir=#{git_dir} --work-tree=#{git_work_tree} remote -v | grep corestick | tail -n1`.gsub(/\(.*$/,"").gsub(/^.*?\s/,"").strip
     if File.exists?(remote_repo)
         #puts "Yeah, #{git_repo_name} got a remote."
         #puts ""
