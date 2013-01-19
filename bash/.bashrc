@@ -213,6 +213,13 @@ if [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
+# alias git to g, saving me 66% on typing time! Also, I’m lazy.
+alias g='git'
+# Autocomplete for 'g' as well
+complete -o default -o nospace -F _git g
+# Get a funky commit message from whatthecommit.com...
+alias gen_commit_message='curl http://whatthecommit.com/index.txt'
+
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
 }
@@ -327,7 +334,10 @@ function xtitle {  # change the title of your xterm* window
 
 # Navigation -------------------------------------------------------
 alias ..='cd ..'
-alias ...='cd .. ; cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias ......='cd ../../../../../'
 
 # Correct things like dropped or swapped characters in the path you type
 shopt -s cdspell
@@ -414,6 +424,11 @@ alias pg='ps axw | grep -i'
 # Quickly ack all files, ignoring case
 alias aa='ack -ai'
 
+# Use pry instead of irb if available on the system
+if command_exists pry ; then
+    alias irb='pry'
+fi
+
 # Use fasd if available on the system
 if command_exists fasd ; then
     eval "$(fasd --init auto)"
@@ -432,8 +447,47 @@ if command_exists fasd ; then
 
 fi
 
+# Use extract function to simply extract all kind of archives with the same
+# command. Via:
+# http://alias.sh/extract-most-know-archives-one-command
+extract () {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjf $1     ;;
+        *.tar.gz)    tar xzf $1     ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xf $1      ;;
+        *.tbz2)      tar xjf $1     ;;
+        *.tgz)       tar xzf $1     ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)     echo "'$1' cannot be extracted via extract()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+# cf x test.txt xreates a file of x MB named test.txt
+# Defaults to 10 MB and a name of upload_file.txt
+# Via:
+# http://alias.sh/create-arbiturary-size-file
+cf() {
+    upload_file="upload_file.txt"
+    mbs=1048576
+
+    if [ -n "$2" ]; then
+        upload_file="$2"
+    fi
+
+    let size=`expr $mbs*$1`;
+    dd if=/dev/zero of="$upload_file" bs=$size count=1
+}
+
 # Misc
-alias g='grep -i'  # Case insensitive grep
 alias ff='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 
@@ -441,7 +495,13 @@ alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in 
 case $platform in
     'macosx')
         alias top='top -o cpu'
-        ;;
+        # Quick look a file (^C to close)
+        alias ql='qlmanage -p 2>/dev/null'
+        # pretty man pages in Preview.app
+        function pman() {
+        man $1 -t | open -f -a Preview
+        }
+    ;;
 esac
 
 # function to explore system.log on OS X and syslog on Linux
@@ -471,8 +531,7 @@ esac
 
 alias m='more'
 alias df='df -h'
-alias funfact='lynx -dump randomfunfacts.com | grep -A 8 "Useless tidbits of knowledge to impress your friends with." | sed "1,4d" | grep -v "View More Random Fun Facts" | grep "."'
-
+alias funfact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
 # Aliasing the ridiculous long path tho the jekyll binary
 alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
 
@@ -488,6 +547,14 @@ if [[ "$platform" = "macosx" ]]; then
 else
     alias tmux='TERM=screen-256color tmux -2'
 fi
+
+# Use sssh in place of ssh to reconnect or start a new tmux or screen session
+# on the remote side. Via:
+# http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
+sssh (){ ssh -t "$1" 'tmux attach || tmux new || screen -DR'; }
+
+# Get the current weather in Essen, Germany
+alias weather='weatherman "Essen, Germany"'
 
 # Be nice to your computer
 alias please='sudo'
