@@ -146,6 +146,16 @@ se t_Co=256
 " Turn on the Solarized colorscheme (See http://ethanschoonover.com/solarized)
 colorscheme solarized
 
+"   For Panic Prompt that lacks presets run the 256-colour-version, and
+"   don't use a background colour due to rendering issue.
+
+if &term == "xterm-color"
+    set t_Co=256
+    let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+endif
+
+
 " Powerline FontStuff
 " Use the patched DejaVu Font for gvim and macvim
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
