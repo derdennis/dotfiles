@@ -57,9 +57,7 @@ wishlist.each do |item|
 title = item.css("span.small strong a").text.gsub(/in diesem Shop einkaufen/,'')
 
 # Get the URL of each title
-item.css("span.small strong a").each{|link| $amz_url= link['href']}
-#urlthings.each{|link| $amz_url= link['href']}
-puts $amz_url
+item.css("span.small strong a").each{|link| $url= link['href']}
 
 
 # Get the autor (or whatever it is) and adjust it for books and DVDs. Leave
@@ -68,14 +66,16 @@ autor = item.css("span.tiny").text.gsub(/Alle Kaufmöglichkeiten$/,'').strip
 if autor =~ /von|DVD/
     autor = autor.gsub(/Angeboten von.*?DVD ~/,'DVD ~')
 else
-    autor = "BLUB"
+    autor = ""
 end
 
 # Get the price
 price = item.css("span.price").text
 
 # Output:
-puts wl_index.to_s + " " + title + " " + autor + " " + price 
+puts "#{wl_index.to_s}. [#{title}](URL comes here) #{autor} zu einem Preis von #{price}"
+
+#puts wl_index.to_s + "." + " " + "[" + title + "]" + " " + autor + " " + "zu einem Preis von " + price 
 
 # Increase the counter
 wl_index+=1
