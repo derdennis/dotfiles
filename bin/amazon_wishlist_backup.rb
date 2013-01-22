@@ -59,7 +59,6 @@ title = item.css("span.small strong a").text.gsub(/in diesem Shop einkaufen/,'')
 # Get the URL of each title
 item.css("span.small strong a").each{|link| $url= link['href']}
 
-
 # Get the autor (or whatever it is) and adjust it for books and DVDs. Leave
 # empty if neither "von" nor "DVD" is found.
 autor = item.css("span.tiny").text.gsub(/Alle Kaufmöglichkeiten$/,'').strip
@@ -73,9 +72,7 @@ end
 price = item.css("span.price").text
 
 # Output:
-puts "#{wl_index.to_s}. [#{title}](URL comes here) #{autor} zu einem Preis von #{price}"
-
-#puts wl_index.to_s + "." + " " + "[" + title + "]" + " " + autor + " " + "zu einem Preis von " + price 
+puts "#{wl_index.to_s}. [#{title}](#{$url}) #{autor} zu einem Preis von #{price}"
 
 # Increase the counter
 wl_index+=1
