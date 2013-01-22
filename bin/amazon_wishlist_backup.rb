@@ -25,31 +25,46 @@ test = Nokogiri::HTML(open('/home/dennis/amz_test_page.html'))
 #page.css('div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items itemWrapper').each do |el|
        #puts el.text
 #end
-puts "Class of page"
-puts page.class
 
-items = page.css("html body.noBeaconUI div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items tbody.itemWrapper")
+wishlist = page.css("html body.noBeaconUI div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items tbody.itemWrapper")
 
 puts "Length of items"
-puts items.length
+puts wishlist.length
 
-puts "first item:"
-puts items[0]
+#puts "first item:"
+#puts wishlist[0]
 puts ""
 puts ""
 puts ""
 puts ""
-
-puts "Tiny selectors:"
-puts items[0].css("span.tiny").text
-
-puts "Price selectors:"
-puts items[0].css("span.price").text
 
 puts "Title selectors:"
-puts items[0].css("span.small strong a").text
+puts wishlist[3].css("span.small strong a").text
+
+puts "Tiny selectors:"
+puts wishlist[3].css("span.tiny").text
+
+puts "Price selectors:"
+puts wishlist[3].css("span.price").text
+
+
+puts "Autor? selectors:"
+puts wishlist[3].css("span.small").text
+
+puts "List"
+puts ""
+
+wl_index=0
+wishlist.each do |item|
+title = item.css("span.small strong a").text.gsub(/in diesem Shop einkaufen/,'')
+autor = item.css("span.tiny").text
+price = item.css("span.price").text
+
+puts wl_index.to_s + " " + title + " " + price
+wl_index+=1
+
+end
+
+
+
 exit
-tiny = page.css("html body.noBeaconUI div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items tbody.itemWrapper tr td span.tiny")
-
-
-
