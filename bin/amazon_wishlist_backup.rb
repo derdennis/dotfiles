@@ -33,34 +33,35 @@ puts wishlist.length
 
 #puts "first item:"
 #puts wishlist[0]
-puts ""
-puts ""
-puts ""
-puts ""
 
-puts "Title selectors:"
-puts wishlist[3].css("span.small strong a").text
+#puts "Title selectors:"
+#puts wishlist[59].css("span.small strong a").text
 
-puts "Tiny selectors:"
-puts wishlist[3].css("span.tiny").text
+#puts "Tiny selectors:"
+#puts wishlist[59].css("span.tiny").text.gsub(/Alle Kaufmöglichkeiten$/,'').strip
 
-puts "Price selectors:"
-puts wishlist[3].css("span.price").text
-
-
-puts "Autor? selectors:"
-puts wishlist[3].css("span.small").text
-
+#puts "Price selectors:"
+#puts wishlist[59].css("span.price").text
 puts "List"
 puts ""
 
 wl_index=0
 wishlist.each do |item|
 title = item.css("span.small strong a").text.gsub(/in diesem Shop einkaufen/,'')
-autor = item.css("span.tiny").text
+
+
+autor = item.css("span.tiny").text.gsub(/Alle Kaufmöglichkeiten$/,'').strip
+if autor =~ /von|DVD/
+    autor = autor.gsub(/Angeboten von.*?DVD ~/,'DVD ~')
+else
+    autor = "BLUB"
+end
+
+
+
 price = item.css("span.price").text
 
-puts wl_index.to_s + " " + title + " " + price
+puts wl_index.to_s + " " + title + " " + autor + " " + price 
 wl_index+=1
 
 end
