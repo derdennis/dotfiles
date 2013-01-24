@@ -8,58 +8,59 @@ require "open-uri"
 # Clear my screen
 puts "\e[H\e[2J"
 
-# Live amazon wishlist page 1
-#page = Nokogiri::HTML(open('http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?layout=compact'))
-#
-#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?_encoding=UTF8&layout=compact&page=1
-#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?_encoding=UTF8&layout=compact&page=2
-#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?_encoding=UTF8&layout=compact&page=3
-#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?_encoding=UTF8&layout=compact&page=4
-#
-# Local amazon wishlist page 1
-#page = Nokogiri::HTML(open('/home/dennis/amz_wishlist_test/amz_wishlist_page1.html'))
-page = Nokogiri::HTML(open('/home/dennis/amz_wishlist_test/amz_w_2_no_compact.html'))
-# Local test page to test out various things
-test = Nokogiri::HTML(open('/home/dennis/amz_wishlist_test/amz_test_page.html'))
-
+# Live amazon wishlist pages:
+#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=1
+#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=2
+#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=3
+#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=4
+# ...15
+# Local amazon wishlist pages
+LOCAL_DIR = '/home/dennis/amz_wishlist_test'
+page = Nokogiri::HTML(open("/home/dennis/amz_wishlist_test/amz_w_1.html"))
 # Web Scraping according to http://ruby.bastardsbook.com/chapters/html-parsing/
 # and http://ruby.bastardsbook.com/chapters/web-crawling/
 
 current_pagenumber = page.css("span[@class='page-number']")
 puts "Current pagenumber: #{current_pagenumber.text}"
 
-number_of_pages = page.css("span[@class='num-pages']")
-puts "Number of pages: #{number_of_pages.text}"
-
+number_of_pages = page.css("span[@class='num-pages']").text
+puts "Number of pages: #{number_of_pages}"
+number_of_pages="3" #FIXME
 itemcount = page.css("span[@id='topItemCount']")
 puts "Items on wishlist (all pages): #{itemcount.text}"
 
-
-wishlist = page.css("div[@class='list-items']")
-
-
+# Iterating through local files
 wl_index=0
+for pg_number in 1..number_of_pages.to_i do
+    puts "Getting #{LOCAL_DIR}amz_w_#{pg_number}.html"
 
-wishlist.each do |item|
-    current_item = item.css("tbody[@class='itemWrapper']")
-    current_item.each do |stuff|
-        title = stuff.css("span[@class='small productTitle']").text.gsub(/in diesem Shop einkaufen/,'').strip
+page = Nokogiri::HTML(open("/home/dennis/amz_wishlist_test/amz_w_#{pg_number}.html"))
 
-        # Get the URL of each title
-        stuff.css("span[@class='small productTitle'] strong a").each{|link| $url=link['href']}
+    wishlist = page.css("div[@class='list-items']")
 
-        autor = stuff.css("span[@class='authorPart']").text.strip
 
-        # Get the price
-        price = stuff.css("span[@class='wlPriceBold']").text
 
-        # Output:
-        puts "#{wl_index.to_s}. [#{title}](#{$url}) #{autor} zu einem Preis von #{price}"
+    wishlist.each do |item|
+        current_item = item.css("tbody[@class='itemWrapper']")
+        current_item.each do |stuff|
+            title = stuff.css("span[@class='small productTitle']").text.gsub(/in diesem Shop einkaufen/,'').strip
 
-        # Increase the counter
-        wl_index+=1
-    end
-end
+            # Get the URL of each title
+            stuff.css("span[@class='small productTitle'] strong a").each{|link| $url=link['href']}
+            # Get the author, or whatever it is...
+            author = stuff.css("span[@class='authorPart']").text.strip
+
+            # Get the price
+            price = stuff.css("span[@class='wlPriceBold']").text
+
+            # Output:
+            puts "#{wl_index.to_s}. [#{title}](#{$url}) #{author} zu einem Preis von #{price}"
+
+            # Increase the counter
+            wl_index+=1
+        end # done: current_item.each
+    end # done: wishlist.each
+end # done: for pg_number
 
 exit
 
