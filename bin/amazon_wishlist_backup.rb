@@ -8,26 +8,21 @@ require "open-uri"
 # Clear my screen
 puts "\e[H\e[2J"
 
+# Live amazon wishlist page 1
+#page = Nokogiri::HTML(open('http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?layout=compact'))
+# Local amazon wishlist page 1
 page = Nokogiri::HTML(open('/home/dennis/amz_wishlist_page1.html'))
+# Local test page to test out various things
 test = Nokogiri::HTML(open('/home/dennis/amz_test_page.html'))
-#test = Nokogiri::HTML(open('http://ruby.bastardsbook.com/files/hello-webpage.html'))
-
 
 # Web Scraping according to http://ruby.bastardsbook.com/chapters/html-parsing/
+# and http://ruby.bastardsbook.com/chapters/web-crawling/
 
-# CSS Path copied from Firebug for The List
-# "html body.noBeaconUI div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items"
-#
-# CSS Path copied from Firebug for one item from the list
-# "html body.noBeaconUI div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items tbody.itemWrapper"
-
-
-#page.css('div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items itemWrapper').each do |el|
-       #puts el.text
-#end
-
+# Getting the wishlist css container from the page
 wishlist = page.css("html body.noBeaconUI div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items tbody.itemWrapper")
 
+
+# Playing around with the wishlist object
 puts "Length of items"
 puts wishlist.length
 
@@ -47,11 +42,12 @@ puts wishlist[59].css("span.tiny").text.gsub(/Alle Kaufmöglichkeiten$/,'').stri
 puts "Price selectors:"
 puts wishlist[59].css("span.price").text
 
-
-puts "List"
+# Generating the markdown list
+puts "My Amazon Wishlist - Markdownified"
 puts ""
 
 wl_index=0
+
 wishlist.each do |item|
 # Get the title and clean it of some external shop references
 title = item.css("span.small strong a").text.gsub(/in diesem Shop einkaufen/,'')
