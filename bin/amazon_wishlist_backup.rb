@@ -18,7 +18,7 @@ puts "\e[H\e[2J"
 #
 # Local amazon wishlist page 1
 #page = Nokogiri::HTML(open('/home/dennis/amz_wishlist_test/amz_wishlist_page1.html'))
-page = Nokogiri::HTML(open('/home/dennis/amz_wishlist_test/amz_w_1_no_compact.html'))
+page = Nokogiri::HTML(open('/home/dennis/amz_wishlist_test/amz_w_2_no_compact.html'))
 # Local test page to test out various things
 test = Nokogiri::HTML(open('/home/dennis/amz_wishlist_test/amz_test_page.html'))
 
@@ -38,7 +38,6 @@ puts "Items on wishlist (all pages): #{itemcount.text}"
 wishlist = page.css("div[@class='list-items']")
 
 
-
 wl_index=0
 
 wishlist.each do |item|
@@ -46,10 +45,16 @@ wishlist.each do |item|
     current_item.each do |stuff|
         title = stuff.css("span[@class='small productTitle']").text.gsub(/in diesem Shop einkaufen/,'').strip
 
+        # Get the URL of each title
+        stuff.css("span[@class='small productTitle'] strong a").each{|link| $url=link['href']}
+
         autor = stuff.css("span[@class='authorPart']").text.strip
 
+        # Get the price
+        price = stuff.css("span[@class='wlPriceBold']").text
+
         # Output:
-        puts "#{wl_index.to_s}. [#{title}](url) #{autor} zu einem Preis von preis"
+        puts "#{wl_index.to_s}. [#{title}](#{$url}) #{autor} zu einem Preis von #{price}"
 
         # Increase the counter
         wl_index+=1
@@ -100,8 +105,6 @@ else
     autor = ""
 end
 
-# Get the price
-price = item.css("span.price").text
 
 # Output:
 puts "#{wl_index.to_s}. [#{title}](#{$url}) #{autor} zu einem Preis von #{price}"
