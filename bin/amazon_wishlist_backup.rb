@@ -18,6 +18,14 @@ test = Nokogiri::HTML(open('/home/dennis/amz_test_page.html'))
 # Web Scraping according to http://ruby.bastardsbook.com/chapters/html-parsing/
 # and http://ruby.bastardsbook.com/chapters/web-crawling/
 
+pagenumber = page.css("span[@class='page-number']")
+puts "Pagenumber: #{pagenumber.text}"
+
+itemcount = page.css("span[@id='topItemCount']")
+puts "Items on wishlist (all pages): #{itemcount.text}"
+
+exit
+
 # Getting the wishlist css container from the page
 wishlist = page.css("html body.noBeaconUI div div#wlMain div.wlNoUnderline div div.list-items div.noUnderline form table.compact-items tbody.itemWrapper")
 
