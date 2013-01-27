@@ -5,36 +5,63 @@ require "rubygems"
 require "nokogiri"
 require "open-uri"
 
-# Clear my screen
-puts "\e[H\e[2J"
-
+# Web Scraping according to http://ruby.bastardsbook.com/chapters/html-parsing/
+# and http://ruby.bastardsbook.com/chapters/web-crawling/
+#
 # Live amazon wishlist pages:
 #http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=1
 #http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=2
-#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=3
-#http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=4
 # ...15
-# Local amazon wishlist pages
-LOCAL_DIR = '/home/dennis/amz_wishlist_test'
-page = Nokogiri::HTML(open("/home/dennis/amz_wishlist_test/amz_w_1.html"))
-# Web Scraping according to http://ruby.bastardsbook.com/chapters/html-parsing/
-# and http://ruby.bastardsbook.com/chapters/web-crawling/
+# Local amazon wishlist pages dir
+LOCAL_DIR = '/Users/dennis/Dropbox/amz_wishlist'
+# First Page of Wishlist
+WISHLIST_ENTRY = 'http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/'
+
+page = Nokogiri::HTML(open(WISHLIST_ENTRY))
+#page = Nokogiri::HTML(open("~/Dropbox/amz_wishlist/amz_w_1.html"))
 
 current_pagenumber = page.css("span[@class='page-number']")
 puts "Current pagenumber: #{current_pagenumber.text}"
 
 number_of_pages = page.css("span[@class='num-pages']").text
 puts "Number of pages: #{number_of_pages}"
-number_of_pages="3" #FIXME
+
+#number_of_pages="3" #FIXME
+
 itemcount = page.css("span[@id='topItemCount']")
 puts "Items on wishlist (all pages): #{itemcount.text}"
 
+
+# Getting the whole wishlist
+
+for pg_number in 1..number_of_pages.to_i do
+    remote_url = "#{WISHLIST_ENTRY}?page=#{pg_number}"
+    local_filename = "#{LOCAL_DIR}/amz_w_#{pg_number}.html"
+    puts "Fetching #{remote_url}..."
+
+    begin
+        wishlist_content = open(remote_url).read
+    rescue Exception=>e
+        puts "Error: #{e}"
+        sleep 5
+    else
+        File.open(local_filename, 'w'){|file| file.write(wishlist_content)}
+        puts "\t...Success, saved to #{local_filename}"
+    ensure
+        sleep 1.0 + rand
+    end  # done: begin/rescue
+
+
+
+end
+
+
 # Iterating through local files
-wl_index=0
+wl_index=1
 for pg_number in 1..number_of_pages.to_i do
     puts "Getting #{LOCAL_DIR}amz_w_#{pg_number}.html"
 
-page = Nokogiri::HTML(open("/home/dennis/amz_wishlist_test/amz_w_#{pg_number}.html"))
+page = Nokogiri::HTML(open("#{LOCAL_DIR}/amz_w_#{pg_number}.html"))
 
     wishlist = page.css("div[@class='list-items']")
 
