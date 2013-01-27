@@ -14,6 +14,7 @@ require "open-uri"
 # ...15
 # Local amazon wishlist pages dir
 LOCAL_DIR = '/Users/dennis/Dropbox/amz_wishlist'
+LOCAL_WISHLIST = "/Users/dennis/Dropbox/amz_wishlist/dennis_wishlist.markdown"
 # First Page of Wishlist
 WISHLIST_ENTRY = 'http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/'
 
@@ -26,7 +27,7 @@ puts "Current pagenumber: #{current_pagenumber.text}"
 number_of_pages = page.css("span[@class='num-pages']").text
 puts "Number of pages: #{number_of_pages}"
 
-#number_of_pages="3" #FIXME
+number_of_pages="3" #FIXME
 
 itemcount = page.css("span[@id='topItemCount']")
 puts "Items on wishlist (all pages): #{itemcount.text}"
@@ -65,8 +66,6 @@ page = Nokogiri::HTML(open("#{LOCAL_DIR}/amz_w_#{pg_number}.html"))
 
     wishlist = page.css("div[@class='list-items']")
 
-
-
     wishlist.each do |item|
         current_item = item.css("tbody[@class='itemWrapper']")
         current_item.each do |stuff|
@@ -81,8 +80,11 @@ page = Nokogiri::HTML(open("#{LOCAL_DIR}/amz_w_#{pg_number}.html"))
             price = stuff.css("span[@class='wlPriceBold']").text
 
             # Output:
-            puts "#{wl_index.to_s}. [#{title}](#{$url}) #{author} zu einem Preis von #{price}"
+            #puts "#{wl_index.to_s}. [#{title}](#{$url}) #{author} zu einem Preis von #{price}"
 
+            File.open(LOCAL_WISHLIST, 'w') do |f|
+                f.puts "#{wl_index.to_s}. [#{title}](#{$url}) #{author} zu einem Preis von #{price}"
+            end
             # Increase the counter
             wl_index+=1
         end # done: current_item.each
