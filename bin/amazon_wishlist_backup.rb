@@ -82,7 +82,7 @@ page = Nokogiri::HTML(open("#{LOCAL_DIR}/amz_w_#{pg_number}.html"))
             # Output:
             #puts "#{wl_index.to_s}. [#{title}](#{$url}) #{author} zu einem Preis von #{price}"
 
-            File.open(LOCAL_WISHLIST, 'w') do |f|
+            File.open(LOCAL_WISHLIST, 'a') do |f|
                 f.puts "#{wl_index.to_s}. [#{title}](#{$url}) #{author} zu einem Preis von #{price}"
             end
             # Increase the counter
