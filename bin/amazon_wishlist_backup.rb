@@ -1,9 +1,20 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+# Only run the following code when this file is the main file being run
+# instead of having been required or loaded by another file
+if __FILE__==$0
+  # Find the parent directory of this file and add it to the front
+  # of the list of locations to look in when using require
+  $:.unshift File.join(File.expand_path(File.dirname(__FILE__)))
+end
+
+# Require some gems
 require "rubygems"
 require "nokogiri"
 require "open-uri"
+# Should be found in current dir after adding the current dir to LOAD_PATH...
+require 'german_date_names'
 
 # Web Scraping according to http://ruby.bastardsbook.com/chapters/html-parsing/
 # and http://ruby.bastardsbook.com/chapters/web-crawling/
@@ -12,11 +23,21 @@ require "open-uri"
 #http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=1
 #http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/?page=2
 # ...15
+# First Page of Wishlist
+WISHLIST_ENTRY = 'http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/'
 # Local amazon wishlist pages dir
 LOCAL_DIR = '/Users/dennis/Dropbox/amz_wishlist'
 LOCAL_WISHLIST = "/Users/dennis/Dropbox/amz_wishlist/dennis_wishlist.markdown"
-# First Page of Wishlist
-WISHLIST_ENTRY = 'http://www.amazon.de/registry/wishlist/1NDL4V6G5ZXMH/'
+LOCAL_WISHLIST_HEADER =<<END_WISHLIST_HEADER
+Dennis Amazon Wunschliste - Markdownified
+=========================================
+
+Hier ist auch noch [das Original bei Amazon](#{WISHLIST_ENTRY})...
+
+Es folgt der Stand vom: #{Time.now.strftime('%d. %B %Y - %R')}
+
+END_WISHLIST_HEADER
+
 
 page = Nokogiri::HTML(open(WISHLIST_ENTRY))
 #page = Nokogiri::HTML(open("~/Dropbox/amz_wishlist/amz_w_1.html"))
@@ -33,34 +54,37 @@ itemcount = page.css("span[@id='topItemCount']")
 puts "Items on wishlist (all pages): #{itemcount.text}"
 
 
-# Getting the whole wishlist
+ #Getting the whole wishlist from amazon.de
+#for pg_number in 1..number_of_pages.to_i do
+    #remote_url = "#{WISHLIST_ENTRY}?page=#{pg_number}"
+    #local_filename = "#{LOCAL_DIR}/amz_w_#{pg_number}.html"
+    #puts "Fetching #{remote_url}..."
 
-for pg_number in 1..number_of_pages.to_i do
-    remote_url = "#{WISHLIST_ENTRY}?page=#{pg_number}"
-    local_filename = "#{LOCAL_DIR}/amz_w_#{pg_number}.html"
-    puts "Fetching #{remote_url}..."
-
-    begin
-        wishlist_content = open(remote_url).read
-    rescue Exception=>e
-        puts "Error: #{e}"
-        sleep 5
-    else
-        File.open(local_filename, 'w'){|file| file.write(wishlist_content)}
-        puts "\t...Success, saved to #{local_filename}"
-    ensure
-        sleep 1.0 + rand
-    end  # done: begin/rescue
-
+    #begin
+        #wishlist_content = open(remote_url).read
+    #rescue Exception=>e
+        #puts "Error: #{e}"
+        #sleep 5
+    #else
+        #File.open(local_filename, 'w'){|file| file.write(wishlist_content)}
+        #puts "\t...Success, saved to #{local_filename}"
+    #ensure
+        #sleep 1.0 + rand
+    #end   done: begin/rescue
 
 
+
+#end
+
+# Overwrite the local wishlist and put the header inside
+File.open(LOCAL_WISHLIST, 'w') do |f|
+    f.puts LOCAL_WISHLIST_HEADER
 end
-
 
 # Iterating through local files
 wl_index=1
 for pg_number in 1..number_of_pages.to_i do
-    puts "Getting #{LOCAL_DIR}amz_w_#{pg_number}.html"
+    puts "Processing #{LOCAL_DIR}amz_w_#{pg_number}.html"
 
 page = Nokogiri::HTML(open("#{LOCAL_DIR}/amz_w_#{pg_number}.html"))
 
