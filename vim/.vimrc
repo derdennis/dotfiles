@@ -312,6 +312,20 @@ cmap w!! w !sudo tee % >/dev/null
 " Copy & Pasting and Completion
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Cheatsheet for omnicompletion:
+" via: http://www.thegeekstuff.com/2009/01/vi-and-vim-editor-5-awesome-examples-for-automatic-word-completion-using-ctrl-x-magic/
+"
+" CTRL-x CTRL-n : Word completion – forward
+" CTRL-x CTRL-p : Word completion – backward
+" CTRL-x CTRL-l : Line completion
+" CTRL-x CTRL-f : File completion
+" CTRL-x CTRL-k : Dictionary completion FIXME?
+" CTRL-x CTRL-t : Thesaurus completion FIXME?
+" CTRL-x CTRL-o : Omni completion FIXME?
+"
+
+set thesaurus+=~/.dotfiles/txt/openthesaurus.txt
+
 " ,v mapping to reselect the text that was just pasted so I can perform
 " commands (like indentation) on it
 nnoremap <leader>v V`]
@@ -323,6 +337,7 @@ nnoremap <F3> :GundoToggle<CR>
 " This sets SuperTab’s completion type to “context”. Which lets it determine
 " how things should be tab-completed.
 let g:SuperTabDefaultCompletionType = "context"
+
 " make the tab key match bracket pairs. Much easier to type than %
 nnoremap <tab> %
 vnoremap <tab> %
@@ -374,6 +389,9 @@ map tx :tabclose<CR>
 map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
 " Open the Command-T window with ,t
 nnoremap <silent> <Leader>t :CommandT<CR>
+" mapping to easily change directory to the file being edited, prints pwd
+" afterwards
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
