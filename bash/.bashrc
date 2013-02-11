@@ -488,7 +488,6 @@ cf() {
 }
 
 # Misc
-alias ff='find . -iname'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 
 # Mac OS X only aliases
@@ -597,6 +596,20 @@ label(){
     end run
 EOF
   fi
+}
+# Integrate OS X Finder with the Shell
+
+# Open current dir in Finder
+alias of='open -a Finder ./'
+
+# cd to the path of the front Finder window
+cdf() {
+	target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
+	if [ "$target" != "" ]; then
+		cd "$target"; pwd
+	else
+		echo 'No Finder window found' >&2
+	fi
 }
 
 # Alias definitions.
