@@ -19,25 +19,27 @@ alias showNormalHint hint ASDFGHJKLQWERTZUIOPYXCVBNM
 alias full          move screenOriginX;screenOriginY screenSizeX;screenSizeY
 alias center        move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
 alias lefthalf      move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
-alias left30        move screenOriginX;screenOriginY screenSizeX*30/100;screenSizeY
-alias left70        move screenOriginX;screenOriginY screenSizeX*70/100;screenSizeY
+alias left3         move screenOriginX;screenOriginY screenSizeX/3;screenSizeY
+alias left7         move screenOriginX;screenOriginY 2*screenSizeX/3;screenSizeY
 alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
-alias right30       move screenOriginX+screenSizeX*70/100;screenOriginY screenSizeX*30/100;screenSizeY
-alias right70       move screenOriginX+screenSizeX*30/100;screenOriginY screenSizeX*70/100;screenSizeY
+alias right3        move screenOriginX+2*screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY
+alias right7        move screenOriginX+screenSizeX/3;screenOriginY 2*screenSizeX/3;screenSizeY
 alias tophalf       push top bar-resize:screenSizeY/2
+alias topcenter     move screenOriginX+screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY/2
 alias bottomhalf    push bottom bar-resize:screenSizeY/2
+alias bottomcenter  move screenOriginX+screenSizeX/3;screenOriginY+screenSizeY/2 screenSizeX/3;screenSizeY/2
 alias topleft       corner top-left resize:screenSizeX/2;screenSizeY/2
-alias topleft30     corner top-left resize:screenSizeX*30/100;screenSizeY/2
-alias topleft70     corner top-left resize:screenSizeX*70/100;screenSizeY/2
+alias topleft3      corner top-left resize:screenSizeX/3;screenSizeY/2
+alias topleft7      corner top-left resize:2*screenSizeX/3;screenSizeY/2
 alias topright      corner top-right resize:screenSizeX/2;screenSizeY/2
-alias topright30    corner top-right resize:screenSizeX*30/100;screenSizeY/2
-alias topright70    corner top-right resize:screenSizeX*70/100;screenSizeY/2
+alias topright3     corner top-right resize:screenSizeX/3;screenSizeY/2
+alias topright7     corner top-right resize:2*screenSizeX/3;screenSizeY/2
 alias bottomleft    corner bottom-left resize:screenSizeX/2;screenSizeY/2
-alias bottomleft30  corner bottom-left resize:screenSizeX*30/100;screenSizeY/2
-alias bottomleft70  corner bottom-left resize:screenSizeX*70/100;screenSizeY/2
+alias bottomleft3   corner bottom-left resize:screenSizeX/3;screenSizeY/2
+alias bottomleft7   corner bottom-left resize:2*screenSizeX/3;screenSizeY/2
 alias bottomright   corner bottom-right resize:screenSizeX/2;screenSizeY/2
-alias bottomright30 corner bottom-right resize:screenSizeX*30/100;screenSizeY/2
-alias bottomright70 corner bottom-right resize:screenSizeX*70/100;screenSizeY/2
+alias bottomright3  corner bottom-right resize:screenSizeX/3;screenSizeY/2
+alias bottomright7  corner bottom-right resize:2*screenSizeX/3;screenSizeY/2
 
 # The HYPER key
 alias hyper ctrl;shift;alt;cmd
@@ -48,14 +50,14 @@ bind space:${hyper}  ${showNormalHint}
 # Location bindings
 bind f:${hyper}     ${full}
 bind c:${hyper}     ${center} 
-bind left:${hyper}  chain ${lefthalf} | ${left30} | ${left70}
-bind right:${hyper} chain ${righthalf} | ${right30} | ${right70}
-bind up:${hyper}    ${tophalf}
-bind down:${hyper}  ${bottomhalf}
-bind j:${hyper}     chain ${topleft} | ${topleft30} | ${topleft70}
-bind k:${hyper}     chain ${topright} | ${topright30} | ${topright70}
-bind h:${hyper}     chain ${bottomleft} | ${bottomleft30} | ${bottomleft70}
-bind l:${hyper}     chain ${bottomright} | ${bottomright30} | ${bottomright70}
+bind left:${hyper}  chain ${lefthalf} | ${left3} | ${left7}
+bind right:${hyper} chain ${righthalf} | ${right3} | ${right7}
+bind up:${hyper}    chain ${tophalf} | ${topcenter}
+bind down:${hyper}  chain ${bottomhalf} | ${bottomcenter}
+bind j:${hyper}     chain ${topleft} | ${topleft3} | ${topleft7}
+bind k:${hyper}     chain ${topright} | ${topright3} | ${topright7}
+bind h:${hyper}     chain ${bottomleft} | ${bottomleft3} | ${bottomleft7}
+bind l:${hyper}     chain ${bottomright} | ${bottomright3} | ${bottomright7}
 
 # App bindings
 bind s:${hyper} focus 'Safari'
