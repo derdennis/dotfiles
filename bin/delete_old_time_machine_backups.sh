@@ -14,7 +14,7 @@ then
   case $answer in
   y*)
     echo Running: /usr/bin/sudo /usr/bin/tmutil delete "$OLDEST_BACKUP"
-    /usr/bin/sudo /usr/bin/tmutil delete "$OLDEST_BACKUP"
+    /usr/bin/sudo time /usr/bin/tmutil delete "$OLDEST_BACKUP"
     ;;
   *)
     echo No change
