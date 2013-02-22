@@ -264,9 +264,6 @@ set textwidth=79
 set formatoptions=tcroqln1
 " Start at level 10 with foldings
 set foldlevelstart=10
-" Automatically insert the current comment leader
-" after hitting 'o' or 'O' in Normal mode.
-set fo+=o
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
