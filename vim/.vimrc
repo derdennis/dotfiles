@@ -427,6 +427,10 @@ nmap <leader>fn :%! ~/bin/convert_footnotes<CR>
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
 set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 
+" Disable plastic boys folding
+" via: https://github.com/mutewinter/vim-markdown/commit/8f804c189ce45bff61f388d66ef5c3d4da03a9ce
+let g:vim_markdown_folding_disabled=1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Version control and diffing
