@@ -446,6 +446,13 @@ nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 
+" run :Gc my-branch to checkout a branch, or :Gc -b new-branch to create a new one.
+" via: http://dailyvim.tumblr.com/post/44147584103/handy-git-checkout-function
+function! s:GitCheckout(...)
+  :silent execute 'Git checkout ' . a:1 . ' > /dev/null 2>&1' | redraw!
+endfunction
+command! -nargs=1 Gc call s:GitCheckout(<f-args>)
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Abbreviations - For more sophisticated things see the snipmate-snippets bundle 
