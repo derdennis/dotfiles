@@ -1,0 +1,10 @@
+*.sublime*
+*.bak
+*.taskpaper
+*.develop
+.DS_Store
+slogger_config
+plugins_develop
+runlog.txt
+
+/slogger.log
