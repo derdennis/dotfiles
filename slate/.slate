@@ -47,6 +47,12 @@ alias hyper ctrl;shift;alt;cmd
 # Show window hints
 bind space:${hyper}  ${showNormalHint}
 
+# Grid
+bind esc:${hyper} grid
+
+# [Beta] A Better Application Switcher: switch
+#bind tab:cmd switch
+
 # Location bindings
 bind f:${hyper}     ${full}
 bind c:${hyper}     ${center} 
