@@ -349,7 +349,7 @@ mkcd () {
 }
 
 # Source the next action todo function if found in my homes bin folder
-[[ -s "~/bin/na.sh" ]] && source "~/bin/na.sh"
+[[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
 
 # Function to check if a command exists. Returns 0 if command is found, 1 if
 # not
