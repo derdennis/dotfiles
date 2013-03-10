@@ -351,6 +351,11 @@ mkcd () {
 # Source the next action todo function if found in my homes bin folder
 [[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
 
+
+# Source the handy CTRL-T completeme shortcut if it exists 
+# via: https://pypi.python.org/pypi/completeme
+[[ -s "/usr/local/bin/setup_completeme_key_binding.sh" ]] && source "/usr/local/bin/setup_completeme_key_binding.sh"
+
 # Function to check if a command exists. Returns 0 if command is found, 1 if
 # not
 command_exists () {
