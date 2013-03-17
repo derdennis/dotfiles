@@ -43,28 +43,37 @@ class PocketLogger < Slogger
     @log.info("Getting Pocket posts for #{username}")
     output = ''
 
-    rss_feed = "http://getpocket.com/users/#{username.strip}/feed/all"
-    begin
-      rss_content = ""
-      open(rss_feed) do |f|
-        rss_content = f.read
+    ["read","unread"].each {|kind|
+      rss_feed = "http://getpocket.com/users/#{username.strip}/feed/#{kind}"
+      title = case kind
+      when "read" then "### Items read today:"
+      when "unread" then "### Items saved today:"
       end
 
-      rss = RSS::Parser.parse(rss_content, false)
-
-      rss.items.each { |item|
-        item_date = Time.parse(item.pubDate.to_s)
-        if item_date > @timespan
-          output += "* [#{item.title}](#{item.link})\n\n"
-        else
-          break
+      begin
+        rss_content = ""
+        open(rss_feed) do |f|
+          rss_content = f.read
         end
-      }
-    rescue Exception => e
-      puts "Error getting posts for #{username}"
-      p e
-      return ''
-    end
+        tempoutput = ""
+        rss = RSS::Parser.parse(rss_content, false)
+
+        rss.items.each { |item|
+          item_date = Time.parse(item.pubDate.to_s)
+          if item_date > @timespan
+            tempoutput += "* [#{item.title}](#{item.link})\n"
+          else
+            break
+          end
+        }
+        output += "#{title}\n\n#{tempoutput}\n\n" unless tempoutput == ""
+
+      rescue Exception => e
+        puts "Error getting posts for #{username}"
+        p e
+        return ''
+      end
+    }
     unless output == ''
       options = {}
       options['content'] = "## Pocket reading\n\n#{output}#{tags}"
