@@ -31,7 +31,7 @@ case $platform in
     'macosx')
         # OS-X Specific, with MacPorts, Git and MySQL installed and some self
         # compiled stuff. ie upslug2 for installin nslu2...
-        export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin/:/usr/local/sbin:$PATH
+        export PATH=/usr/local/bin:/usr/local/mysql/bin:/usr/local/git/bin/:/usr/local/sbin:$PATH
         ;;
 esac
 
