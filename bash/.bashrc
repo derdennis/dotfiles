@@ -231,8 +231,6 @@ function parse_git_branch {
 # Remove all git stuff from a project in CWD
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
 
-
-
 # Rake task completion
 # via: http://project.ioni.st/post/213#quote_213
 complete -C ~/.rake-completion.rb -o default rake
@@ -352,6 +350,17 @@ mkcd () {
     mkdir -p "$*"
     cd "$*"
 }
+
+# make executable
+alias ax="chmod a+x"
+# edit .vimrc
+alias vr="$EDITOR ~/.vimrc"
+# edit .bashrc
+alias br="$EDITOR ~/.bashrc"
+# edit .bash_profile
+alias bp="$EDITOR ~/.bash_profile"
+# reload your bash config
+alias reload_bash="source ~/.bash_profile"
 
 # Source the next action todo function if found in my homes bin folder
 [[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
