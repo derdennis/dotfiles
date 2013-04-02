@@ -496,6 +496,24 @@ extract () {
      fi
 }
 
+# ls archives (inspired by `extract`)
+lsz() {
+    if [ $# -ne 1 ]
+    then
+        echo "lsz filename.[tar,tgz,gz,zip,etc]"
+        return 1
+    fi
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2|*.tar.gz|*.tar|*.tbz2|*.tgz) tar tvf $1;;
+            *.zip)  unzip -l $1;;
+            *)      echo "'$1' unrecognized." ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
 # cf x test.txt xreates a file of x MB named test.txt
 # Defaults to 10 MB and a name of upload_file.txt
 # Via:
@@ -512,6 +530,13 @@ cf() {
     dd if=/dev/zero of="$upload_file" bs=$size count=1
 }
 
+
+# batch change extension 
+# "chgext html php" will turn a directory of HTML files into PHP files. Magic.
+chgext() {
+    for file in *.$1 ; do mv "$file" "${file%.$1}.$2" ; done
+}
+
 # Misc
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 
@@ -523,7 +548,7 @@ case $platform in
         # Sort top by memory usage
         alias mem='top -o rsize'
         # Quick look a file (^C to close)
-        alias ql='qlmanage -p 2>/dev/null'
+        alias ql='qlmanage -p &>/dev/null'
         # time machine log
         alias tmlog="syslog -F '\$Time \$Message' -k Sender com.apple.backupd-auto -k Time ge -30m | tail -n 1" 
         # mount all connected Firewire disks
