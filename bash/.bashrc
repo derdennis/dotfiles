@@ -228,6 +228,11 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
+# Remove all git stuff from a project in CWD
+alias ungit="find . -name '.git' -exec rm -rf {} \;"
+
+
+
 # Rake task completion
 # via: http://project.ioni.st/post/213#quote_213
 complete -C ~/.rake-completion.rb -o default rake
