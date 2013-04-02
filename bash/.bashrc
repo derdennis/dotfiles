@@ -362,6 +362,9 @@ alias bp="$EDITOR ~/.bash_profile"
 # reload your bash config
 alias reload_bash="source ~/.bash_profile"
 
+# list TODO/FIX lines from the current project
+alias todos="ack -n --nogroup '(TODO|FIX(ME)?):'"
+
 # Source the next action todo function if found in my homes bin folder
 [[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
 
@@ -463,7 +466,7 @@ if command_exists fasd ; then
     alias sf='fasd -sif'     # interactive file selection
     alias z='fasd_cd -d'     # cd, same functionality as j in autojump
     alias zz='fasd_cd -d -i' # cd with interactive selection
-
+    alias zi="fasd -e cd -i" # interactive fasd
     # fasd custom aliases
     alias v='f -e vim' # quick opening files with vim
 
@@ -515,9 +518,22 @@ alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in 
 # Mac OS X only aliases
 case $platform in
     'macosx')
+        # Sort top by cpu usage
         alias top='top -o cpu'
+        # Sort top by memory usage
+        alias mem='top -o rsize'
         # Quick look a file (^C to close)
         alias ql='qlmanage -p 2>/dev/null'
+        # time machine log
+        alias tmlog="syslog -F '\$Time \$Message' -k Sender com.apple.backupd-auto -k Time ge -30m | tail -n 1" 
+        # mount all connected Firewire disks
+        alias mountall='system_profiler SPFireWireDataType | grep "BSD Name: disk.$" | sed "s/^.*: //" | (while read i; do /usr/sbin/diskutil mountDisk $i; done)'
+        # unmount them all
+        alias unmountall='system_profiler SPFireWireDataType | grep "BSD Name: disk.$" | sed "s/^.*: //" | (while read i; do /usr/sbin/diskutil unmountDisk $i; done)'
+        # mute the system volume
+        alias stfu="osascript -e 'set volume output muted true'"
+        #copy output of last command to clipboard
+        alias cl="fc -e -|pbcopy"
         # pretty man pages in Preview.app
         function pman() {
         man $1 -t | open -f -a Preview
