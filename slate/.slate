@@ -68,12 +68,12 @@ bind l:${hyper}     chain ${bottomright} | ${bottomright3} | ${bottomright7}
 # Focus Bindings
 # NOTE: some of these may *not* work if you have not removed the
 # expose/spaces/mission control bindings
-bind right:cmd    focus right
-bind left:cmd     focus left
-bind up:cmd       focus up
-bind down:cmd     focus down
-bind up:cmd;alt   focus behind
-bind down:cmd;alt focus behind
+#bind right:cmd    focus right
+#bind left:cmd     focus left
+#bind up:cmd       focus up
+#bind down:cmd     focus down
+#bind up:cmd;alt   focus behind
+#bind down:cmd;alt focus behind
 
 # App bindings
 bind s:${hyper} focus 'Safari'
