@@ -228,6 +228,9 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
+# Remove all git stuff from a project in CWD
+alias ungit="find . -name '.git' -exec rm -rf {} \;"
+
 # Rake task completion
 # via: http://project.ioni.st/post/213#quote_213
 complete -C ~/.rake-completion.rb -o default rake
@@ -348,6 +351,20 @@ mkcd () {
     cd "$*"
 }
 
+# make executable
+alias ax="chmod a+x"
+# edit .vimrc
+alias vr="$EDITOR ~/.vimrc"
+# edit .bashrc
+alias br="$EDITOR ~/.bashrc"
+# edit .bash_profile
+alias bp="$EDITOR ~/.bash_profile"
+# reload your bash config
+alias reload_bash="source ~/.bash_profile"
+
+# list TODO/FIX lines from the current project
+alias todos="ack -n --nogroup '(TODO|FIX(ME)?):'"
+
 # Source the next action todo function if found in my homes bin folder
 [[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
 
@@ -449,7 +466,7 @@ if command_exists fasd ; then
     alias sf='fasd -sif'     # interactive file selection
     alias z='fasd_cd -d'     # cd, same functionality as j in autojump
     alias zz='fasd_cd -d -i' # cd with interactive selection
-
+    alias zi="fasd -e cd -i" # interactive fasd
     # fasd custom aliases
     alias v='f -e vim' # quick opening files with vim
 
@@ -479,6 +496,24 @@ extract () {
      fi
 }
 
+# ls archives (inspired by `extract`)
+lsz() {
+    if [ $# -ne 1 ]
+    then
+        echo "lsz filename.[tar,tgz,gz,zip,etc]"
+        return 1
+    fi
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2|*.tar.gz|*.tar|*.tbz2|*.tgz) tar tvf $1;;
+            *.zip)  unzip -l $1;;
+            *)      echo "'$1' unrecognized." ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
 # cf x test.txt xreates a file of x MB named test.txt
 # Defaults to 10 MB and a name of upload_file.txt
 # Via:
@@ -495,15 +530,35 @@ cf() {
     dd if=/dev/zero of="$upload_file" bs=$size count=1
 }
 
+
+# batch change extension 
+# "chgext html php" will turn a directory of HTML files into PHP files. Magic.
+chgext() {
+    for file in *.$1 ; do mv "$file" "${file%.$1}.$2" ; done
+}
+
 # Misc
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 
 # Mac OS X only aliases
 case $platform in
     'macosx')
+        # Sort top by cpu usage
         alias top='top -o cpu'
+        # Sort top by memory usage
+        alias mem='top -o rsize'
         # Quick look a file (^C to close)
-        alias ql='qlmanage -p 2>/dev/null'
+        alias ql='qlmanage -p &>/dev/null'
+        # time machine log
+        alias tmlog="syslog -F '\$Time \$Message' -k Sender com.apple.backupd-auto -k Time ge -30m | tail -n 1" 
+        # mount all connected Firewire disks
+        alias mountall='system_profiler SPFireWireDataType | grep "BSD Name: disk.$" | sed "s/^.*: //" | (while read i; do /usr/sbin/diskutil mountDisk $i; done)'
+        # unmount them all
+        alias unmountall='system_profiler SPFireWireDataType | grep "BSD Name: disk.$" | sed "s/^.*: //" | (while read i; do /usr/sbin/diskutil unmountDisk $i; done)'
+        # mute the system volume
+        alias stfu="osascript -e 'set volume output muted true'"
+        #copy output of last command to clipboard
+        alias cl="fc -e -|pbcopy"
         # pretty man pages in Preview.app
         function pman() {
         man $1 -t | open -f -a Preview
