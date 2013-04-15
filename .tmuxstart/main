@@ -1,0 +1,26 @@
+#Create my main tmux-session via tmuxstart
+# see
+#
+# for documentation...
+#
+# send_keys seems to be broken with my long login stuff...
+# 
+# Create first window and name ist "stuff"
+new_session -n stuff
+
+# Create window 2 for instant-thinking stuff
+new_window -n it
+# Create window 3 for dotfiles stuff
+new_window -n dots
+
+# Change to the .dotfiles dir
+select_window 3
+#send_keys 3 "cd ~/.dotfiles" "Enter"
+
+# Change to the instant-thinking dir
+select_window 2
+split 2 -h
+split 2.1 -v
+
+send_keys 2.1 "cd ~/instant-thinking" "Enter"
+
