@@ -747,3 +747,11 @@ svgetinfo (){
 # You need to create fmdiff and fmresolve, which can be found at: http://ssel.vub.ac.be/ssel/internal:fmdiff
 alias svdiff='sv diff --diff-cmd fmdiff' # OS-X SPECIFIC
 # Use diff for command line diff, use fmdiff for gui diff, and svdiff for subversion diff
+
+
+# System specific stuff (Just try to keep these to a minimum, ok?
+
+if [ "$HOSTNAME" == "dokuwiki" ]; then
+    # Use the local cntlm proxy
+    export http_proxy=http://localhost:3128
+fi
