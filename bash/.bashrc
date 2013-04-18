@@ -549,6 +549,8 @@ case $platform in
         alias mem='top -o rsize'
         # Quick look a file (^C to close)
         alias ql='qlmanage -p &>/dev/null'
+        # Shortcut to md5 on OS X
+        alias md5sum='openssl md5'
         # time machine log
         alias tmlog="syslog -F '\$Time \$Message' -k Sender com.apple.backupd-auto -k Time ge -30m | tail -n 1" 
         # mount all connected Firewire disks
@@ -594,11 +596,7 @@ esac
 alias m='more'
 alias df='df -h'
 alias funfact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
-# Aliasing the ridiculous long path tho the jekyll binary
-alias jekyll='/var/lib/gems/1.8/gems/jekyll-0.10.0/bin/jekyll'
 
-# Shortcut to md5 on OS X
-#alias md5sum='openssl md5'
 
 # Make tmux work with the OS X clipboard and launchctl by using an OS
 # X specific config file if running on a Mac
