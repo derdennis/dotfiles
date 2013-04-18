@@ -1,0 +1,18 @@
+windows:
+  - name: "bash"
+    clear: true
+    options:
+      synchronize-panes: true
+    root: "~"
+    panes:
+      [panes list]
+  - name: "it"
+    layout: tiled
+    root: "~/instant-thinking"
+    panes:
+      [panes list]
+  - name: "dots"
+    layout: main-vertical
+    root: "~/.dotfiles"
+    panes:
+      [panes list]
