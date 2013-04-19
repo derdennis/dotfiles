@@ -76,8 +76,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Have Vim load indentation rules and plugins according to the detected filetype.
 filetype plugin indent on
 " Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -140,8 +140,9 @@ endif
 
 " Powerline FontStuff
 " Use the patched DejaVu Font for gvim and macvim
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
-let g:Powerline_symbols = 'fancy'
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
+set rtp+=/Users/dennis/.dotfiles/powerline/bindings/vim
+
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
 set listchars=trail:·,tab:→\ ,eol:¬
@@ -222,8 +223,8 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>a :Ack --smart-case -a 
 " Remap search characters to space (forward search) and ctrl-space (backward
 " search)
-map <space> /
-map <c-space> ?
+noremap <space> /
+noremap <c-space> ?
 " Fix Vim’s horribly broken default regex “handling” by automatically
 " inserting a \v before any string you search for. This turns off Vim’s
 " crazy default regex characters and makes searches use normal regexes.
@@ -302,7 +303,7 @@ endfunction
 
 au BufWritePost * call ModeChange()
 " sudo to write to files I don't have permission to...
-cmap w!! w !sudo tee % >/dev/null
+cnoremap w!! w !sudo tee % >/dev/null
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -328,7 +329,7 @@ set thesaurus+=~/.dotfiles/txt/openthesaurus.txt
 nnoremap <leader>v V`]
 " make Y copy until end of line, use yy to copy whole line
 " same way D & dd and C & CC are working...
-map Y y$
+nnoremap Y y$
 " Map Gundo to F3
 nnoremap <F3> :GundoToggle<CR>
 " This sets SuperTab’s completion type to “context”. Which lets it determine
@@ -339,7 +340,7 @@ let g:SuperTabDefaultCompletionType = "context"
 nnoremap <tab> %
 vnoremap <tab> %
 " J Joins lines, K kracks lines. Makes that K splits the current line
-map K i<CR><Esc>
+nnoremap K i<CR><Esc>
 " Map the YankRing Window toggle to F11
 :nnoremap <silent> <F11> :YRShow<CR>
 " Move the yankring file out of ~ and into the .vim_local dir
@@ -370,20 +371,20 @@ nnoremap k gk
 " Split vertically and change to new view by pressing ,w
 nnoremap <leader>w <C-w>v<C-w>l
 " Easy split-window navigation, kills the need to do C-w followed by h,j,k,l
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 " Easy Tab navigation
-map th :tabfirst<CR>
-map tl :tablast<CR>
-map tk :tabnext<CR>
-map tj :tabprev<CR>
-map tn :tabnew<Space>
-map tm :tabm<Space> " Tabmove to position #
-map tx :tabclose<CR>
+noremap th :tabfirst<CR>
+noremap tl :tablast<CR>
+noremap tk :tabnext<CR>
+noremap tj :tabprev<CR>
+noremap tn :tabnew<Space>
+noremap tm :tabm<Space> " Tabmove to position #
+noremap tx :tabclose<CR>
 " Switch on the nerdtree with ,n
-map <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+noremap <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
 " Open the Command-T window with ,t
 nnoremap <silent> <Leader>t :CommandT<CR>
 " mapping to easily change directory to the file being edited, prints pwd
@@ -415,13 +416,13 @@ vnoremap <Leader>4 c[<C-r>"](<Esc>"*pli)<Esc>
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 " Use formd to transfer markdown from inline to reference links and vice versa
 " see: http://drbunsen.github.com/formd/
-nmap <leader>fr :%! ~/bin/formd -r<CR>
-nmap <leader>fi :%! ~/bin/formd -i<CR>
+nnoremap <leader>fr :%! ~/bin/formd -r<CR>
+nnoremap <leader>fi :%! ~/bin/formd -i<CR>
 " Use convert_footnotes to make MultiMarkdown footnotes out of (*Some
 " footnote*)...
 " Original Script by Brett Terpstra, see:
 " http://brettterpstra.com/2012/01/24/a-service-for-writing-multimarkdown-footnotes-inline/
-nmap <leader>fn :%! ~/bin/convert_footnotes<CR>
+nnoremap <leader>fn :%! ~/bin/convert_footnotes<CR>
 " Make vim complete lists starting with a "-"
 " via:
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
@@ -437,7 +438,7 @@ let g:vim_markdown_folding_disabled=1
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make CTRL-m jump to the next diff in vimdiff
-map <C-m> ]c
+noremap <C-m> ]c
 " Map some shortcuts for fugitive.vim
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -527,7 +528,7 @@ function! ToggleSpell()
   endif
   echo "spell checking language:" g:myLangList[b:myLang]
 endfunction
-nmap <silent> <F7> :call ToggleSpell()<CR>
+nnoremap <silent> <F7> :call ToggleSpell()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
