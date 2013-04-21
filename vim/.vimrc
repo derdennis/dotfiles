@@ -78,6 +78,8 @@ filetype plugin indent on
 " Quickly edit/reload the vimrc file
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+" fix damn "crontab: temp file must be edited in place" error on OS X
+set backupskip=/tmp/*,/private/tmp/*" 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -141,7 +143,9 @@ endif
 " Powerline FontStuff
 " Use the patched DejaVu Font for gvim and macvim
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
-set rtp+=/Users/dennis/.dotfiles/powerline/bindings/vim
+"set rtp+=/Users/dennis/.dotfiles/powerline/bindings/vim
+
+
 
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
