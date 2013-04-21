@@ -705,6 +705,10 @@ esac
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# Insert a bar
+alias bar='echo -e ================================================================================'
+
+
 # Subversion & Diff ------------------------------------------------
 export SV_USER='dennis'  # Change this to your username that you normally use on subversion (only if it is different from your logged in name)
 export SVN_EDITOR='${EDITOR}'
