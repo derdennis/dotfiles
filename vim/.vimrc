@@ -454,6 +454,10 @@ function! s:GitCheckout(...)
 endfunction
 command! -nargs=1 Gc call s:GitCheckout(<f-args>)
 
+"  add spell checking and automatic wrapping at the recommended 72 columns to
+"  you commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Abbreviations - For more sophisticated things see the snipmate-snippets bundle 
