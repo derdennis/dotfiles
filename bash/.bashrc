@@ -351,6 +351,13 @@ mkcd () {
     cd "$*"
 }
 
+# pro cd function to quickly cd to git repos
+# see: https://github.com/trishume/pro
+pd() {
+  local projDir=$(pro search $1)
+  cd ${projDir}
+}
+
 # make executable
 alias ax="chmod a+x"
 # edit .vimrc
@@ -759,3 +766,4 @@ if [ "$HOSTNAME" == "dokuwiki" ]; then
     # Use the local cntlm proxy
     export http_proxy=http://localhost:3128
 fi
+
