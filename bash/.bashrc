@@ -462,6 +462,7 @@ if command_exists pry ; then
 fi
 
 # Use fasd if available on the system
+# See: https://github.com/clvv/fasd
 if command_exists fasd ; then
     eval "$(fasd --init auto)"
     # fasd default aliases
@@ -476,6 +477,11 @@ if command_exists fasd ; then
     alias zi="fasd -e cd -i" # interactive fasd
     # fasd custom aliases
     alias v='f -e vim' # quick opening files with vim
+    alias m='f -e mplayer' # quick opening files with mplayer
+    alias o='a -e xdg-open' # quick opening files with xdg-open
+    #  using bash, you have to call _fasd_bash_hook_cmd_complete to make
+    #  completion work:
+    _fasd_bash_hook_cmd_complete v m j o
 
 fi
 
