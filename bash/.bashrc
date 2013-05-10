@@ -370,7 +370,7 @@ alias bp="$EDITOR ~/.bash_profile"
 alias reload_bash="source ~/.bash_profile"
 
 # list TODO/FIX lines from the current project
-alias todos="ack -n --nogroup '(TODO|FIX(ME)?):'"
+alias todos="ack --nogroup '(TODO|FIX(ME)?)'"
 
 # Source the next action todo function if found in my homes bin folder
 [[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
