@@ -1,0 +1,3 @@
+# Handle .markdown files
+--type-set=md=.markdown,mkd
+--type-add=md=.md
