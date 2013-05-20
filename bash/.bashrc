@@ -624,7 +624,7 @@ fi
 # Use sssh in place of ssh to reconnect or start a new tmux or screen session
 # on the remote side. Via:
 # http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
-sssh (){ ssh -t "$1" 'tmux attach || tmux new || screen -DR'; }
+sssh (){ ssh -t "$1" 'tmux -u attach || tmux -u new || screen -DR'; }
 
 # Get the current weather in Essen, Germany
 alias weather='weatherman "Essen, Germany"'
