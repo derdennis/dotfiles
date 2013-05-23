@@ -143,7 +143,7 @@ endif
 " Powerline FontStuff
 " Use the patched DejaVu Font for gvim and macvim
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
-"set rtp+=/Users/dennis/.dotfiles/powerline/bindings/vim
+set rtp+=~/.dotfiles/powerline/bindings/vim
 
 
 
@@ -355,6 +355,25 @@ let g:yankring_history_dir = '~/.vim_local'
 " Navigation and movement through buffers, splits, tabs, files
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Split Cheatsheet
+" ===================
+" Resizing Splits
+" ---------------
+" Max out the height of the current split
+" ctrl + w _
+" Max out the width of the current split
+" ctrl + w |
+" Normalize all split sizes, which is very handy when resizing terminal
+" ctrl + w =
+" Even more Split Manipulation
+" ----------------------------
+" Swap top/bottom or left/right split
+" Ctrl+W R
+" Break out current window into a new tabview
+" Ctrl+W T
+" Close every window in the current tabview but the current one
+" Ctrl+W o
+
 " Disabling arrow keys in normal mode
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -375,10 +394,13 @@ nnoremap k gk
 " Split vertically and change to new view by pressing ,w
 nnoremap <leader>w <C-w>v<C-w>l
 " Easy split-window navigation, kills the need to do C-w followed by h,j,k,l
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" Open new split panes to right and bottom, feels way more natural...
+set splitbelow
+set splitright
 " Easy Tab navigation
 noremap th :tabfirst<CR>
 noremap tl :tablast<CR>
