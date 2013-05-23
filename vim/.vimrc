@@ -143,7 +143,7 @@ endif
 " Powerline FontStuff
 " Use the patched DejaVu Font for gvim and macvim
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
-"set rtp+=/Users/dennis/.dotfiles/powerline/bindings/vim
+set rtp+=~/.dotfiles/powerline/bindings/vim
 
 
 
