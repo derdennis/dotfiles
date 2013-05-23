@@ -7,9 +7,8 @@ from powerline.lib import mergedicts, parsedotval
 def mergeargs(argvalue):
 	if not argvalue:
 		return None
-	argvalue = iter(argvalue)
-	r = dict([next(argvalue)])
-	for subval in argvalue:
+	r = dict([argvalue[0]])
+	for subval in argvalue[1:]:
 		mergedicts(r, dict([subval]))
 	return r
 
@@ -17,18 +16,18 @@ def mergeargs(argvalue):
 class ShellPowerline(Powerline):
 	def __init__(self, args, **kwargs):
 		self.args = args
-		self.theme_option = args.theme_option
+		self.theme_option = mergeargs(args.theme_option) or {}
 		super(ShellPowerline, self).__init__(args.ext[0], args.renderer_module, **kwargs)
 
 	def load_main_config(self):
 		r = super(ShellPowerline, self).load_main_config()
 		if self.args.config:
-			mergedicts(r, self.args.config)
+			mergedicts(r, mergeargs(self.args.config))
 		return r
 
 	def load_theme_config(self, name):
 		r = super(ShellPowerline, self).load_theme_config(name)
-		if self.theme_option and name in self.theme_option:
+		if name in self.theme_option:
 			mergedicts(r, self.theme_option[name])
 		return r
 
@@ -50,17 +49,7 @@ def get_argparser(parser=None, *args, **kwargs):
 	p.add_argument('-w', '--width', type=int)
 	p.add_argument('--last_exit_code', metavar='INT', type=int)
 	p.add_argument('--last_pipe_status', metavar='LIST', default='', type=lambda s: [int(status) for status in s.split()])
-	p.add_argument('-c', '--config', metavar='KEY.KEY=VALUE', action='append')
-	p.add_argument('-t', '--theme_option', metavar='THEME.KEY.KEY=VALUE', action='append')
+	p.add_argument('-c', '--config', metavar='KEY.KEY=VALUE', type=parsedotval, action='append')
+	p.add_argument('-t', '--theme_option', metavar='THEME.KEY.KEY=VALUE', type=parsedotval, action='append')
 	p.add_argument('-p', '--config_path', metavar='PATH')
-	p.add_argument('-R', '--renderer_arg', metavar='KEY="VAL"', type=lambda a: dict([parsedotval(a)]))
 	return p
-
-
-def finish_args(args):
-	if args.config:
-		args.config = mergeargs((parsedotval(v) for v in args.config))
-	if args.theme_option:
-		args.theme_option = mergeargs((parsedotval(v) for v in args.config))
-	else:
-		args.theme_option = {}

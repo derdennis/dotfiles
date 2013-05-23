@@ -16,24 +16,18 @@ from powerline.lib.inotify import INotify, INotifyError
 class NoSuchDir(ValueError):
 	pass
 
-class BaseDirChanged(ValueError):
-	pass
 
 class DirTooLarge(ValueError):
-
 	def __init__(self, bdir):
 		ValueError.__init__(self, 'The directory {0} is too large to monitor. Try increasing the value in /proc/sys/fs/inotify/max_user_watches'.format(bdir))
 
-def realpath(path):
-	return os.path.abspath(os.path.realpath(path))
 
 class INotifyTreeWatcher(INotify):
-
 	is_dummy = False
 
 	def __init__(self, basedir):
 		super(INotifyTreeWatcher, self).__init__()
-		self.basedir = realpath(basedir)
+		self.basedir = os.path.abspath(basedir)
 		self.watch_tree()
 		self.modified = True
 
@@ -49,7 +43,7 @@ class INotifyTreeWatcher(INotify):
 	def add_watches(self, base, top_level=True):
 		''' Add watches for this directory and all its descendant directories,
 		recursively. '''
-		base = realpath(base)
+		base = os.path.abspath(base)
 		try:
 			is_dir = self.add_watch(base)
 		except OSError as e:
@@ -125,8 +119,6 @@ class INotifyTreeWatcher(INotify):
 						raise DirTooLarge(self.basedir)
 					else:
 						raise
-			if (mask & self.DELETE_SELF or mask & self.MOVE_SELF) and path == self.basedir:
-				raise BaseDirChanged('The directory %s was moved/deleted' % path)
 
 	def __call__(self):
 		self.read()
@@ -136,24 +128,23 @@ class INotifyTreeWatcher(INotify):
 
 
 class DummyTreeWatcher(object):
-
 	is_dummy = True
 
 	def __init__(self, basedir):
-		self.basedir = realpath(basedir)
+		self.basedir = os.path.abspath(basedir)
 
 	def __call__(self):
 		return False
 
-class TreeWatcher(object):
 
+class TreeWatcher(object):
 	def __init__(self, expire_time=10):
 		self.watches = {}
 		self.last_query_times = {}
 		self.expire_time = expire_time * 60
 
 	def watch(self, path, logger=None):
-		path = realpath(path)
+		path = os.path.abspath(path)
 		try:
 			w = INotifyTreeWatcher(path)
 		except (INotifyError, DirTooLarge) as e:
@@ -177,7 +168,7 @@ class TreeWatcher(object):
 			del self.last_query_times[path]
 
 	def __call__(self, path, logger=None):
-		path = realpath(path)
+		path = os.path.abspath(path)
 		self.expire_old_queries()
 		self.last_query_times[path] = monotonic()
 		w = self.watches.get(path, None)
@@ -189,9 +180,6 @@ class TreeWatcher(object):
 			return True
 		try:
 			return w()
-		except BaseDirChanged:
-			self.watches.pop(path, None)
-			return True
 		except DirTooLarge as e:
 			if logger is not None:
 				logger.warn(str(e))
