@@ -38,19 +38,26 @@ import tweepy
 
 myTZ = pytz.timezone('US/Central')
 
+# Twitter parameters.
+me = "der_dennis"
+consumerKey = "73Ki4IO8KdR0kJxw4HVsg"
+consumerKeySecret = "r4yt3TI6I4lp8C5Y7xK09kqf3OmMVMwhGnvgsls0l8"
+accessToken = "724223-9VVnhdrM7SsyJNKrp2hZ2qP09Tw13yN3p9tJ93PcpM"
+accessTokenSecret = "Pw57fcAvU7WqiTTWZZc8IATi7sAJGoOrGFZDC4Vl0"
+
 TWEET_EMBED_HTML = u'''<div class="bbpBox" id="t{id}">\n<blockquote>\n<span class="twContent">{tweetText}</span><span class="twMeta"><br /><span class="twDecoration">&mdash; </span><span class="twRealName">{realName}</span><span class="twDecoration"> (</span><a href="http://twitter.com/{screenName}"><span class="twScreenName">@{screenName}</span></a><span class="twDecoration">) </span><a href="{tweetURL}"><span class="twTimeStamp">{timeStamp}</span></a><span class="twDecoration"></span></span>\n</blockquote>\n</div>
 '''
 
 # This function pretty much taken directly from a tweepy example.
-def setup_api():
-  """Authorize the use of the Twitter API."""
-  a = {}
-  with open(os.environ['HOME'] + '/.twang') as twang:
-    for line in twang:
-      k, v = line.split(': ')
-      a[k] = v.strip()
-  auth = tweepy.OAuthHandler(a['consumerKey'], a['consumerSecret'])
-  auth.set_access_token(a['token'], a['tokenSecret'])
+# https://github.com/tweepy/tweepy/blob/master/examples/oauth.py
+auth = tweepy.OAuthHandler(consumerKey, consumerKeySecret)
+auth.set_access_token(accessToken, accessTokenSecret)
+
+api = tweepy.API(auth)
+
+# If the authentication was successful, you should
+# see the name of the account print out
+#print api.me().name
 
 def wrap_entities(t):
   """Turn URLs and @ mentions into links. Embed Twitter native photos."""
@@ -111,7 +118,7 @@ def embed_tweet_html(tweet_url, extra_css=None):
     class name is used by this feature.
     """
     tweet_id = tweet_id_from_tweet_url(tweet_url)
-    api = tweepy.API()
+    api = tweepy.API(auth)
     tweet = api.get_status(tweet_id, include_entities=True)
     tweet_text = wrap_entities(tweet).replace('\n', '<br />')
 
