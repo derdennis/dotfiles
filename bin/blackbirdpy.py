@@ -36,7 +36,7 @@ import urllib2
 import pytz
 import tweepy
 
-myTZ = pytz.timezone('US/Central')
+myTZ = pytz.timezone('Europe/Berlin')
 
 # Twitter parameters.
 me = "der_dennis"
