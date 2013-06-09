@@ -32,19 +32,24 @@
     wds = diff --word-diff="color" --staged
 
 [diff]
-	tool = vimdiff
+	tool = git-diff
     # Allow git diff to do basic rename and copy detection
 	renames = copies
     # Tell git diff to use mnemonic prefixes (index, work tree, commit, object)
     # instead of the standard a and b notation
 	mnemonicprefix = true
 
+[difftool "git-diff"]
+    cmd = ~/bin/git-diff.sh $LOCAL $REMOTE
+
 [difftool]
 	prompt = false
+
 [branch]
     # When branching off a remote branch, automatically let the local branch
     # track the remote branch
 	autosetupmerge = true
+
 [merge]
     # Always show a diffstat at the end of a merge
 	stat = true
