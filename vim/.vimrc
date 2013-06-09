@@ -145,8 +145,6 @@ endif
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
 set rtp+=~/.dotfiles/powerline/bindings/vim
 
-
-
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
 set listchars=trail:·,tab:→\ ,eol:¬
@@ -500,6 +498,15 @@ ab ddst dennis.wegner@steag.com
 " Date and time stamps
 ab <expr> dds strftime("%Y-%m-%d")
 ab <expr> tts strftime("%Y-%m-%d %H:%M")
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" MacVim specific config
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("gui_macvim")
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
