@@ -445,6 +445,7 @@ alias ll='ls -ahlF'
 alias la='ls -A'
 alias lla='ls -lah'
 alias l='ls -CF'
+alias c='clear'
 alias cl='clear; ls -lhG'
 alias cla='clear; ls -lhAG'
 
