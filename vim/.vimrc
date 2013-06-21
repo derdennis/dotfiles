@@ -307,6 +307,16 @@ au BufWritePost * call ModeChange()
 " sudo to write to files I don't have permission to...
 cnoremap w!! w !sudo tee % >/dev/null
 
+" Vimux Integration for some nice 20% tmux-split actions...
+" Prompt for a command to run
+map rp :VimuxPromptCommand<cr>
+" Run last command executed by VimuxPromptCommand
+map rl :VimuxRunLastCommand<cr>
+" Interrupt any command running in the runner pane
+map rs :VimuxInterruptRunner<cr>
+" Close vimux runner pane
+map rx :VimuxCloseRunner<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Copy & Pasting and Completion
