@@ -1,4 +1,5 @@
 Inbox:
+	- Fix the git ps1 prompt for boxes where the git completion is missing @na
 	- Move all OS X only thingies to one section.  @na
 	- Get the ssh agent working under Linux  @na
 	- Beautyfy the .bash files  @na
