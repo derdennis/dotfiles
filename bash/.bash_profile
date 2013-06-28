@@ -46,6 +46,12 @@ if [ -d ~/.rvm/bin ]; then
     export PATH=$PATH:$HOME/.rvm/bin 
 fi
 
+
+### Add path to the Heroku Toolbelt if it is installed
+if [ -d /usr/local/heroku/bin ]; then
+    export PATH="/usr/local/heroku/bin:$PATH"
+fi
+
 # UTF-8 locale ----------------------------------------------------
 export LANG=de:DE.UTF-8
 export LC_ALL=de_DE.UTF-8
