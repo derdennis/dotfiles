@@ -53,3 +53,5 @@
 [merge]
     # Always show a diffstat at the end of a merge
 	stat = true
+[push]
+	default = simple
