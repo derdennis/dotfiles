@@ -33,7 +33,7 @@ Dir.glob("#{ENV['HOME']}/*/.git", File::FNM_DOTMATCH).each do |git_dir|
 
     # Check for uncommited changes
     build_git_status=`git --git-dir=#{git_dir} --work-tree=#{git_work_tree} status 2> /dev/null | tail -n1`.gsub(/\n/,"")
-    if build_git_status == 'nothing to commit (working directory clean)'
+    if build_git_status == 'nothing to commit, working directory clean'
         puts "#{git_repo_name} is clean.".green
         #puts "Status: #{build_git_status}"
     else
