@@ -617,7 +617,11 @@ alias funfact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
 # In any case: Make tmux use 256 colors by exporting the according TERM
 # variable and, for good measure use the -2 switch
 if [[ "$platform" = "macosx" ]]; then
-    alias tmux='TERM=screen-256color tmux -2 -f ~/.tmux-osx.conf'
+    if [[ `sw_vers -productVersion` = "10.6.8" ]]; then
+        alias tmux='TERM=screen-256color tmux -2 -f ~/.tmux-osx_snow_leopard.conf'
+    else
+        alias tmux='TERM=screen-256color tmux -2 -f ~/.tmux-osx.conf'
+    fi
 else
     alias tmux='TERM=screen-256color tmux -2'
 fi
