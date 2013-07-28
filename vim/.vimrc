@@ -553,6 +553,21 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" Setting up OS X specific stuff
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    " Setting shortcuts for Dash on OS X
+    nmap <silent> <leader>h <Plug>DashSearch
+    nmap <silent> <leader>H <Plug>DashGlobalSearch
+  endif
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Vim 7.3 features
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
