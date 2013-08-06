@@ -267,11 +267,12 @@ fk () {
     unset IFS
 }
 
-# OS X only: Edit Markdown File from Writing directory
-# Finds Markdown files matching a Spotlight-style search query
-# If there's more than one, you get a menu
+# OS X only
 case $platform in
     'macosx')
+        # Edit Markdown File from Writing directory
+        # Finds Markdown files matching a Spotlight-style search query
+        # If there's more than one, you get a menu
         edmd () {
             WRITINGDIR="~/Dropbox/Writing"
             EDITCMD="mate"
@@ -295,7 +296,18 @@ case $platform in
             fi
             return 0
         }
-        ;;
+        # Quickly get image dimensions from the command line
+        function imgsize() {
+        local width height
+        if [[ -f $1 ]]; then
+            height=$(sips -g pixelHeight "$1"|tail -n 1|awk '{print $2}')
+            width=$(sips -g pixelWidth "$1"|tail -n 1|awk '{print $2}')
+            echo "${width} x ${height}"
+        else
+            echo "File not found"
+        fi
+    }
+    ;;
 esac
 
 
