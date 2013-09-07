@@ -353,6 +353,10 @@ alias ...='cd ../../'
 alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
+# If you are in this path
+# /home/user/project/src/org/main/site/utils/file/reader/whatever and you want
+# to go to site directory quickly, then just type: bd site
+alias bd=". bd -s"''
 
 # Correct things like dropped or swapped characters in the path you type
 shopt -s cdspell
