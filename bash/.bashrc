@@ -622,7 +622,7 @@ esac
 alias m='more'
 alias df='df -h'
 alias funfact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
-
+alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
 
 # Make tmux work with the OS X clipboard and launchctl by using an OS
 # X specific config file if running on a Mac
