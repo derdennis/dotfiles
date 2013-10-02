@@ -79,7 +79,7 @@ filetype plugin indent on
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 " fix damn "crontab: temp file must be edited in place" error on OS X
-set backupskip=/tmp/*,/private/tmp/*" 
+set backupskip=/tmp/*,/private/tmp/*"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -222,7 +222,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " T to open in new tab silently
 " q to close the quickfix window
 " Make the ack plugin work even faster (Notice the space at EOL of next line)
-nnoremap <leader>a :Ack --smart-case -a 
+nnoremap <leader>a :Ack --smart-case -a
 " Remap search characters to space (forward search) and ctrl-space (backward
 " search)
 noremap <space> /
@@ -366,7 +366,18 @@ endif
 " CTRL-x CTRL-t : Thesaurus completion FIXME?
 " CTRL-x CTRL-o : Omni completion FIXME?
 "
+" Cheatsheet for copy & paste vs. yanking & put
+" via: http://vimcasts.org/episodes/meet-the-yank-register/
+" From Vim’s documentation (:help quote0):
+"
+" Numbered register 0 contains the text from the most recent yank command,
+" unless the command specified another register with [“x].
+"
+" I call “numbered register 0” the yank register. You can paste from the yank
+" register with the command: "0p. That comes in really handy when the text you
+" want to paste is no longer present in the default register.
 
+" Use openthesaurus
 set thesaurus+=~/.dotfiles/txt/openthesaurus.txt
 
 " ,v mapping to reselect the text that was just pasted so I can perform
@@ -527,7 +538,7 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Abbreviations - For more sophisticated things see the snipmate-snippets bundle 
+" Abbreviations - For more sophisticated things see the snipmate-snippets bundle
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General things
