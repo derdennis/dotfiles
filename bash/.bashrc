@@ -505,20 +505,21 @@ fi
 # Use extract function to simply extract all kind of archives with the same
 # command. Via:
 # http://alias.sh/extract-most-know-archives-one-command
+# Modified to also remove the orginial archive.
 extract () {
     if [ -f $1 ] ; then
       case $1 in
-        *.tar.bz2)   tar xjf $1     ;;
-        *.tar.gz)    tar xzf $1     ;;
-        *.bz2)       bunzip2 $1     ;;
-        *.rar)       unrar e $1     ;;
-        *.gz)        gunzip $1      ;;
-        *.tar)       tar xf $1      ;;
-        *.tbz2)      tar xjf $1     ;;
-        *.tgz)       tar xzf $1     ;;
-        *.zip)       unzip $1       ;;
-        *.Z)         uncompress $1  ;;
-        *.7z)        7z x $1        ;;
+        *.tar.bz2)   tar xjf $1 && rm -v $1     ;;
+        *.tar.gz)    tar xzf $1 && rm -v $1     ;;
+        *.bz2)       bunzip2 $1 && rm -v $1     ;;
+        *.rar)       unrar e $1 && rm -v $1     ;;
+        *.gz)        gunzip $1 && rm -v $1      ;;
+        *.tar)       tar xf $1 && rm -v $1      ;;
+        *.tbz2)      tar xjf $1 && rm -v $1     ;;
+        *.tgz)       tar xzf $1 && rm -v $1     ;;
+        *.zip)       unzip $1 && rm -v $1       ;;
+        *.Z)         uncompress $1 && rm -v $1  ;;
+        *.7z)        7z x $1 && rm -v $1        ;;
         *)     echo "'$1' cannot be extracted via extract()" ;;
          esac
      else
