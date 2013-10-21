@@ -143,7 +143,7 @@ endif
 " Powerline FontStuff
 " Use the patched DejaVu Font for gvim and macvim
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
-set rtp+=~/.dotfiles/powerline/bindings/vim
+set rtp+=~/.powerline/powerline/bindings/vim
 
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
