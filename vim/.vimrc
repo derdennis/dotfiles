@@ -493,9 +493,10 @@ vnoremap <Leader>4 c[<C-r>"](<Esc>"*pli)<Esc>
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 " Use formd to transfer markdown from inline to reference links and vice versa
+" Use the vim mark m to jump back to the position from where formd was invoked.
 " see: http://drbunsen.github.com/formd/
-nnoremap <leader>fr :%! ~/bin/formd -r<CR>
-nnoremap <leader>fi :%! ~/bin/formd -i<CR>
+nnoremap <leader>fr mm :%! ~/bin/formd -r<CR> `m :delmarks m<CR>
+nnoremap <leader>fi mm :%! ~/bin/formd -i<CR> `m :delmarks m<CR>
 " Use convert_footnotes to make MultiMarkdown footnotes out of (*Some
 " footnote*)...
 " Original Script by Brett Terpstra, see:
