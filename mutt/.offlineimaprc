@@ -1,0 +1,37 @@
+[general]
+ui = TTY.TTYUI
+accounts = DennisWegner
+pythonfile=~/.mutt/offlineimap.py
+fsync = False
+
+[Account DennisWegner]
+localrepository = DennisWegner-Local
+remoterepository = DennisWegner-Remote
+status_backend = sqlite
+postsynchook = notmuch new
+
+[Repository DennisWegner-Local]
+type = Maildir
+localfolders = ~/.mail/dennis-instant-thinking.de
+nametrans = lambda folder: {'drafts':  '[Gmail]/Entw&APw-rfe',
+                            'sent':    '[Gmail]/Gesendet',
+                            'trash':   '[Gmail]/Papierkorb',
+                            }.get(folder, folder)
+
+[Repository DennisWegner-Remote]
+maxconnections = 1
+type = Gmail
+remoteuser = dennis@instant-thinking.de
+remotepasseval = get_keychain_pass(account="dennis@instant-thinking.de", server="imap.gmail.com")
+realdelete = no
+nametrans = lambda folder: {'[Gmail]/Entw&APw-rfe': 'drafts',
+                            '[Gmail]/Gesendet':     'sent',
+                            '[Gmail]/Papierkorb':   'trash',
+                            }.get(folder, folder)
+folderfilter = lambda folder: folder not in ['[Gmail]/Papierkorb',
+                                             'Nagios',
+                                             'Django',
+                                             'Flask',
+                                             '[Gmail]/Important',
+                                             '[Gmail]/Spam',
+                                             ]

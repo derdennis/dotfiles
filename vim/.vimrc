@@ -79,7 +79,7 @@ filetype plugin indent on
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 " fix damn "crontab: temp file must be edited in place" error on OS X
-set backupskip=/tmp/*,/private/tmp/*" 
+set backupskip=/tmp/*,/private/tmp/*"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -143,7 +143,7 @@ endif
 " Powerline FontStuff
 " Use the patched DejaVu Font for gvim and macvim
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
-set rtp+=~/.dotfiles/powerline/bindings/vim
+set rtp+=~/.powerline/powerline/bindings/vim
 
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
@@ -222,7 +222,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " T to open in new tab silently
 " q to close the quickfix window
 " Make the ack plugin work even faster (Notice the space at EOL of next line)
-nnoremap <leader>a :Ack --smart-case -a 
+nnoremap <leader>a :Ack --smart-case -a
 " Remap search characters to space (forward search) and ctrl-space (backward
 " search)
 noremap <space> /
@@ -366,7 +366,18 @@ endif
 " CTRL-x CTRL-t : Thesaurus completion FIXME?
 " CTRL-x CTRL-o : Omni completion FIXME?
 "
+" Cheatsheet for copy & paste vs. yanking & put
+" via: http://vimcasts.org/episodes/meet-the-yank-register/
+" From Vim’s documentation (:help quote0):
+"
+" Numbered register 0 contains the text from the most recent yank command,
+" unless the command specified another register with [“x].
+"
+" I call “numbered register 0” the yank register. You can paste from the yank
+" register with the command: "0p. That comes in really handy when the text you
+" want to paste is no longer present in the default register.
 
+" Use openthesaurus
 set thesaurus+=~/.dotfiles/txt/openthesaurus.txt
 
 " ,v mapping to reselect the text that was just pasted so I can perform
@@ -482,9 +493,10 @@ vnoremap <Leader>4 c[<C-r>"](<Esc>"*pli)<Esc>
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
 " Use formd to transfer markdown from inline to reference links and vice versa
+" Use the vim mark m to jump back to the position from where formd was invoked.
 " see: http://drbunsen.github.com/formd/
-nnoremap <leader>fr :%! ~/bin/formd -r<CR>
-nnoremap <leader>fi :%! ~/bin/formd -i<CR>
+nnoremap <leader>fr mm :%! ~/bin/formd -r<CR> `m :delmarks m<CR>
+nnoremap <leader>fi mm :%! ~/bin/formd -i<CR> `m :delmarks m<CR>
 " Use convert_footnotes to make MultiMarkdown footnotes out of (*Some
 " footnote*)...
 " Original Script by Brett Terpstra, see:
@@ -527,7 +539,7 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Abbreviations - For more sophisticated things see the snipmate-snippets bundle 
+" Abbreviations - For more sophisticated things see the snipmate-snippets bundle
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General things
@@ -550,6 +562,21 @@ ab <expr> tts strftime("%Y-%m-%d %H:%M")
 if has("gui_macvim")
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Setting up OS X specific stuff
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    " Setting shortcuts for Dash on OS X
+    nmap <silent> <leader>h <Plug>DashSearch
+    nmap <silent> <leader>H <Plug>DashGlobalSearch
+  endif
+endif
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
