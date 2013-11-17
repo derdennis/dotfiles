@@ -267,11 +267,12 @@ fk () {
     unset IFS
 }
 
-# OS X only: Edit Markdown File from Writing directory
-# Finds Markdown files matching a Spotlight-style search query
-# If there's more than one, you get a menu
+# OS X only
 case $platform in
     'macosx')
+        # Edit Markdown File from Writing directory
+        # Finds Markdown files matching a Spotlight-style search query
+        # If there's more than one, you get a menu
         edmd () {
             WRITINGDIR="~/Dropbox/Writing"
             EDITCMD="mate"
@@ -295,7 +296,18 @@ case $platform in
             fi
             return 0
         }
-        ;;
+        # Quickly get image dimensions from the command line
+        function imgsize() {
+        local width height
+        if [[ -f $1 ]]; then
+            height=$(sips -g pixelHeight "$1"|tail -n 1|awk '{print $2}')
+            width=$(sips -g pixelWidth "$1"|tail -n 1|awk '{print $2}')
+            echo "${width} x ${height}"
+        else
+            echo "File not found"
+        fi
+    }
+    ;;
 esac
 
 
@@ -341,6 +353,10 @@ alias ...='cd ../../'
 alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
+# If you are in this path
+# /home/user/project/src/org/main/site/utils/file/reader/whatever and you want
+# to go to site directory quickly, then just type: bd site
+alias bd=". bd -s"''
 
 # Correct things like dropped or swapped characters in the path you type
 shopt -s cdspell
@@ -489,20 +505,21 @@ fi
 # Use extract function to simply extract all kind of archives with the same
 # command. Via:
 # http://alias.sh/extract-most-know-archives-one-command
+# Modified to also remove the orginial archive.
 extract () {
     if [ -f $1 ] ; then
       case $1 in
-        *.tar.bz2)   tar xjf $1     ;;
-        *.tar.gz)    tar xzf $1     ;;
-        *.bz2)       bunzip2 $1     ;;
-        *.rar)       unrar e $1     ;;
-        *.gz)        gunzip $1      ;;
-        *.tar)       tar xf $1      ;;
-        *.tbz2)      tar xjf $1     ;;
-        *.tgz)       tar xzf $1     ;;
-        *.zip)       unzip $1       ;;
-        *.Z)         uncompress $1  ;;
-        *.7z)        7z x $1        ;;
+        *.tar.bz2)   tar xjf $1 && rm -v $1     ;;
+        *.tar.gz)    tar xzf $1 && rm -v $1     ;;
+        *.bz2)       bunzip2 $1 && rm -v $1     ;;
+        *.rar)       unrar e $1 && rm -v $1     ;;
+        *.gz)        gunzip $1 && rm -v $1      ;;
+        *.tar)       tar xf $1 && rm -v $1      ;;
+        *.tbz2)      tar xjf $1 && rm -v $1     ;;
+        *.tgz)       tar xzf $1 && rm -v $1     ;;
+        *.zip)       unzip $1 && rm -v $1       ;;
+        *.Z)         uncompress $1 && rm -v $1  ;;
+        *.7z)        7z x $1 && rm -v $1        ;;
         *)     echo "'$1' cannot be extracted via extract()" ;;
          esac
      else
@@ -610,7 +627,7 @@ esac
 alias m='more'
 alias df='df -h'
 alias funfact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
-
+alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
 
 # Make tmux work with the OS X clipboard and launchctl by using an OS
 # X specific config file if running on a Mac
