@@ -1,2 +1,4 @@
 *.swp
+*.pyc
 .netrwhist
+mutt/.mutt/cache/*
