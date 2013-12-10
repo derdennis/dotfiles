@@ -313,10 +313,10 @@ cnoremap w!! w !sudo tee % >/dev/null
 
 " Vimux Integration for some nice 20% tmux-split actions...
 let VimuxUseNearestPane = 1
-" Prompt for a command to run
-map rp :VimuxPromptCommand<cr>
-" Run last command executed by VimuxPromptCommand
-map rl :VimuxRunLastCommand<cr>
+" Write current buffer, prompt for a command to run
+map rp :w<cr>VimuxPromptCommand<cr>
+" Write current buffer, run last command executed by VimuxPromptCommand
+map rl :w<cr>:VimuxRunLastCommand<cr>
 " Interrupt any command running in the runner pane
 map rs :VimuxInterruptRunner<cr>
 " Close vimux runner pane
