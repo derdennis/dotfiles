@@ -7,10 +7,23 @@ require 'colorize'
 # Clear my screen
 #puts "\e[H\e[2J"
 
-# Check for presence of Corestick
+# Define an array for the repos
+repos = Array.new
+
+# Add the repos in my home dir (Should be instant-thinking and dotfiles)
 Dir.glob("#{ENV['HOME']}/*/.git", File::FNM_DOTMATCH).each do |git_dir|
+    repos << git_dir
+end
+
+# Add the repos from ~/code/*
+Dir.glob("#{ENV['HOME']}/code/*/.git", File::FNM_DOTMATCH).each do |git_dir|
+    repos << git_dir
+end
+
+# Check for presence of Corestick
+repos.each do |git_dir|
     git_work_tree = git_dir.gsub(/\.git/, '')
-    git_repo_name = git_work_tree.gsub(/#{ENV['HOME']}/, '').gsub(/\//, '')
+    git_repo_name = git_work_tree.gsub(/#{ENV['HOME']}/, '').gsub(/\//, '').gsub(/^code/, '')
 
     remote_repo=`git --git-dir=#{git_dir} --work-tree=#{git_work_tree} remote -v | grep corestick | tail -n1`.gsub(/\(.*$/,"").gsub(/^.*?\s/,"").strip
     if File.exists?(remote_repo)
@@ -27,9 +40,9 @@ if $exit_after_check == 1
 end
 
 # Check (Master) branch against corestick
-Dir.glob("#{ENV['HOME']}/*/.git", File::FNM_DOTMATCH).each do |git_dir|
+repos.each do |git_dir|
     git_work_tree = git_dir.gsub(/\.git/, '')
-    git_repo_name = git_work_tree.gsub(/#{ENV['HOME']}/, '').gsub(/\//, '')
+    git_repo_name = git_work_tree.gsub(/#{ENV['HOME']}/, '').gsub(/\//, '').gsub(/^code/, '')
 
     # Check for uncommited changes
     build_git_status=`git --git-dir=#{git_dir} --work-tree=#{git_work_tree} status 2> /dev/null | tail -n1`.gsub(/\n/,"")
