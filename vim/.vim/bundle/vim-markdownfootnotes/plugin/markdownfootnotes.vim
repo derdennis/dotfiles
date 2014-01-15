@@ -257,8 +257,8 @@ endfunction
 function! s:VimFootnotes(appendcmd)
     " save current position
     let s:cur_pos =  getpos(".")
-    " Define search pattern for my footnotestyle
-    let l:pattern = '\v\[\^fn(\d+)\]:'
+    " Define search pattern for footnote definitions
+    let l:pattern = '\v^\[\^fn(.+)\]:'
     let l:flags = 'eW'
     call cursor(1,1)
     " get first match
