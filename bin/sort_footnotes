@@ -3,50 +3,49 @@
 import sys
 import re
 
-'''Read a Markdown file via standard input and tidy its
-reference links. The reference links will be numbered in
+'''
+Read a Markdown file via standard input and tidy the containing
+Multimarkdown footnotes. The reference links will be numbered in
 the order they appear in the text and placed at the bottom
-of the file.'''
+of the file.
 
-'''
-        self.match_fn_links = re.compile(r'\[\^fn[\d+]\].')
-        self.match_fn_refs = re.compile(r'\[\^fn[\d+]]:\s?.*')
-'''
+Based on "Tidying Markdown reference links" by Dr. Drang available at:
 
+http://www.leancrew.com/all-this/2012/09/tidying-markdown-reference-links/
 
-# The regex for finding reference links in the text. Don't find
-# footnotes by mistake.
-#link = re.compile(r'\[([^\]]+)\]\[([^^\]]+)\]')
+Do not place footnote reference links directly before a colon.
+''' 
+
+# The regex for finding footnote reference links in the text. 
 link = re.compile(r'(\[\^fn([\d+])\][^:])')
 
-# The regex for finding the label. Again, don't find footnotes
-# by mistake.
-#label = re.compile(r'^\[([^^\]]+)\]:\s+(.+)$', re.MULTILINE)
+# The regex for finding the footnote labels with the text.
 label = re.compile(r'\[\^fn([\d+])]:\s?(.*)')
 
 def refrepl(m):
-    'Rewrite reference links with the reordered link numbers.'
+    # Rewrite reference links with the reordered link numbers. Append the last
+    # character from the footnore reference links
     return '[^fn%d]%s' % (order.index(m.group(2)) + 1, m.group(1)[-1:])
 
-# Read in the file and find all the links and references.
+# Read in the file and find all the footnote-links and -references.
 text = sys.stdin.read()
 links = link.findall(text)
 labels = dict(label.findall(text))
 
-# Determine the order of the links in the text. If a link is used
+# Determine the order of the footnote-links in the text. If a link is used
 # more than once, its order is its first position.
 order = []
 for i in links:
     if order.count(i[1]) == 0:
       order.append(i[1])
 
-# Make a list of the references in order of appearance.
+# Make a list of the footnote-references in order of appearance.
 newlabels = [ '[^fn%d]: %s \n' % (i + 1, labels[j]) for (i, j) in enumerate(order) ]
 
-# Remove the old references and put the new ones at the end of the text.
+# Remove the old footnote-references and put the new ones at the end of the text.
 text = label.sub('', text).rstrip() + '\n'*3 + '\n'.join(newlabels)
 
-# Rewrite the links with the new reference numbers.
+# Rewrite the footnote-links with the new footnote-reference numbers.
 text = link.sub(refrepl, text)
 
 print text
