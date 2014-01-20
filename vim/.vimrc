@@ -502,6 +502,11 @@ nnoremap <leader>fi mm :%! ~/bin/formd -i<CR> `m :delmarks m<CR>
 " Original Script by Brett Terpstra, see:
 " http://brettterpstra.com/2012/01/24/a-service-for-writing-multimarkdown-footnotes-inline/
 nnoremap <leader>fn :%! ~/bin/convert_footnotes<CR>
+" Sort footnotes into order of appearance
+nnoremap <leader>fs mm :%! ~/bin/sort_footnotes<CR> `m :delmarks m<CR>
+" Reformat with formd to reference style and sort the footnotes. The whole
+" enchilada...
+nnoremap <leader>fx mm :%! ~/bin/formd -r <bar> ~/bin/sort_footnotes<CR> `m :delmarks m<CR>
 " Make vim complete lists starting with a "-"
 " via:
 " http://stackoverflow.com/questions/9065967/markdown-lists-in-vim-automatically-new-bullet-on-cr
