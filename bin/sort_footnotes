@@ -13,19 +13,20 @@ Based on "Tidying Markdown reference links" by Dr. Drang available at:
 
 http://www.leancrew.com/all-this/2012/09/tidying-markdown-reference-links/
 
-Do not place footnote reference links directly before a colon.
+Do *not* place footnote reference links at the start of a line, bad things will
+happen, your footnotes will be eaten by a grue.
 ''' 
 
 # The regex for finding footnote reference links in the text. 
-link = re.compile(r'(\[\^fn([\d+])\][^:])')
+link = re.compile(r'[^(?<=\n)](\[\^fn([\d+])\])')
 
 # The regex for finding the footnote labels with the text.
-label = re.compile(r'\[\^fn([\d+])]:\s?(.*)')
+label = re.compile(r'(?<=\n)\[\^fn([\d+])]:\s?(.*)')
 
 def refrepl(m):
-    # Rewrite reference links with the reordered link numbers. Append the last
-    # character from the footnore reference links
-    return '[^fn%d]%s' % (order.index(m.group(2)) + 1, m.group(1)[-1:])
+    # Rewrite reference links with the reordered link numbers. Insert the first
+    # character from the footnote reference link right before the new link.
+    return '%s[^fn%d]' % (m.group(0)[:1], order.index(m.group(2)) + 1)
 
 # Read in the file and find all the footnote-links and -references.
 text = sys.stdin.read()
