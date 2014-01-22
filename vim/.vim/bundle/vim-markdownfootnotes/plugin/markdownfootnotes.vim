@@ -3,14 +3,14 @@
 " Version: 1.0
 " URL: https://github.com/vim-pandoc/vim-markdownfootnotes
 "
-" I've taken the original and modified the output to fit the widely 
+" I've taken the original and modified the output to fit the widely
 " supported extended markdown format for footnotes.[^note]
 "
 " [^note]: Like this.
 "
 " The original script either puts notes at the end, or before your
 " email sig line (i.e., if there is a line that consists of two dashes,
-" it puts the notes before that line). This version just puts them at 
+" it puts the notes before that line). This version just puts them at
 " the end.
 "
 " Based On:
@@ -23,8 +23,8 @@
 "   URL: http://www.vim.org/scripts/script.php?script_id=431
 "   Help Part:
 "     Inspired by Emmanuel Touzery tip:
-"     http://vim.sourceforge.net/tip_view.php?tip_id=332 
-"     and discussion below (thanks to Luc for pluginization hints) 
+"     http://vim.sourceforge.net/tip_view.php?tip_id=332
+"     and discussion below (thanks to Luc for pluginization hints)
 "     I added functions and turned it into vim script.
 "
 " Installation: Drop it to your plugin directory or use pathogen.
@@ -38,34 +38,34 @@
 " 	alpha  - [a] [b] ... [z] [aa] [bb] ... [zz] [a] ...
 "   Alpha  - as above but uppercase [A] ...
 "   roman  - [i] [ii] [iii] displayed properly up to 89
-"   Roman  - as above but uppercase [I] ... 
-"   star   - [*] [**] [***] ...	
+"   Roman  - as above but uppercase [I] ...
+"   star   - [*] [**] [***] ...
 "
 " Commands:
-" 
+"
 " Those mappings correspond to two commands that you can use in your own
 " mappings:
 "
 " AddVimFootnote
-"  ~  inserts footnotemark at cursor location, inserts footnotemark on new 
+"  ~  inserts footnotemark at cursor location, inserts footnotemark on new
 "     line at end of file, opens a split window all ready for you to enter in
 "     the footnote.
 
 " ReturnFromFootnote
-"  ~  closes the split window and returns to the text in proper place. 
+"  ~  closes the split window and returns to the text in proper place.
 "
 " These are mapped to <Leader>f and <Leader>r respectively.
-" 
+"
 " FootnoteNumber
 "  ~  Change the current footnote number (one obligatory argument)
-"     :FootnoteNumber 5	
+"     :FootnoteNumber 5
 "
 " FootnoteNumberRestore
-"  ~  Restore old footnote number  
+"  ~  Restore old footnote number
 
 " FootnoteUndo
 "  ~  Decrease footnote counter by 1
-" 
+"
 " FootnoteMeta
 "  ~  Change type of the footnotes and restart counter (1, a, A, i, I, *)
 " 	  :FootnoteMeta
@@ -76,13 +76,13 @@
 " 		Change footnote type to name_of_the_type. If name_of_the_type is the
 " 		same as	your current footnote type nothing would be changed.
 " 		You can change your default type of footnote before inserting first
-" 		footnote.	
-" 
+" 		footnote.
+"
 " FootnoteRestore
 "  ~  Restore previous footnote type and counter. Unfortunately there is no easy
 " 	  way to sort footnotes at the end of file without handmade :!sort on marked
 " 	  lines (it doesn't work for 'star' type).
-" 	  :FootnoteRestore	
+" 	  :FootnoteRestore
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -95,8 +95,9 @@ set cpo&vim
 if !exists("g:vimfootnotetype")
 	let g:vimfootnotetype = "arabic"
 endif
+
 if !exists("g:vimfootnotenumber")
-	let g:vimfootnotenumber = 0
+    let g:vimfootnotenumber = 0
 endif
 
 " Mappings
@@ -173,7 +174,7 @@ function! s:VimFootnoteRestore()
 		return 0
 	endif
 endfunction
-	
+
 function! s:VimFootnoteType(footnumber)
 	if (g:vimfootnotetype =~ "alpha\\|Alpha")
 		if (g:vimfootnotetype == "alpha")
@@ -254,20 +255,41 @@ function! s:VimFootnoteType(footnumber)
 endfunction
 
 function! s:VimFootnotes(appendcmd)
-	if (g:vimfootnotenumber != 0)
-		let g:vimfootnotenumber = g:vimfootnotenumber + 1
-		let g:vimfootnotemark = <sid>VimFootnoteType(g:vimfootnotenumber)
-		let cr = "\<cr>"
-	else
-		let g:vimfootnotenumber = 1
-		let g:vimfootnotemark = <sid>VimFootnoteType(g:vimfootnotenumber)
-		let cr = "\<cr>"
-	endif
-	exe "normal ".a:appendcmd."[^fn".g:vimfootnotemark."]\<esc>" 
-	:below 4split
-	normal G
-	exe "normal o".cr."[^fn".g:vimfootnotemark."]: "
-	startinsert!
+    " save current position
+    let s:cur_pos =  getpos(".")
+    " Define search pattern for footnote definitions
+    let l:pattern = '\v^\[\^fn(.+)\]:'
+    let l:flags = 'eW'
+    call cursor(1,1)
+    " get first match
+    let g:vimfootnotenumber = search(l:pattern, l:flags)
+    if (g:vimfootnotenumber != 0)
+        let l:temp = 1
+        " count subsequent matches
+        while search(l:pattern, l:flags) != 0
+            let l:temp += 1
+            if l:temp > 50
+                redraw | echohl ErrorMsg | echo "Trouble in paradise: the while loop did not work"
+                break
+            endif
+        endwhile
+        let g:vimfootnotenumber = l:temp + 1
+        " Return to position
+        call setpos(".", s:cur_pos)
+        let g:vimfootnotemark = <sid>VimFootnoteType(g:vimfootnotenumber)
+        let cr = "\<cr>"
+    else
+        let g:vimfootnotenumber = 1
+        " Return to position
+        call setpos(".", s:cur_pos)
+        let g:vimfootnotemark = <sid>VimFootnoteType(g:vimfootnotenumber)
+        let cr = "\<cr>"
+    endif
+    exe "normal ".a:appendcmd."[^fn".g:vimfootnotemark."]\<esc>"
+    :below 4split
+    normal G
+    exe "normal o".cr."[^fn".g:vimfootnotemark."]: "
+    startinsert!
 endfunction
 
 let &cpo = s:cpo_save
