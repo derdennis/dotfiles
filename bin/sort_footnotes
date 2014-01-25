@@ -18,10 +18,10 @@ happen, your footnotes will be eaten by a grue.
 ''' 
 
 # The regex for finding footnote reference links in the text. 
-link = re.compile(r'[^(?<=\n)](\[\^fn([\d+])\])')
+link = re.compile(r'[^(?<=\n)](\[\^fn([\d]+)\])')
 
 # The regex for finding the footnote labels with the text.
-label = re.compile(r'(?<=\n)\[\^fn([\d+])]:\s?(.*)')
+label = re.compile(r'(?<=\n)\[\^fn([\d]+)]:\s?(.*)')
 
 def refrepl(m):
     # Rewrite reference links with the reordered link numbers. Insert the first
