@@ -468,6 +468,8 @@ nnoremap <silent> <Leader>t :CommandT<CR>
 " mapping to easily change directory to the file being edited, prints pwd
 " afterwards
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+" Activate Ctrl-P
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
