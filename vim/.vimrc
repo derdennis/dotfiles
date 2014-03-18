@@ -271,7 +271,8 @@ set textwidth=79
 set formatoptions=tcroqln1
 " Start at level 10 with foldings
 set foldlevelstart=10
-
+" Enable Folding by default in HTML/XML files
+au BufNewFile,BufRead *.xml,*.htm,*.html so XMLFolding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Command mode and shell execution
