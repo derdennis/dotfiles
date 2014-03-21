@@ -474,6 +474,15 @@ nnoremap <silent> <Leader>p :CtrlP<CR>
 "Ignore some stuff
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
+" vim-wildfire settings to select text objects by pressing Enter.
+" use '*' to mean 'all other filetypes'
+" in this example, html and xml share the same text objects
+let g:wildfire_objects = {
+    \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip", "it"],
+    \ "html,xml" : ["at"],
+\ }
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " All things Markdown
