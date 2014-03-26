@@ -225,7 +225,7 @@ function parse_git_dirty {
 }
 
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"
 }
 
 # Remove all git stuff from a project in CWD
@@ -321,14 +321,26 @@ esac
 # work with double quotes...
 # Also: Shows the currently used Ruby- and Gemset-Version by using the rvm-prompt.
 # RVM part via: http://collectiveidea.com/blog/archives/2011/08/02/command-line-feedback-from-rvm-and-git/?
-# Check if the rvm-prompt binary is present before adding it to the prompt.
+# Funky colors via: http://www.blendedcocoa.com/blog/2012/11/21/bash-prompt_with_git_branch/ 
+function prompt {
+local DEFAULT="\[\033[0m\]"
+local RED="\[\033[0;31m\]"
+local GREEN="\[\033[0;32m\]"
+local BLUE="\[\033[0;34m\]"
+local YELLOW="\[\033[0;33m\]"
+
 if [ -f  ~/.rvm/bin/rvm-prompt ];
 then
-    export PS1='\[\e[01;34m\]$(~/.rvm/bin/rvm-prompt) \[\e[0;32m\]\w \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]] ")\n> '
+    export PS1="\`if [ \$? == '0' ]; then echo '$GREEN'; else echo '$RED'; fi\`\w $BLUE[\$(parse_git_branch)$YELLOW\$(parse_git_dirty)$BLUE] $BLUE[\$(~/.rvm/bin/rvm-prompt)]\n$DEFAULT\$ "
 else
     # If no rvm-prompt is present, do not include it in the prompt...
-    export PS1='\[\e[0;32m\]\w \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]] ")\n> '
+    export PS1="\`if [ \$? == '0' ]; then echo '$GREEN'; else echo '$RED'; fi\`\w 
+    $BLUE[\$(parse_git_branch)$YELLOW\$(parse_git_dirty)$BLUE]\n$DEFAULT\$ "
 fi
+}
+
+prompt
+
 
 # This runs before the prompt and sets the title of the xterm* window.  If you set the title in the prompt
 # weird wrapping errors occur on some systems, so this method is superior
