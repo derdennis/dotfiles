@@ -221,11 +221,17 @@ complete -o default -o nospace -F _git g
 alias gen_commit_message='curl http://whatthecommit.com/index.txt'
 
 function parse_git_dirty {
-  [[ ! $(git status 2> /dev/null | tail -n1) =~ "working directory clean" ]] && echo "*"
+git rev-parse 2> /dev/null
+if [ $? -eq 0 ]; then
+    [[ ! $(git status 2> /dev/null | tail -n1) =~ "working directory clean" ]] && echo "*"
+fi
 }
 
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"
+git rev-parse 2> /dev/null
+if [ $? -eq 0 ]; then
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"
+fi
 }
 
 # Remove all git stuff from a project in CWD
