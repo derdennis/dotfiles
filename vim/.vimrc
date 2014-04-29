@@ -271,7 +271,8 @@ set textwidth=79
 set formatoptions=tcroqln1
 " Start at level 10 with foldings
 set foldlevelstart=10
-
+" Enable Folding by default in HTML/XML files
+au BufNewFile,BufRead *.xml,*.htm,*.html so XMLFolding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Command mode and shell execution
@@ -463,11 +464,24 @@ noremap tm :tabm<Space> " Tabmove to position #
 noremap tx :tabclose<CR>
 " Switch on the nerdtree with ,n
 noremap <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
-" Open the Command-T window with ,t
-nnoremap <silent> <Leader>t :CommandT<CR>
-" mapping to easily change directory to the file being edited, prints pwd
-" afterwards
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+" Activate Ctrl-P
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+" Set the CtrlP command
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+" Open the Ctrl-P window with ,p
+nnoremap <silent> <Leader>p :CtrlP<CR>
+"Ignore some stuff
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+" vim-wildfire settings to select text objects by pressing Enter.
+" use '*' to mean 'all other filetypes'
+" in this example, html and xml share the same text objects
+let g:wildfire_objects = {
+    \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip", "it"],
+    \ "html,xml" : ["at"],
+\ }
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
