@@ -741,6 +741,19 @@ esac
 # Insert a bar
 alias bar='echo -e ================================================================================'
 
+# Mac Only: Run on photos with embedded geo-data to get the coordinates and
+# open it in a map
+whereisthis() {
+  lat=$(mdls -raw -name kMDItemLatitude "$1")
+  if [ "$lat" != "(null)" ]; then
+    long=$(mdls -raw -name kMDItemLongitude "$1")
+    echo -n $lat,$long | pbcopy
+    echo $lat,$long copied
+    open https://www.google.com/maps?q=$lat,$long
+  else
+    echo "No Geo-Data Available"
+  fi
+}
 
 # Subversion & Diff ------------------------------------------------
 export SV_USER='dennis'  # Change this to your username that you normally use on subversion (only if it is different from your logged in name)
