@@ -566,6 +566,8 @@ ab <expr> tts strftime("%Y-%m-%d %H:%M")
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_macvim")
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+    " No Toolbar
+    set guioptions-=T
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
