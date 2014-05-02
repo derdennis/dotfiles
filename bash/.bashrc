@@ -340,8 +340,7 @@ then
     export PS1="\`if [ \$? == '0' ]; then echo '$GREEN'; else echo '$RED'; fi\`\w $BLUE[\$(parse_git_branch)$YELLOW\$(parse_git_dirty)$BLUE] $BLUE[\$(~/.rvm/bin/rvm-prompt)]\n$DEFAULT\$ "
 else
     # If no rvm-prompt is present, do not include it in the prompt...
-    export PS1="\`if [ \$? == '0' ]; then echo '$GREEN'; else echo '$RED'; fi\`\w 
-    $BLUE[\$(parse_git_branch)$YELLOW\$(parse_git_dirty)$BLUE]\n$DEFAULT\$ "
+    export PS1="\`if [ \$? == '0' ]; then echo '$GREEN'; else echo '$RED'; fi\`\w $BLUE[\$(parse_git_branch)$YELLOW\$(parse_git_dirty)$BLUE]\n$DEFAULT\$ "
 fi
 }
 
