@@ -518,6 +518,10 @@ nnoremap <leader>fi mm :%! ~/bin/formd -i<CR> `m :delmarks m<CR>
 nnoremap <leader>fn :%! ~/bin/convert_footnotes<CR>
 " Sort footnotes into order of appearance
 nnoremap <leader>fs mm :%! ~/bin/sort_footnotes<CR> `m :delmarks m<CR>
+" Clean up currently selected Markdown table
+" via:
+" http://www.leancrew.com/all-this/2014/06/cleaning-up-my-markdown-table-cleanup-script/
+vnoremap <leader>ft :! ~/bin/normalize-md-table.py<CR>
 " Reformat with formd to reference style and sort the footnotes. The whole
 " enchilada...
 nnoremap <leader>fx mm :%! ~/bin/formd -r <bar> ~/bin/sort_footnotes<CR> `m :delmarks m<CR>
