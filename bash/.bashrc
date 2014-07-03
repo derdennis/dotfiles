@@ -456,7 +456,7 @@ export HISTTIMEFORMAT='%Y.%m.%d-%T :: '
 HISTSIZE=100000
 HISTFILESIZE=100000
 
-# no duplicates in history
+# no duplicates in history, no commands starting with a space in history
 export HISTCONTROL=ignoredups:ignorespace
 
 
