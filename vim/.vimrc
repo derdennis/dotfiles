@@ -648,6 +648,17 @@ endif
 " Rechtschreibprüfung / Spellcheck
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ]s                Gehe zum nächsten falschen Wort
+" [s                Gehe zum vorherigen falschen Wort
+" zg                Fügt das Wort unter dem Cursor dem Wörterbuch hinzu, das in
+"                   der Variable spellfile steht.
+" zG                Speichert Wort unter Cursor in interner Wortliste, diese geht
+"                   nach dem Schließen von Vim verloren
+" zw                Fügt das Wort als falsch der Wörterbuchdatei aus der
+"                   spellfile-Variable hinzu
+" zW                Speichert Wort als falsch in interner  Wortliste
+" z=                Bietet eine Auswahl von Korrekturvorschlägen an
+" zug zuw zuG zuW   Löscht das Wort unter dem Cursor aus der entsprechenden Liste
 let b:myLang=0
 let g:myLangList=["nospell","de_de","en_gb"]
 function! ToggleSpell()
