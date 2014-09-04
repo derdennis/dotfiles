@@ -62,25 +62,45 @@ export LC_ALL=de_DE.UTF-8
 if [[ "$TERM_PROGRAM" != "DTerm" ]]; then
 
     echo -e "Kernel Information: " `uname -smr`
-    #echo -e "${COLOR_BROWN}`bash --version`"
-    #echo -ne "${COLOR_GRAY}Uptime: "; uptime
-    #echo -ne "${COLOR_GRAY}Server time is: "; date
-    #echo -e "`bash --version`"
     echo -ne "Uptime: "; uptime
     echo -ne "Server time is: "; date
     echo ""
     case $platform in
         'linux')
-            echo 'This is Linux'
+            # Execute archey if present in $PATH
+            path_to_archey=$(which archey)
+            if [ -x "$path_to_archey" ] ; then
+                $path_to_archey
+            else
+                echo 'This is Linux'
+            fi
             ;;
         'freebsd')
-            echo 'This is FreeBSD'
+            # Execute archey if present in $PATH
+            path_to_archey=$(which archey)
+            if [ -x "$path_to_archey" ] ; then
+                $path_to_archey
+            else
+                echo 'This is FreeBSD'
+            fi
             ;;
         'openbsd')
-            echo 'This is OpenBSD'
+            # Execute archey if present in $PATH
+            path_to_archey=$(which archey)
+            if [ -x "$path_to_archey" ] ; then
+                $path_to_archey
+            else
+                echo 'This is OpenBSD'
+            fi
             ;;
         'macosx')
-            echo 'This is Mac OS X'
+            # Execute archey (with color option -c) if present in $PATH
+            path_to_archey=$(which archey)
+            if [ -x "$path_to_archey" ] ; then
+                $path_to_archey -c
+            else
+                echo 'This is Mac OS X'
+            fi
             ;;
         'windows')
             echo 'This is Windows'
@@ -96,7 +116,6 @@ fi
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
-
 
 # Notes: ----------------------------------------------------------
 # When you start an interactive shell (log into the console, open
