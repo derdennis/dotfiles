@@ -9,15 +9,21 @@ require 'colorize'
 
 # Define an array for the repos
 repos = Array.new
+# Define an array of repo names to ignore
+ignore_repo_names = ["crm_pcs", "lalala" ]
 
 # Add the repos in my home dir (Should be instant-thinking and dotfiles)
 Dir.glob("#{ENV['HOME']}/*/.git", File::FNM_DOTMATCH).each do |repo_dir|
-    repos << repo_dir
+    unless ignore_repo_names.any?{ |s| repo_dir.include?(s)}
+        repos << repo_dir
+    end
 end
 
 # Add the repos from ~/code/*
 Dir.glob("#{ENV['HOME']}/code/*/.git", File::FNM_DOTMATCH).each do |repo_dir|
-    repos << repo_dir
+    unless ignore_repo_names.any?{ |s| repo_dir.include?(s)}
+        repos << repo_dir
+    end
 end
 
 # Use a function to get the work tree and the repo name of the repos
