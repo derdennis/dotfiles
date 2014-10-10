@@ -174,12 +174,12 @@ set shiftwidth=4
 " makes VIM see multiple space characters as tabstops, and so <BS> does the
 " right thing and will delete four spaces (assuming 4 is your setting).
 set softtabstop=4
-"Insert spaces instead of <TAB> character when the <TAB> key is pressed. This
-"is also the prefered method of Python coding, since Python is especially
-"sensitive to problems with indenting which can occur when people load files in
-"different editors with different tab settings, and also cutting and pasting
-"between applications (ie email/news for example) can result in problems. It is
-"safer and more portable to use spaces for indenting.
+" Insert spaces instead of <TAB> character when the <TAB> key is pressed. This
+" is also the prefered method of Python coding, since Python is especially
+" sensitive to problems with indenting which can occur when people load files in
+" different editors with different tab settings, and also cutting and pasting
+" between applications (ie email/news for example) can result in problems. It is
+" safer and more portable to use spaces for indenting.
 set expandtab
 " Use the "shiftwidth" setting for inserting <TAB>s instead of the "tabstop"
 " setting, when at the beginning of a line. This may be redundant for most
@@ -265,7 +265,7 @@ nnoremap <leader>Q gggqG
 " gqip: Reformat the current paragraph
 nnoremap <leader>q gqip
 " (visual-selection) gq: Reformart the selection
-set textwidth=79
+"set textwidth=79
 " See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
 " more information.
 set formatoptions=tcroqln1
