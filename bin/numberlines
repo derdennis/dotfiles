@@ -1,0 +1,40 @@
+#!/usr/bin/python
+"""
+Number lines on a block of text, preserving indentation.
+Allow the first line to indicate start number.
+If the first lines starts with 'X:' then remove line numbers.
+via:
+http://nathangrigg.net/2014/09/number-lines/
+"""
+import re
+import sys
+
+LINE_NO = re.compile(r"^\s*(\d*|[Xx]*):( |$)")
+
+lines = sys.stdin.readlines()
+first_line_number = LINE_NO.match(lines[0])
+
+# Determine indentation.
+indent = min(
+    (re.match(" *|\t*", line).group(0)
+         for line in lines if line.strip()),
+    key=len)
+
+if first_line_number and first_line_number.group(1)[0] in "Xx":
+    formatter = "{indent}{line}"
+    # These are irrelevant.
+    start = 1
+    padding = 0
+else:
+    formatter = "{indent}{number:>{padding}}: {line}"
+    start = int(first_line_number.group(1)) if first_line_number else 1
+    padding = len(str(start + len(lines)))
+
+for i, line in enumerate(lines):
+    line = LINE_NO.sub("", line[len(indent):])
+    if not line: line = "\n"
+    sys.stdout.write(formatter.format(
+        indent=indent,
+        number=start + i,
+        padding=padding,
+        line=line))
