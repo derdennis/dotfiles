@@ -549,6 +549,9 @@ nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 
+" Use raw grep for gitgutter
+let g:gitgutter_escape_grep = 1
+
 " run :Gc my-branch to checkout a branch, or :Gc -b new-branch to create a new one.
 " via: http://dailyvim.tumblr.com/post/44147584103/handy-git-checkout-function
 function! s:GitCheckout(...)
