@@ -93,7 +93,7 @@ set selectmode=mouse
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Status line settings (Should be overwritten by Powerline-Plugin)
+" Status line settings (Altough this vim should use the airline status bar...)
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn on info ruler at the bottom
@@ -141,9 +141,9 @@ if &term == "xterm-color"
 endif
 
 " Powerline FontStuff
-" Use the patched DejaVu Font for gvim and macvim
+" Use the patched DejaVu Font for the airline status bar
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
-set rtp+=~/.powerline/powerline/bindings/vim
+let g:airline_powerline_fonts = 1
 
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
