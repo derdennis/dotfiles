@@ -327,7 +327,7 @@ esac
 # work with double quotes...
 # Also: Shows the currently used Ruby- and Gemset-Version by using the rvm-prompt.
 # RVM part via: http://collectiveidea.com/blog/archives/2011/08/02/command-line-feedback-from-rvm-and-git/?
-# Funky colors via: http://www.blendedcocoa.com/blog/2012/11/21/bash-prompt_with_git_branch/ 
+# Funky colors via: http://www.blendedcocoa.com/blog/2012/11/21/bash-prompt_with_git_branch/
 function prompt {
 local DEFAULT="\[\033[0m\]"
 local RED="\[\033[0;31m\]"
@@ -407,7 +407,7 @@ alias todos="ack --nogroup '(TODO|FIX(ME)?)'"
 [[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
 
 
-# Source the handy CTRL-T completeme shortcut if it exists 
+# Source the handy CTRL-T completeme shortcut if it exists
 # via: https://pypi.python.org/pypi/completeme
 [[ -s "/usr/local/bin/setup_completeme_key_binding.sh" ]] && source "/usr/local/bin/setup_completeme_key_binding.sh"
 
@@ -577,7 +577,7 @@ cf() {
 }
 
 
-# batch change extension 
+# batch change extension
 # "chgext html php" will turn a directory of HTML files into PHP files. Magic.
 chgext() {
     for file in *.$1 ; do mv "$file" "${file%.$1}.$2" ; done
@@ -598,7 +598,7 @@ case $platform in
         # Shortcut to md5 on OS X
         alias md5sum='openssl md5'
         # time machine log
-        alias tmlog="syslog -F '\$Time \$Message' -k Sender com.apple.backupd-auto -k Time ge -30m | tail -n 1" 
+        alias tmlog="syslog -F '\$Time \$Message' -k Sender com.apple.backupd-auto -k Time ge -30m | tail -n 1"
         # mount all connected Firewire disks
         alias mountall='system_profiler SPFireWireDataType | grep "BSD Name: disk.$" | sed "s/^.*: //" | (while read i; do /usr/sbin/diskutil mountDisk $i; done)'
         # unmount them all
@@ -665,6 +665,8 @@ sssh (){ ssh -t "$1" 'tmux -u attach || tmux -u new || screen -DR'; }
 
 # Get the current weather in Essen, Germany
 alias weather='weatherman "Essen, Germany"'
+# Export the yahoo weather code for Essen, Germany for tmux-powerline
+export TMUX_POWERLINE_SEG_WEATHER_LOCATION="648820"
 
 # Be nice to your computer
 alias please='sudo'
@@ -807,8 +809,8 @@ alias svhelp='svn help'
 alias svblame='sv blame'
 
 svgetinfo (){
- 	sv info $@
-	sv log $@
+    sv info $@
+    sv log $@
 }
 
 # You need to create fmdiff and fmresolve, which can be found at: http://ssel.vub.ac.be/ssel/internal:fmdiff
