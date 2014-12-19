@@ -360,6 +360,9 @@ function xtitle {  # change the title of your xterm* window
   echo -ne "\033]0;$1\007"
 }
 
+# Let the tmux-powerline utility know about the current working dir so it can show
+# informations about the current git branch etc.
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 
 # Navigation -------------------------------------------------------
