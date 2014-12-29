@@ -313,6 +313,8 @@ case $platform in
             echo "File not found"
         fi
     }
+    # Preview the clipboard content in terminal
+    alias cbp="pbpaste|less"
     ;;
 esac
 
