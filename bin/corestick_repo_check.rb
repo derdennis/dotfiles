@@ -65,7 +65,7 @@ repos.each do |repo_dir|
         #puts "Status: #{build_git_status}"
     end
 
-    # Check for unpushed changes
+    # Check for unpushed changes (This does not work reliably if there are multiple branches)
     remote_status=`git --git-dir=#{@git_dir} --work-tree=#{@git_work_tree} remote show corestick 2> /dev/null | tail -n1`.gsub(/\n/,"").strip
     if remote_status =~ /up to date/
         puts "#{@git_repo_name} is up to date.".green
