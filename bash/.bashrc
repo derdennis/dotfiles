@@ -663,6 +663,9 @@ else
     alias tmux='TERM=screen-256color tmux -2'
 fi
 
+# Use rbenv
+eval "$(rbenv init -)"
+
 # Use sssh in place of ssh to reconnect or start a new tmux or screen session
 # on the remote side. Via:
 # http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
