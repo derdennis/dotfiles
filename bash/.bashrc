@@ -238,8 +238,8 @@ fi
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
 
 # Rake task completion
-# via: http://project.ioni.st/post/213#quote_213
-complete -C ~/.rake-completion.rb -o default rake
+# via: https://github.com/ai/rake-completion
+. ~/.dotfiles/rake/rake
 
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
