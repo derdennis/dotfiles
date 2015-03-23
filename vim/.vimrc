@@ -152,6 +152,9 @@ set listchars=trail:·,tab:→\ ,eol:¬
 set nolist
 " Show incomplete paragraphs
 set display+=lastline
+" Rainbow-Parantheses for easy navigation within lots of syntax cruft...
+" Here set to 0, to enable it later use :RainbowToggle
+let g:rainbow_active = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
