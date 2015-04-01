@@ -241,6 +241,10 @@ alias ungit="find . -name '.git' -exec rm -rf {} \;"
 # via: https://github.com/ai/rake-completion
 . ~/.dotfiles/rake/rake
 
+# gws task completion
+# via: https://streakycobra.github.io/gws/
+. ~/.dotfiles/gws/gws_bash_completion
+
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
