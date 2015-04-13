@@ -375,6 +375,10 @@ alias ...='cd ../../'
 alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
+
+# Use commacd (https://github.com/shyiko/commacd) to avoid the aliases above
+source ~/.dotfiles/commacd/commacd.bash
+
 # If you are in this path
 # /home/user/project/src/org/main/site/utils/file/reader/whatever and you want
 # to go to site directory quickly, then just type: bd site
