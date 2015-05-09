@@ -152,6 +152,9 @@ set listchars=trail:·,tab:→\ ,eol:¬
 set nolist
 " Show incomplete paragraphs
 set display+=lastline
+" Rainbow-Parantheses for easy navigation within lots of syntax cruft...
+" Here set to 0, to enable it later use :RainbowToggle
+let g:rainbow_active = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -402,7 +405,8 @@ nnoremap K i<CR><Esc>
 :nnoremap <silent> <F11> :YRShow<CR>
 " Move the yankring file out of ~ and into the .vim_local dir
 let g:yankring_history_dir = '~/.vim_local'
-
+" Use vim-slime with tmux
+let g:slime_target = "tmux"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Navigation and movement through buffers, splits, tabs, files

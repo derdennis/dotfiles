@@ -241,6 +241,10 @@ alias ungit="find . -name '.git' -exec rm -rf {} \;"
 # via: https://github.com/ai/rake-completion
 . ~/.dotfiles/rake/rake
 
+# gws task completion
+# via: https://streakycobra.github.io/gws/
+. ~/.dotfiles/gws/gws_bash_completion
+
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
@@ -373,6 +377,10 @@ alias ...='cd ../../'
 alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
+
+# Use commacd (https://github.com/shyiko/commacd) to avoid the aliases above
+source ~/.dotfiles/commacd/commacd.bash
+
 # If you are in this path
 # /home/user/project/src/org/main/site/utils/file/reader/whatever and you want
 # to go to site directory quickly, then just type: bd site
