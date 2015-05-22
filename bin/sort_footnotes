@@ -15,9 +15,9 @@ http://www.leancrew.com/all-this/2012/09/tidying-markdown-reference-links/
 
 Do *not* place footnote reference links at the start of a line, bad things will
 happen, your footnotes will be eaten by a grue.
-''' 
+'''
 
-# The regex for finding footnote reference links in the text. 
+# The regex for finding footnote reference links in the text.
 link = re.compile(r'[^(?<=\n)](\[\^fn([\d]+)\])')
 
 # The regex for finding the footnote labels with the text.
@@ -41,13 +41,16 @@ for i in links:
       order.append(i[1])
 
 # Make a list of the footnote-references in order of appearance.
-newlabels = [ '[^fn%d]: %s \n' % (i + 1, labels[j]) for (i, j) in enumerate(order) ]
+newlabels = [ '[^fn%d]: %s\n' % (i + 1, labels[j]) for (i, j) in enumerate(order) ]
 
 # Remove the old footnote-references and put the new ones at the end of the text.
 text = label.sub('', text).rstrip() + '\n'*3 + '\n'.join(newlabels)
 
 # Rewrite the footnote-links with the new footnote-reference numbers.
 text = link.sub(refrepl, text)
+
+# Remove the many empty lines we possibly just added.
+while "\n\n\n" in text: text = text.replace("\n\n\n", "\n\n")
 
 print text
 
