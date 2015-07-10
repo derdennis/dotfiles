@@ -82,10 +82,6 @@ nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 " fix damn "crontab: temp file must be edited in place" error on OS X
 set backupskip=/tmp/*,/private/tmp/*"
 
-" Make vim behave like a good citizen when run on MS Windows
-source $VIMRUNTIME/mswin.vim
-" Remove the toolbar with the ugly icons in Gvim
-:set guioptions-=T  "remove toolbar
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Mouse settings
@@ -405,6 +401,21 @@ vmap <Leader>P "+P
 " Hit <C-v> go back to previous selection if I went too far
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+" Prevent replacing paste buffer on paste:
+" I can select some text and paste over it without worrying if my paste buffer
+" was replaced by the just removed text (place it close to end of ~/vimrc).
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Navigation and movement through buffers, splits, tabs, files
@@ -612,7 +623,17 @@ if has("unix")
   endif
 endif
 
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Setting up vim for hostile Windows environment
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make vim behave like a good citizen when run on MS Windows
+if has("win64") || has("win32") || has("win16")
+    source $VIMRUNTIME/mswin.vim
+    " Remove the toolbar with the ugly icons in Gvim
+    :set guioptions-=T  "remove toolbar
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Vim 7.3 features
