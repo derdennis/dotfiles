@@ -82,6 +82,10 @@ nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 " fix damn "crontab: temp file must be edited in place" error on OS X
 set backupskip=/tmp/*,/private/tmp/*"
 
+" Make vim behave like a good citizen when run on MS Windows
+source $VIMRUNTIME/mswin.vim
+" Remove the toolbar with the ugly icons in Gvim
+:set guioptions-=T  "remove toolbar
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Mouse settings
@@ -378,6 +382,10 @@ nnoremap K i<CR><Esc>
 let g:yankring_history_dir = '~/.vim_local'
 " Use vim-slime with tmux
 let g:slime_target = "tmux"
+
+" Use the system clipboard for easy copy & pasting in a graphical OS like OS
+" X or Windows.
+set clipboard=unnamed
 
 " Copy & paste to system clipboard with <Leader>p and <Leader>y:
 " via: http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
