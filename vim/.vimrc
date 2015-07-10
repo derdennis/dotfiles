@@ -1,6 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Dennis .vimrc - Configuration for the improved Vi Edtor
+" Dennis' .vimrc - Configuration for the improved Vi Edtor
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -29,7 +29,8 @@ let mapleader=","
 " Basic Settings
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" This is vim not vi. Also: 1970 is gone.
+" This is vim not vi. Also: 1970 is long gone and probably does not need it's
+" editor back...
 set nocompatible
 " Make backspace behave nicely on some obscure platforms
 set backspace=indent,eol,start
@@ -66,7 +67,7 @@ set hidden
 set history=1000
 " Use many muchos levels of undo
 set undolevels=1000
-" Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
+" Prevent Backupfiles to be created. If disabled, vim creates file.txt~ files
 " all over the place...
 set nobackup
 " Don't litter .swp files
@@ -93,7 +94,7 @@ set selectmode=mouse
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Status line settings (Altough this vim should use the airline status bar...)
+" Status line settings (Although this vim should use the airline status bar...)
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn on info ruler at the bottom
@@ -115,20 +116,18 @@ set statusline+=%{fugitive#statusline()}
 syntax on
 " Make sure, one can see comments on a dark background (terminal) while
 " keeping things bright in GUI-mode
+" If no GUI is running make sure to display 256 colors
 if has('gui_running')
     set background=light
 else
     set background=dark
-endif
-" If no GUI is running make sure to display 256 colors
-if !has("gui_running")
         set term=screen-256color
+        " This is needed to get good results on putty
+        " via: http://stackoverflow.com/questions/5560658/ubuntu-vim-and-the-solarized-color-palette
+        se t_Co=256
 endif
 " Set light/dark Switch for solarized on F5-key
 call togglebg#map("<F5>")
-" This is needed to get good results on putty
-" via: http://stackoverflow.com/questions/5560658/ubuntu-vim-and-the-solarized-color-palette
-se t_Co=256
 " Turn on the Solarized colorscheme (See http://ethanschoonover.com/solarized)
 colorscheme solarized
 
