@@ -147,7 +147,7 @@ let g:airline_powerline_fonts = 1
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
 set listchars=trail:·,tab:→\ ,eol:¬
-"set list
+"Use "set list" to actually show the invisibles
 set nolist
 " Show incomplete paragraphs
 set display+=lastline
@@ -378,6 +378,25 @@ nnoremap K i<CR><Esc>
 let g:yankring_history_dir = '~/.vim_local'
 " Use vim-slime with tmux
 let g:slime_target = "tmux"
+
+" Copy & paste to system clipboard with <Leader>p and <Leader>y:
+" via: http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" I use terryma/vim-expand-region with following mapping:
+"
+" Hit v to select one character
+" Hit vagain to expand selection to word
+" Hit v again to expand to paragraph
+" ...
+" Hit <C-v> go back to previous selection if I went too far
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Navigation and movement through buffers, splits, tabs, files
@@ -457,6 +476,11 @@ let g:wildfire_objects = {
     \ "html,xml" : ["at"],
 \ }
 
+" Type <Leader>o to open a new file:
+nnoremap <Leader>o :CtrlP<CR>
+
+"Type <Leader>w to save file (a lot faster than :w<Enter>):
+nnoremap <Leader>w :w<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
