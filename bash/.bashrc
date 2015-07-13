@@ -172,6 +172,15 @@ bind '"\eOD":backward-word'
 # no bell
 bind "set bell-style none"
 
+# Make switching from vim to shell and vice versa extremely fast and convenient
+# by pushing Ctrl-z. First press suspends vim to the background. Instead of
+# using 'fg' to get it back to the foreground, I 'undef' the standard Ctrl-z
+# behaviour (susp) and map it to fg followed by the Enter key (\015).
+# via: http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+# and: https://github.com/tybenz/ctrl-z
+stty susp undef
+bind '"\C-z":"fg\015"'
+
 # Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many
 # systems until it is resumed with Ctrl+Q. Thus, it is turned off here. Does not
 # work in DTerm, so wrapped in an if statement...
