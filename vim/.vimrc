@@ -357,7 +357,7 @@ set thesaurus+=~/.dotfiles/txt/openthesaurus.txt
 
 " ,v mapping to reselect the text that was just pasted so I can perform
 " commands (like indentation) on it
-nnoremap <leader>v V`]
+nnoremap <leader>v `[v`]
 " make Y copy until end of line, use yy to copy whole line
 " same way D & dd and C & CC are working...
 nnoremap Y y$
