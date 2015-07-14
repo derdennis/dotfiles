@@ -147,9 +147,9 @@ bind "set completion-ignore-case On"
 bind "set completion-map-case on"
 # replace completed part with "...", so it's easy to see what to type next
 bind "set completion-prefix-display-length 2"
-# make Ctrl-j and Ctrl-k cycle through the available completions
-bind "Control-j: menu-complete"
-bind "Control-k: menu-complete-backward"
+# make Alt-j and Alt-k cycle through the available completions
+bind '"\ej": menu-complete'
+bind '"\ek": menu-complete-backward'
 # show list automatically, without double tab
 bind "set show-all-if-ambiguous On"
 bind "set show-all-if-unmodified On"
@@ -181,10 +181,14 @@ bind "set bell-style none"
 stty susp undef
 bind '"\C-z":"fg\015"'
 
+# Append a slash to the end of directories when completing with TAB. Do the
+# same with symlinked directories.
+bind 'set mark-directories on'
+bind 'set mark-symlinked-directories on'
+
 # Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many
 # systems until it is resumed with Ctrl+Q. Thus, it is turned off here. Does not
 # work in DTerm, so wrapped in an if statement...
-
 if [[ "$TERM_PROGRAM" != "DTerm" ]]; then
     stty -ixon
 fi
