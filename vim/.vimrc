@@ -72,8 +72,11 @@ set undolevels=1000
 set nobackup
 " Don't litter .swp files
 set noswapfile
-" Have Vim jump to the last position when reopening a file
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Have Vim jump to the last position when reopening a file. If this does not
+" work, check if the file ~/.viminfo is accidentally owned by root.
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 " Have Vim load indentation rules and plugins according to the detected filetype.
 filetype plugin indent on
 " Quickly edit/reload the vimrc file
