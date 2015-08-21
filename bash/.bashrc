@@ -501,6 +501,8 @@ bind '"\e[B"':history-search-forward
 alias ll='ls -ahlF'
 alias la='ls -A'
 alias lla='ls -lah'
+alias lt='ls -lt'
+alias ltr='ls -ltr'
 alias l='ls -CF'
 alias lsd='ls -l | grep ^d'
 alias lshd='ls -al | grep ^d'
