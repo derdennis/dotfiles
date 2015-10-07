@@ -143,8 +143,8 @@ if &term == "xterm-color"
 endif
 
 " Powerline FontStuff
-" Use the patched DejaVu Font for the airline status bar
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
+" Use the pre-patched Hack Font for the airline status bar
+set guifont=Hack:h12
 let g:airline_powerline_fonts = 1
 
 " Show invisible characters (only here to remind me how to turn it on and off)
@@ -607,7 +607,7 @@ ab <expr> tts strftime("%Y-%m-%d %H:%M")
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_macvim")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+    set guifont=Hack:h12
     " No Toolbar
     set guioptions-=T
 endif
