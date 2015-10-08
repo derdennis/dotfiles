@@ -702,6 +702,13 @@ alias weather='weatherman "Essen, Germany"'
 # Export the yahoo weather code for Essen, Germany for tmux-powerline
 export TMUX_POWERLINE_SEG_WEATHER_LOCATION="648820"
 
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+export POWERLINE_COMMAND=powerline
+export POWERLINE_CONFIG_COMMAND=powerline-config
+
+
 # Be nice to your computer
 alias please='sudo'
 
