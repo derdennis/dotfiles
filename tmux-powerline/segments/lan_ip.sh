@@ -27,6 +27,6 @@ run_segment() {
 		done
 	fi
 
-	echo "L ${lan_ip-N/a}"
+	echo "ⓛ ${lan_ip-N/a}"
 	return 0
 }
