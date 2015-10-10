@@ -147,9 +147,9 @@ bind "set completion-ignore-case On"
 bind "set completion-map-case on"
 # replace completed part with "...", so it's easy to see what to type next
 bind "set completion-prefix-display-length 2"
-# make Ctrl-j and Ctrl-k cycle through the available completions
-bind "Control-j: menu-complete"
-bind "Control-k: menu-complete-backward"
+# make Alt-j and Alt-k cycle through the available completions
+bind '"\ej": menu-complete'
+bind '"\ek": menu-complete-backward'
 # show list automatically, without double tab
 bind "set show-all-if-ambiguous On"
 bind "set show-all-if-unmodified On"
@@ -172,10 +172,23 @@ bind '"\eOD":backward-word'
 # no bell
 bind "set bell-style none"
 
+# Make switching from vim to shell and vice versa extremely fast and convenient
+# by pushing Ctrl-z. First press suspends vim to the background. Instead of
+# using 'fg' to get it back to the foreground, I 'undef' the standard Ctrl-z
+# behaviour (susp) and map it to fg followed by the Enter key (\015).
+# via: http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+# and: https://github.com/tybenz/ctrl-z
+stty susp undef
+bind '"\C-z":"fg\015"'
+
+# Append a slash to the end of directories when completing with TAB. Do the
+# same with symlinked directories.
+bind 'set mark-directories on'
+bind 'set mark-symlinked-directories on'
+
 # Turn off XON/XOFF flow control. If not Ctrl+S locks the terminal on many
 # systems until it is resumed with Ctrl+Q. Thus, it is turned off here. Does not
 # work in DTerm, so wrapped in an if statement...
-
 if [[ "$TERM_PROGRAM" != "DTerm" ]]; then
     stty -ixon
 fi
@@ -221,19 +234,29 @@ complete -o default -o nospace -F _git g
 alias gen_commit_message='curl http://whatthecommit.com/index.txt'
 
 function parse_git_dirty {
-  [[ ! $(git status 2> /dev/null | tail -n1) =~ "working directory clean" ]] && echo "*"
+git rev-parse 2> /dev/null
+if [ $? -eq 0 ]; then
+    [[ ! $(git status 2> /dev/null | tail -n1) =~ "working directory clean" ]] && echo "*"
+fi
 }
 
 function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+git rev-parse 2> /dev/null
+if [ $? -eq 0 ]; then
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"
+fi
 }
 
 # Remove all git stuff from a project in CWD
 alias ungit="find . -name '.git' -exec rm -rf {} \;"
 
 # Rake task completion
-# via: http://project.ioni.st/post/213#quote_213
-complete -C ~/.rake-completion.rb -o default rake
+# via: https://github.com/ai/rake-completion
+. ~/.dotfiles/rake/rake
+
+# gws task completion
+# via: https://streakycobra.github.io/gws/
+. ~/.dotfiles/gws/gws_bash_completion
 
 # Ruby Version Management as a function
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
@@ -307,6 +330,8 @@ case $platform in
             echo "File not found"
         fi
     }
+    # Preview the clipboard content in terminal
+    alias cbp="pbpaste|less"
     ;;
 esac
 
@@ -321,14 +346,25 @@ esac
 # work with double quotes...
 # Also: Shows the currently used Ruby- and Gemset-Version by using the rvm-prompt.
 # RVM part via: http://collectiveidea.com/blog/archives/2011/08/02/command-line-feedback-from-rvm-and-git/?
-# Check if the rvm-prompt binary is present before adding it to the prompt.
+# Funky colors via: http://www.blendedcocoa.com/blog/2012/11/21/bash-prompt_with_git_branch/
+function prompt {
+local DEFAULT="\[\033[0m\]"
+local RED="\[\033[0;31m\]"
+local GREEN="\[\033[0;32m\]"
+local BLUE="\[\033[0;34m\]"
+local YELLOW="\[\033[0;33m\]"
+
 if [ -f  ~/.rvm/bin/rvm-prompt ];
 then
-    export PS1='\[\e[01;34m\]$(~/.rvm/bin/rvm-prompt) \[\e[0;32m\]\w \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]] ")\n> '
+    export PS1="\`if [ \$? == '0' ]; then echo '$GREEN'; else echo '$RED'; fi\`\w $BLUE[\$(parse_git_branch)$YELLOW\$(parse_git_dirty)$BLUE] $BLUE[\$(~/.rvm/bin/rvm-prompt)]\n$DEFAULT\$ "
 else
     # If no rvm-prompt is present, do not include it in the prompt...
-    export PS1='\[\e[0;32m\]\w \[\e[0m\]$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]] ")\n> '
+    export PS1="\`if [ \$? == '0' ]; then echo '$GREEN'; else echo '$RED'; fi\`\w $BLUE[\$(parse_git_branch)$YELLOW\$(parse_git_dirty)$BLUE]\n$DEFAULT\$ "
 fi
+}
+
+prompt
+
 
 # This runs before the prompt and sets the title of the xterm* window.  If you set the title in the prompt
 # weird wrapping errors occur on some systems, so this method is superior
@@ -343,6 +379,9 @@ function xtitle {  # change the title of your xterm* window
   echo -ne "\033]0;$1\007"
 }
 
+# Let the tmux-powerline utility know about the current working dir so it can show
+# informations about the current git branch etc.
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 
 # Navigation -------------------------------------------------------
@@ -351,6 +390,10 @@ alias ...='cd ../../'
 alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
+
+# Use commacd (https://github.com/shyiko/commacd) to avoid the aliases above
+source ~/.dotfiles/commacd/commacd.bash
+
 # If you are in this path
 # /home/user/project/src/org/main/site/utils/file/reader/whatever and you want
 # to go to site directory quickly, then just type: bd site
@@ -390,7 +433,7 @@ alias todos="ack --nogroup '(TODO|FIX(ME)?)'"
 [[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
 
 
-# Source the handy CTRL-T completeme shortcut if it exists 
+# Source the handy CTRL-T completeme shortcut if it exists
 # via: https://pypi.python.org/pypi/completeme
 [[ -s "/usr/local/bin/setup_completeme_key_binding.sh" ]] && source "/usr/local/bin/setup_completeme_key_binding.sh"
 
@@ -439,7 +482,7 @@ export HISTTIMEFORMAT='%Y.%m.%d-%T :: '
 HISTSIZE=100000
 HISTFILESIZE=100000
 
-# no duplicates in history
+# no duplicates in history, no commands starting with a space in history
 export HISTCONTROL=ignoredups:ignorespace
 
 
@@ -458,7 +501,12 @@ bind '"\e[B"':history-search-forward
 alias ll='ls -ahlF'
 alias la='ls -A'
 alias lla='ls -lah'
+alias lt='ls -lt'
+alias ltr='ls -ltr'
 alias l='ls -CF'
+alias lsd='ls -l | grep ^d'
+alias lshd='ls -al | grep ^d'
+alias lsl='ls -la | grep "\->"'
 alias c='clear'
 alias cl='clear; ls -lhG'
 alias cla='clear; ls -lhAG'
@@ -560,7 +608,7 @@ cf() {
 }
 
 
-# batch change extension 
+# batch change extension
 # "chgext html php" will turn a directory of HTML files into PHP files. Magic.
 chgext() {
     for file in *.$1 ; do mv "$file" "${file%.$1}.$2" ; done
@@ -581,7 +629,7 @@ case $platform in
         # Shortcut to md5 on OS X
         alias md5sum='openssl md5'
         # time machine log
-        alias tmlog="syslog -F '\$Time \$Message' -k Sender com.apple.backupd-auto -k Time ge -30m | tail -n 1" 
+        alias tmlog="syslog -F '\$Time \$Message' -k Sender com.apple.backupd-auto -k Time ge -30m | tail -n 1"
         # mount all connected Firewire disks
         alias mountall='system_profiler SPFireWireDataType | grep "BSD Name: disk.$" | sed "s/^.*: //" | (while read i; do /usr/sbin/diskutil mountDisk $i; done)'
         # unmount them all
@@ -641,6 +689,9 @@ else
     alias tmux='TERM=screen-256color tmux -2'
 fi
 
+# Use rbenv
+eval "$(rbenv init -)"
+
 # Use sssh in place of ssh to reconnect or start a new tmux or screen session
 # on the remote side. Via:
 # http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
@@ -648,6 +699,15 @@ sssh (){ ssh -t "$1" 'tmux -u attach || tmux -u new || screen -DR'; }
 
 # Get the current weather in Essen, Germany
 alias weather='weatherman "Essen, Germany"'
+# Export the yahoo weather code for Essen, Germany for tmux-powerline
+export TMUX_POWERLINE_SEG_WEATHER_LOCATION="648820"
+
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+export POWERLINE_COMMAND=powerline
+export POWERLINE_CONFIG_COMMAND=powerline-config
+
 
 # Be nice to your computer
 alias please='sudo'
@@ -741,6 +801,19 @@ esac
 # Insert a bar
 alias bar='echo -e ================================================================================'
 
+# Mac Only: Run on photos with embedded geo-data to get the coordinates and
+# open it in a map
+whereisthis() {
+  lat=$(mdls -raw -name kMDItemLatitude "$1")
+  if [ "$lat" != "(null)" ]; then
+    long=$(mdls -raw -name kMDItemLongitude "$1")
+    echo -n $lat,$long | pbcopy
+    echo $lat,$long copied
+    open https://www.google.com/maps?q=$lat,$long
+  else
+    echo "No Geo-Data Available"
+  fi
+}
 
 # Subversion & Diff ------------------------------------------------
 export SV_USER='dennis'  # Change this to your username that you normally use on subversion (only if it is different from your logged in name)
@@ -777,8 +850,8 @@ alias svhelp='svn help'
 alias svblame='sv blame'
 
 svgetinfo (){
- 	sv info $@
-	sv log $@
+    sv info $@
+    sv log $@
 }
 
 # You need to create fmdiff and fmresolve, which can be found at: http://ssel.vub.ac.be/ssel/internal:fmdiff

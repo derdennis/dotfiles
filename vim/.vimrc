@@ -1,6 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Dennis .vimrc - Configuration for the improved Vi Edtor
+" Dennis' .vimrc - Configuration for the improved Vi Edtor
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -29,7 +29,8 @@ let mapleader=","
 " Basic Settings
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" This is vim not vi. Also: 1970 is gone.
+" This is vim not vi. Also: 1970 is long gone and probably does not need it's
+" editor back...
 set nocompatible
 " Make backspace behave nicely on some obscure platforms
 set backspace=indent,eol,start
@@ -66,13 +67,16 @@ set hidden
 set history=1000
 " Use many muchos levels of undo
 set undolevels=1000
-" Prevent Backupfiles to be created. If disabled, vim create file.txt~ files
+" Prevent Backupfiles to be created. If disabled, vim creates file.txt~ files
 " all over the place...
 set nobackup
 " Don't litter .swp files
 set noswapfile
-" Have Vim jump to the last position when reopening a file
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Have Vim jump to the last position when reopening a file. If this does not
+" work, check if the file ~/.viminfo is accidentally owned by root.
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 " Have Vim load indentation rules and plugins according to the detected filetype.
 filetype plugin indent on
 " Quickly edit/reload the vimrc file
@@ -93,7 +97,7 @@ set selectmode=mouse
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Status line settings (Should be overwritten by Powerline-Plugin)
+" Status line settings (Although this vim should use the airline status bar...)
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn on info ruler at the bottom
@@ -115,20 +119,18 @@ set statusline+=%{fugitive#statusline()}
 syntax on
 " Make sure, one can see comments on a dark background (terminal) while
 " keeping things bright in GUI-mode
+" If no GUI is running make sure to display 256 colors
 if has('gui_running')
     set background=light
 else
     set background=dark
-endif
-" If no GUI is running make sure to display 256 colors
-if !has("gui_running")
         set term=screen-256color
+        " This is needed to get good results on putty
+        " via: http://stackoverflow.com/questions/5560658/ubuntu-vim-and-the-solarized-color-palette
+        se t_Co=256
 endif
 " Set light/dark Switch for solarized on F5-key
 call togglebg#map("<F5>")
-" This is needed to get good results on putty
-" via: http://stackoverflow.com/questions/5560658/ubuntu-vim-and-the-solarized-color-palette
-se t_Co=256
 " Turn on the Solarized colorscheme (See http://ethanschoonover.com/solarized)
 colorscheme solarized
 
@@ -141,17 +143,20 @@ if &term == "xterm-color"
 endif
 
 " Powerline FontStuff
-" Use the patched DejaVu Font for gvim and macvim
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
-set rtp+=~/.powerline/powerline/bindings/vim
+" Use the pre-patched Hack Font for the airline status bar
+set guifont=Hack:h12
+let g:airline_powerline_fonts = 1
 
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
 set listchars=trail:·,tab:→\ ,eol:¬
-"set list
+"Use "set list" to actually show the invisibles
 set nolist
 " Show incomplete paragraphs
 set display+=lastline
+" Rainbow-Parantheses for easy navigation within lots of syntax cruft...
+" Here set to 0, to enable it later use :RainbowToggle
+let g:rainbow_active = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -174,12 +179,12 @@ set shiftwidth=4
 " makes VIM see multiple space characters as tabstops, and so <BS> does the
 " right thing and will delete four spaces (assuming 4 is your setting).
 set softtabstop=4
-"Insert spaces instead of <TAB> character when the <TAB> key is pressed. This
-"is also the prefered method of Python coding, since Python is especially
-"sensitive to problems with indenting which can occur when people load files in
-"different editors with different tab settings, and also cutting and pasting
-"between applications (ie email/news for example) can result in problems. It is
-"safer and more portable to use spaces for indenting.
+" Insert spaces instead of <TAB> character when the <TAB> key is pressed. This
+" is also the prefered method of Python coding, since Python is especially
+" sensitive to problems with indenting which can occur when people load files in
+" different editors with different tab settings, and also cutting and pasting
+" between applications (ie email/news for example) can result in problems. It is
+" safer and more portable to use spaces for indenting.
 set expandtab
 " Use the "shiftwidth" setting for inserting <TAB>s instead of the "tabstop"
 " setting, when at the beginning of a line. This may be redundant for most
@@ -265,13 +270,14 @@ nnoremap <leader>Q gggqG
 " gqip: Reformat the current paragraph
 nnoremap <leader>q gqip
 " (visual-selection) gq: Reformart the selection
-set textwidth=79
+"set textwidth=79
 " See ":help fo-table" and the Vimcasts on soft wrapping and hard wrapping for
 " more information.
 set formatoptions=tcroqln1
 " Start at level 10 with foldings
 set foldlevelstart=10
-
+" Enable Folding by default in HTML/XML files
+"au BufNewFile,BufRead *.xml,*.htm,*.html so XMLFolding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Command mode and shell execution
@@ -314,41 +320,13 @@ cnoremap w!! w !sudo tee % >/dev/null
 " Vimux Integration for some nice 20% tmux-split actions...
 let VimuxUseNearestPane = 1
 " Write current buffer, prompt for a command to run
-map rp :w<cr>VimuxPromptCommand<cr>
+map rp :w<cr>:VimuxPromptCommand<cr>
 " Write current buffer, run last command executed by VimuxPromptCommand
 map rl :w<cr>:VimuxRunLastCommand<cr>
 " Interrupt any command running in the runner pane
 map rs :VimuxInterruptRunner<cr>
 " Close vimux runner pane
 map rx :VimuxCloseRunner<cr>
-
-" Navigating vim and tmux splits
-" http://www.codeography.com/2013/06/19/navigating-vim-and-tmux-splits
-if exists('$TMUX')
-  function! TmuxOrSplitSwitch(wincmd, tmuxdir)
-    let previous_winnr = winnr()
-    execute "wincmd " . a:wincmd
-    if previous_winnr == winnr()
-      " The sleep and & gives time to get back to vim so tmux's focus tracking
-      " can kick in and send us our ^[[O
-      execute "silent !sh -c 'sleep 0.01; tmux select-pane -" . a:tmuxdir . "' &"
-      redraw!
-    endif
-  endfunction
-  let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
-  let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
-  let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
-  nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
-  nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
-  nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
-  nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
-else
-  map <C-h> <C-w>h
-  map <C-j> <C-w>j
-  map <C-k> <C-w>k
-  map <C-l> <C-w>l
-endif
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -382,7 +360,7 @@ set thesaurus+=~/.dotfiles/txt/openthesaurus.txt
 
 " ,v mapping to reselect the text that was just pasted so I can perform
 " commands (like indentation) on it
-nnoremap <leader>v V`]
+nnoremap <leader>v `[v`]
 " make Y copy until end of line, use yy to copy whole line
 " same way D & dd and C & CC are working...
 nnoremap Y y$
@@ -401,6 +379,45 @@ nnoremap K i<CR><Esc>
 :nnoremap <silent> <F11> :YRShow<CR>
 " Move the yankring file out of ~ and into the .vim_local dir
 let g:yankring_history_dir = '~/.vim_local'
+" Use vim-slime with tmux
+let g:slime_target = "tmux"
+
+" Use the system clipboard for easy copy & pasting in a graphical OS like OS
+" X or Windows.
+set clipboard=unnamed
+
+" Copy & paste to system clipboard with <Leader>p and <Leader>y:
+" via: http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" I use terryma/vim-expand-region with following mapping:
+"
+" Hit v to select one character
+" Hit vagain to expand selection to word
+" Hit v again to expand to paragraph
+" ...
+" Hit <C-v> go back to previous selection if I went too far
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+" Prevent replacing paste buffer on paste:
+" I can select some text and paste over it without worrying if my paste buffer
+" was replaced by the just removed text (place it close to end of ~/vimrc).
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -463,11 +480,29 @@ noremap tm :tabm<Space> " Tabmove to position #
 noremap tx :tabclose<CR>
 " Switch on the nerdtree with ,n
 noremap <Leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
-" Open the Command-T window with ,t
-nnoremap <silent> <Leader>t :CommandT<CR>
-" mapping to easily change directory to the file being edited, prints pwd
-" afterwards
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+" Activate Ctrl-P
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+" Set the CtrlP command
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+" Open the Ctrl-P window with ,p
+nnoremap <silent> <Leader>p :CtrlP<CR>
+"Ignore some stuff
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+" vim-wildfire settings to select text objects by pressing Enter.
+" use '*' to mean 'all other filetypes'
+" in this example, html and xml share the same text objects
+let g:wildfire_objects = {
+    \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip", "it"],
+    \ "html,xml" : ["at"],
+\ }
+
+" Type <Leader>o to open a new file:
+nnoremap <Leader>o :CtrlP<CR>
+
+"Type <Leader>w to save file (a lot faster than :w<Enter>):
+nnoremap <Leader>w :w<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -504,6 +539,10 @@ nnoremap <leader>fi mm :%! ~/bin/formd -i<CR> `m :delmarks m<CR>
 nnoremap <leader>fn :%! ~/bin/convert_footnotes<CR>
 " Sort footnotes into order of appearance
 nnoremap <leader>fs mm :%! ~/bin/sort_footnotes<CR> `m :delmarks m<CR>
+" Clean up currently selected Markdown table
+" via:
+" http://www.leancrew.com/all-this/2014/06/cleaning-up-my-markdown-table-cleanup-script/
+vnoremap <leader>ft :! ~/bin/normalize-md-table.py<CR>
 " Reformat with formd to reference style and sort the footnotes. The whole
 " enchilada...
 nnoremap <leader>fx mm :%! ~/bin/formd -r <bar> ~/bin/sort_footnotes<CR> `m :delmarks m<CR>
@@ -530,6 +569,9 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
+
+" Use raw grep for gitgutter
+let g:gitgutter_escape_grep = 1
 
 " run :Gc my-branch to checkout a branch, or :Gc -b new-branch to create a new one.
 " via: http://dailyvim.tumblr.com/post/44147584103/handy-git-checkout-function
@@ -565,7 +607,9 @@ ab <expr> tts strftime("%Y-%m-%d %H:%M")
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_macvim")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+    set guifont=Hack:h14
+    " No Toolbar
+    set guioptions-=T
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -582,7 +626,17 @@ if has("unix")
   endif
 endif
 
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Setting up vim for hostile Windows environment
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make vim behave like a good citizen when run on MS Windows
+if has("win64") || has("win32") || has("win16")
+    source $VIMRUNTIME/mswin.vim
+    " Remove the toolbar with the ugly icons in Gvim
+    :set guioptions-=T  "remove toolbar
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Vim 7.3 features
@@ -628,6 +682,17 @@ endif
 " Rechtschreibprüfung / Spellcheck
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ]s                Gehe zum nächsten falschen Wort
+" [s                Gehe zum vorherigen falschen Wort
+" zg                Fügt das Wort unter dem Cursor dem Wörterbuch hinzu, das in
+"                   der Variable spellfile steht.
+" zG                Speichert Wort unter Cursor in interner Wortliste, diese geht
+"                   nach dem Schließen von Vim verloren
+" zw                Fügt das Wort als falsch der Wörterbuchdatei aus der
+"                   spellfile-Variable hinzu
+" zW                Speichert Wort als falsch in interner  Wortliste
+" z=                Bietet eine Auswahl von Korrekturvorschlägen an
+" zug zuw zuG zuW   Löscht das Wort unter dem Cursor aus der entsprechenden Liste
 let b:myLang=0
 let g:myLangList=["nospell","de_de","en_gb"]
 function! ToggleSpell()
