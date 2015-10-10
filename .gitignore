@@ -2,3 +2,7 @@
 *.pyc
 .netrwhist
 mutt/.mutt/cache/*
+bin/it_scripts/pinboard_integration/bookmarks.yaml
+bin/it_scripts/pinboard_integration/dates.yaml
+bin/it_scripts/pinboard_integration/pinboard_time.yaml
+bin/it_scripts/pinboard_integration/tags.yaml
