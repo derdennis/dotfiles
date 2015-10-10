@@ -36,7 +36,7 @@ run_segment() {
 	fi
 
 	if [ -n "$wan_ip" ]; then
-		echo "W ${wan_ip}"
+		echo "ⓦ ${wan_ip}"
 	fi
 
 	return 0
