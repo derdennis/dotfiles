@@ -607,7 +607,7 @@ ab <expr> tts strftime("%Y-%m-%d %H:%M")
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_macvim")
-    set guifont=Hack:h12
+    set guifont=Hack:h14
     " No Toolbar
     set guioptions-=T
 endif
