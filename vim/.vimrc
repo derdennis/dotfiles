@@ -72,8 +72,11 @@ set undolevels=1000
 set nobackup
 " Don't litter .swp files
 set noswapfile
-" Have Vim jump to the last position when reopening a file
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Have Vim jump to the last position when reopening a file. If this does not
+" work, check if the file ~/.viminfo is accidentally owned by root.
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 " Have Vim load indentation rules and plugins according to the detected filetype.
 filetype plugin indent on
 " Quickly edit/reload the vimrc file
@@ -140,8 +143,8 @@ if &term == "xterm-color"
 endif
 
 " Powerline FontStuff
-" Use the patched DejaVu Font for the airline status bar
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
+" Use the pre-patched Hack Font for the airline status bar
+set guifont=Hack:h12
 let g:airline_powerline_fonts = 1
 
 " Show invisible characters (only here to remind me how to turn it on and off)
@@ -604,7 +607,7 @@ ab <expr> tts strftime("%Y-%m-%d %H:%M")
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_macvim")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+    set guifont=Hack:h12
     " No Toolbar
     set guioptions-=T
 endif
