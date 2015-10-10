@@ -1,0 +1,7 @@
+# Magic Space Set-Up
+# via: http://www.ukuug.org/events/linux2003/papers/bash_tips/
+# Slide 15
+
+$if Bash
+    Space: magic-space
+$endif
