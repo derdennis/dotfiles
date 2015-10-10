@@ -117,3 +117,4 @@ fi
 # 
 # via:
 # http://blog.toddwerth.com/entries/4
+eval "$(rbenv init -)"
