@@ -51,7 +51,7 @@ if [ -f ~/bin/sshag.sh ]; then
 fi
 
 # Colors ----------------------------------------------------------
-export TERM=xterm-color
+export TERM=xterm-256color
 
 # Defining colors for Linux, OS X and BSDs...
 #
