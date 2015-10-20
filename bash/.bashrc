@@ -517,7 +517,7 @@ alias egrep='egrep --color=auto'
 alias pg='ps axw | grep -i'
 
 # Quickly ack all files, ignoring case
-alias aa='ack -ai'
+alias aa='ack -i'
 
 # Use pry instead of irb if available on the system
 if command_exists pry ; then
