@@ -51,7 +51,7 @@ if [ -f ~/bin/sshag.sh ]; then
 fi
 
 # Colors ----------------------------------------------------------
-export TERM=xterm-color
+export TERM=xterm-256color
 
 # Defining colors for Linux, OS X and BSDs...
 #
@@ -689,8 +689,11 @@ else
     alias tmux='TERM=screen-256color tmux -2'
 fi
 
-# Use rbenv
-eval "$(rbenv init -)"
+# Use rbenv if present in $PATH
+path_to_rbenv=$(which rbenv)
+if [ -x "$path_to_rbenv" ] ; then
+    eval "$(rbenv init -)"
+fi
 
 # Use sssh in place of ssh to reconnect or start a new tmux or screen session
 # on the remote side. Via:
