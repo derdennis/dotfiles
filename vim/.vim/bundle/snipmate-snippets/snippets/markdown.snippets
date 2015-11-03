@@ -33,6 +33,12 @@ snippet conversation
 	${3:second person}: ${4:And what she answers...}
 	{% endconversation %}
 
+snippet key
+	{% key ${1:A} key_small %}
+
+snippet keysymbol
+	{% key symbol ${1:control} key_small %}
+
 # End of my custom Octopress snippets
 
 snippet [
@@ -57,11 +63,11 @@ snippet ![:*
 
 snippet ===
 	`repeat('=', strlen(getline(line(".") - 1)))`
-	
+
 	${1}
 snippet ---
 	`repeat('-', strlen(getline(line(".") - 1)))`
-	
+
 	${1}
 
 snippet blockquote

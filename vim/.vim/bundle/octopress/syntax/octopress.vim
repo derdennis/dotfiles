@@ -37,7 +37,7 @@ syn match octopressYamlFrontMatterParam /\m^[^:]\+:/ contained nextgroup=octopre
 syn match octopressYamlFrontMatterValue /\m\s.*$/ contained
 
 " Liquid tags
-syn match octopressLiquidTag /\m{%\s\+\(video\|tweet\|youtube\|include_code\|gist\|jsfiddle\|img\|fancy\|render_partial\|include\)\s.*\s*%}/ oneline
+syn match octopressLiquidTag /\m{%\s\+\(video\|tweet\|youtube\|include_code\|gist\|jsfiddle\|img\|fancy\|key\|render_partial\|include\)\s.*\s*%}/ oneline
 
 " Liquid blocks
 syn region octopressLiquidBlock matchgroup=octopressLiquidBlockDelimiter start=/\m{%\s\+\(codeblock\|blockquote\|pullquote\|conversation\)\s.*\s*%}/ end=/\m{%\s\+end\(codeblock\|blockquote\|pullquote\|conversation\)\s\+%}/ contains=octopressPullquote
