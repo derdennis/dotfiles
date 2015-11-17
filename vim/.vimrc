@@ -526,7 +526,7 @@ vnoremap <Leader>3 c[<C-r>"]()<Esc>
 nnoremap <Leader>4 ciw[<C-r>"](<Esc>"*pli)<Esc>
 vnoremap <Leader>4 c[<C-r>"](<Esc>"*pli)<Esc>
 " Open the current file with Marked.app for a Markdown preview (OS X only)
-nnoremap <leader>m :silent !open -a Marked.app '%:p'<CR>
+nnoremap <leader>m :silent !open -a "Marked 2.app" '%:p'<CR>
 " Use formd to transfer markdown from inline to reference links and vice versa
 " Use the vim mark m to jump back to the position from where formd was invoked.
 " see: http://drbunsen.github.com/formd/
