@@ -525,6 +525,8 @@ nnoremap <Leader>3 ciw[<C-r>"]()<Esc>
 vnoremap <Leader>3 c[<C-r>"]()<Esc>
 nnoremap <Leader>4 ciw[<C-r>"](<Esc>"*pli)<Esc>
 vnoremap <Leader>4 c[<C-r>"](<Esc>"*pli)<Esc>
+nnoremap <Leader>5 p`[v`]l"ldciw[<C-r>"](<Esc>"lpli)<Esc>
+vnoremap <Leader>5 "vdi[<Esc>"vpli](<Esc>"*pli)<Esc>
 " Open the current file with Marked.app for a Markdown preview (OS X only)
 nnoremap <leader>m :silent !open -a "Marked 2.app" '%:p'<CR>
 " Use formd to transfer markdown from inline to reference links and vice versa
