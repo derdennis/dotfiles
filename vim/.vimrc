@@ -384,7 +384,7 @@ let g:slime_target = "tmux"
 
 " Use the system clipboard for easy copy & pasting in a graphical OS like OS
 " X or Windows.
-set clipboard=unnamed
+"set clipboard=unnamed
 
 " Copy & paste to system clipboard with <Leader>p and <Leader>y:
 " via: http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
