@@ -76,8 +76,8 @@ bind l:${hyper}     chain ${bottomright} | ${bottomright3} | ${bottomright7}
 #bind down:cmd;alt focus behind
 
 # App bindings
-bind s:${hyper} focus 'Safari'
-bind g:${hyper} focus 'Google Chrome'
+#bind s:${hyper} focus 'Safari'
+#bind g:${hyper} focus 'Google Chrome'
 bind v:${hyper} focus 'MacVim'
 bind m:${hyper} focus 'Mail'
 bind i:${hyper} focus 'iTerm'
