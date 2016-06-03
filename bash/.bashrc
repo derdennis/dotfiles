@@ -695,6 +695,11 @@ if [ -x "$path_to_rbenv" ] ; then
     eval "$(rbenv init -)"
 fi
 
+if [[ "$platform" = "macosx" ]]; then
+    if [[ `sw_vers -productVersion` = "10.6.8" ]]; then
+        export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home/
+    fi
+fi
 # Use sssh in place of ssh to reconnect or start a new tmux or screen session
 # on the remote side. Via:
 # http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
