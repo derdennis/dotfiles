@@ -317,16 +317,23 @@ au BufWritePost * call ModeChange()
 " sudo to write to files I don't have permission to...
 cnoremap w!! w !sudo tee % >/dev/null
 
-" Vimux Integration for some nice 20% tmux-split actions...
-let VimuxUseNearestPane = 1
-" Write current buffer, prompt for a command to run
-map rp :w<cr>:VimuxPromptCommand<cr>
-" Write current buffer, run last command executed by VimuxPromptCommand
-map rl :w<cr>:VimuxRunLastCommand<cr>
-" Interrupt any command running in the runner pane
-map rs :VimuxInterruptRunner<cr>
-" Close vimux runner pane
-map rx :VimuxCloseRunner<cr>
+" Vim-tmux-runner Integration for some nice 20% tmux-split actions...
+"
+" Be nice to Python...
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+" Write current buffer, prompt for a command to run or run the last run
+" command
+map rc :w<cr>:VtrSendCommandToRunner<cr>
+" Write current buffer, send the current line to runner
+map rl :w<cr>:VtrSendLinesToRunner<cr>
+" Flush the previous run command variable. Next "rc" will reprompt for command
+map rf :VtrFlushCommand<cr>
+" Kill the tmux runner pane. this pane will kill either the local or detached
+" runner pane. this command does nothing if there is currently not a runner
+" pane.
+map rk :VtrKillRunner<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
