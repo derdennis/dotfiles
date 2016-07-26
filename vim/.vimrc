@@ -254,7 +254,6 @@ set gdefault
 " Use the TaskList plugin via ,T to check for TODO, FIXME and XXX
 map <leader>T <Plug>TaskList
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Linebreaks, wrappings and format options
@@ -426,6 +425,8 @@ function! s:Repl()
 endfunction
 vmap <silent> <expr> p <sid>Repl()
 
+" Completion for emojis
+set completefunc=emoji#complete
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Navigation and movement through buffers, splits, tabs, files
