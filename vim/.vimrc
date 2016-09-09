@@ -324,9 +324,9 @@ let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
 " Write current buffer, prompt for a command to run or run the last run
 " command
-map rc :w<cr>:VtrSendCommandToRunner<cr>
+map rl :w<cr>:VtrSendCommandToRunner<cr>
 " Write current buffer, send the current line to runner
-map rl :w<cr>:VtrSendLinesToRunner<cr>
+map rs :w<cr>:VtrSendLinesToRunner<cr>
 " Flush the previous run command variable. Next "rc" will reprompt for command
 map rf :VtrFlushCommand<cr>
 " Kill the tmux runner pane. this pane will kill either the local or detached
