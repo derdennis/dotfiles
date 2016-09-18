@@ -787,13 +787,13 @@ fi
 export EDITOR='vim'  #Command line
 export VIM_APP_DIR='/Applications'
 # Alias vim to the MacVim flavour if we are on OS X and we got MacVim installed
-case $platform in
-    'macosx')
-        if [[ -f /Applications/MacVim.app/Contents/MacOS/Vim ]]; then
-            alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-        fi
-        ;;
-esac
+#case $platform in
+#    'macosx')
+#        if [[ -f /Applications/MacVim.app/Contents/MacOS/Vim ]]; then
+#            alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+#        fi
+#        ;;
+#esac
 
 
 # MiscMisc ---------------------------------------------------------
