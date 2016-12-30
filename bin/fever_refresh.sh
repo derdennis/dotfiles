@@ -4,5 +4,5 @@
 
 echo "Starting to refresh fever..."
 #curl -L -s --user-agent 'Fever Refresh Cron' 'http://fever.instant-thinking.de/?refresh'
-curl -L -s 'http://fever.instant-thinking.de/?refresh'
+curl -L -s 'https://fever.instant-thinking.de/?refresh'
 echo "Finished refreshing fever."
