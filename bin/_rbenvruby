@@ -12,10 +12,13 @@ export LC_NUMERIC="de_DE.UTF-8"
 export LC_TIME="de_DE.UTF-8"
 export LC_ALL="de_DE.UTF-8"
 
-export RBENV_VERSION="1.9.3-p0" 
-
-eval "$(/usr/local/bin/rbenv init -)"
 ruby_version=$1; shift
+export RBENV_VERSION=$ruby_version
+eval "$(/usr/local/bin/rbenv init -)"
+#export RBENV_VERSION="1.9.3-p0"
 #/usr/local/bin/rbenv shell $ruby_version
-#rbenv shell $ruby_version
 exec ruby "$@"
+
+
+
+
