@@ -196,7 +196,9 @@ fi
 # Do not bell *at all* when on Linux.
 case $platform in
     'linux')
-    setterm -bfreq 0
+        if [[ "$TERM" != "xterm-256color" ]]; then
+            setterm -bfreq 0
+        fi
     ;;
 esac
 
