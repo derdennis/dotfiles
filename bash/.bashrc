@@ -202,7 +202,6 @@ case $platform in
     ;;
 esac
 
-
 # Turn on advanced bash completion if the file exists (Different incarnation
 # for different platforms)
 
@@ -218,7 +217,6 @@ case $platform in
         fi
         ;;
 esac
-
 
 # Git completion for almost anything (remotes, branches, long forms...) via
 # http://railsdog.com/blog/2009/03/07/custom-bash-prompt-for-git-branches/
@@ -272,7 +270,6 @@ alias mysql='mysql --safe-updates'
 wiki() {
         dig +short txt $1.wp.dg.cx
     }
-
 
 # find and list processes matching a case-insensitive partial-match string
 fp () {
@@ -332,11 +329,17 @@ case $platform in
             echo "File not found"
         fi
     }
+    # Move the last downloaded file to the current folder
+    # via: http://blog.jpalardy.com/posts/get-your-last-downloaded-file/
+    ldf() {  # stands for "last downloaded file"
+        local file=~/Downloads/$(ls -1tU ~/Downloads/ | head -n1)
+        read -p "confirm: $file "
+        mv "$file" .
+    }
     # Preview the clipboard content in terminal
     alias cbp="pbpaste|less"
     ;;
 esac
-
 
 # Prompts ----------------------------------------------------------
 #export PS1="\[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path
@@ -367,7 +370,6 @@ fi
 
 prompt
 
-
 # This runs before the prompt and sets the title of the xterm* window.  If you set the title in the prompt
 # weird wrapping errors occur on some systems, so this method is superior
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*} ${PWD}"; echo -ne "\007"'  # user@host path
@@ -384,7 +386,6 @@ function xtitle {  # change the title of your xterm* window
 # Let the tmux-powerline utility know about the current working dir so it can show
 # informations about the current git branch etc.
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
-
 
 # Navigation -------------------------------------------------------
 alias ..='cd ..'
@@ -433,7 +434,6 @@ alias todos="ack --nogroup '(TODO|FIX(ME)?)'"
 
 # Source the next action todo function if found in my homes bin folder
 [[ -s "/Users/dennis/bin/na.sh" ]] && source "/Users/dennis/bin/na.sh"
-
 
 # Source the handy CTRL-T completeme shortcut if it exists
 # via: https://pypi.python.org/pypi/completeme
@@ -486,7 +486,6 @@ HISTFILESIZE=100000
 
 # no duplicates in history, no commands starting with a space in history
 export HISTCONTROL=ignoredups:ignorespace
-
 
 # If you issue 'h' on its own, then it acts like the history command.
 # If you issue:
@@ -609,7 +608,6 @@ cf() {
     dd if=/dev/zero of="$upload_file" bs=$size count=1
 }
 
-
 # batch change extension
 # "chgext html php" will turn a directory of HTML files into PHP files. Magic.
 chgext() {
@@ -671,7 +669,6 @@ case $platform in
     ;;
 esac
 
-
 alias m='more'
 alias df='df -h'
 alias funfact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
@@ -717,7 +714,6 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 export POWERLINE_COMMAND=powerline
 export POWERLINE_CONFIG_COMMAND=powerline-config
-
 
 # Be nice to your computer
 alias please='sudo'
@@ -780,7 +776,6 @@ cdf() {
 # of duplicates in the Open With submenu.
 alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -801,7 +796,6 @@ export VIM_APP_DIR='/Applications'
 #        fi
 #        ;;
 #esac
-
 
 # MiscMisc ---------------------------------------------------------
 
@@ -868,11 +862,9 @@ svgetinfo (){
 alias svdiff='sv diff --diff-cmd fmdiff' # OS-X SPECIFIC
 # Use diff for command line diff, use fmdiff for gui diff, and svdiff for subversion diff
 
-
 # System specific stuff (Just try to keep these to a minimum, ok?
 
 if [ "$HOSTNAME" == "dokuwiki" ]; then
     # Use the local cntlm proxy
     export http_proxy=http://localhost:3128
 fi
-
