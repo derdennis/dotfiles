@@ -236,7 +236,7 @@ alias gen_commit_message='curl http://whatthecommit.com/index.txt'
 function parse_git_dirty {
 git rev-parse 2> /dev/null
 if [ $? -eq 0 ]; then
-    [[ ! $(git status 2> /dev/null | tail -n1) =~ "working directory clean" ]] && echo "*"
+    [[ ! $(LC_ALL=en_US git status 2> /dev/null | tail -n1) =~ "working directory clean" ]] && echo "*"
 fi
 }
 
