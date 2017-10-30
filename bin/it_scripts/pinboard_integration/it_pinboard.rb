@@ -89,7 +89,7 @@ def bookmark_build
     @date_array.concat(entry_date.to_i.to_s.split(/ /))
 
     # Put the current bookmark in the bookmark array
-    @bookmark_array.concat(entry_bookmark.to_s.split(/\n/))
+    @bookmark_array.concat(entry_bookmark.join.to_s.split(/\n/))
 
     # Sort and uniq the tag array
     @tag_array.sort!
@@ -126,7 +126,7 @@ def bookmark_build
     print "This was bookmark number: ", @bookmark_array.length, "\n"
 
     # Notify me that the bookmark was added
-    message = "Hi #{CONFIG['recipient_name']}, \n\n I just added the following bookmark: \n\n"+ entry_bookmark.to_s + " \n\n to the latest Quicklinks-Post. \n\n This was bookmark number " + @bookmark_array.length.to_s + ". \n\n Best, \n\n #{CONFIG['from_name']}"
+    message = "Hi #{CONFIG['recipient_name']}, \n\n I just added the following bookmark: \n\n"+ entry_bookmark.join.to_s + " \n\n to the latest Quicklinks-Post. \n\n This was bookmark number " + @bookmark_array.length.to_s + ". \n\n Best, \n\n #{CONFIG['from_name']}"
     subject = "New Bookmark added: " + @entry.title.to_s
 
     Pony.mail({
