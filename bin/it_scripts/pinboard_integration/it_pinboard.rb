@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Adding the path we live in to the LOAD_PATH 
+# Adding the path we live in to the LOAD_PATH
 #
 # via: http://stackoverflow.com/questions/4687680/what-does-if-file-0-mean-in-ruby
 # Constants used in the next few lines:
@@ -18,7 +18,7 @@ end
 
 # Require some gems
 require 'rubygems'
-require 'feedzirra'
+require 'feedjira'
 require 'open-uri'
 require 'yaml'
 require 'pony'
@@ -31,7 +31,6 @@ require 'german_date_names'
 
 # Load config from yaml-file, find it in the @script_dir
 CONFIG = YAML.load_file("#{@script_dir}/config.yml") unless defined? CONFIG
-
 
 # Cache file for last bookmarks date ist here:
 pinboard_time_file = @script_dir + "/" + CONFIG['pinboard_time_file']
@@ -75,13 +74,13 @@ end # end def show_feed_info
 def bookmark_build
     # Build a nice, formatted bookmark
     # Remove possible newlines at end of bookmark summary
-    @e.summary.gsub! /$\n/, ''
-    # Format the bookmark as a markdown link in a markdown list item 
-    entry_bookmark = "* [#{@e.title}](#{@e.url})", " - #{@e.summary}"
+    @entry.summary.gsub! /$\n/, ''
+    # Format the bookmark as a markdown link in a markdown list item
+    entry_bookmark = "* [#{@entry.title}](#{@entry.url})", " - #{@entry.summary}"
 
-    # Build variables for easy access to metadata 
-    entry_tags = @e.subject
-    entry_date = @e.published
+    # Build variables for easy access to metadata
+    entry_tags = @entry.subject
+    entry_date = @entry.published
 
     # Put the current tags in the tag array
     @tag_array.concat(entry_tags.split(/ /))
@@ -101,7 +100,7 @@ def bookmark_build
     @date_array.uniq!
 
     # Converting the date array to time objects...
-    @date_array.map!{ |x| Time.at(x.to_i) } 
+    @date_array.map!{ |x| Time.at(x.to_i) }
 
     # Save the oldest and newest dates in variables for the post content
     # Format: 13. März 2012
@@ -120,15 +119,15 @@ def bookmark_build
 
     # Uniq the bookmark array
     @bookmark_array.uniq!
-    
+
     # Tell me about the bookmark
-    print "Added bookmark ", @e.title, "\n"
+    print "Added bookmark ", @entry.title, "\n"
     # Tell me at which number we are
     print "This was bookmark number: ", @bookmark_array.length, "\n"
 
     # Notify me that the bookmark was added
     message = "Hi #{CONFIG['recipient_name']}, \n\n I just added the following bookmark: \n\n"+ entry_bookmark.to_s + " \n\n to the latest Quicklinks-Post. \n\n This was bookmark number " + @bookmark_array.length.to_s + ". \n\n Best, \n\n #{CONFIG['from_name']}"
-    subject = "New Bookmark added: " + @e.title.to_s
+    subject = "New Bookmark added: " + @entry.title.to_s
 
     Pony.mail({
         :to => CONFIG['recipient_mail'],
@@ -142,14 +141,12 @@ def bookmark_build
         :enable_starttls_auto => true,
         :user_name            => CONFIG['smtp_user'],
         :password             => CONFIG['smtp_password'],
-        :authentication       => :plain, 
-        :domain               => "localhost.localdomain" 
+        :authentication       => :plain,
+        :domain               => "localhost.localdomain"
     } # End pony via options
     }) # End Pony.mail
 
-
 end # end def bookmark_build
-
 
 def write_blogpost
     # Write the current bookmarks to a blogpost-file
@@ -158,15 +155,15 @@ def write_blogpost
     # Tell me, that we reached the limit
     print "Reached the bookmark limit per post: ", @bookmark_array.length, ".", " Now writing Blogpost...", "\n"
     # Tell me the filename of the currently written blogpost
-    puts blogpost.to_s
-    
+    puts blogpost.join.to_s
+
     # Write the blogpost file
-    File.open(blogpost.to_s, 'w') do |f|
+    File.open(blogpost.join.to_s, 'w') do |f|
         f.puts "---"
         f.puts "layout: post"
         # Write the newest and the oldest date. Format: "13. März 2012"
         f.print "title: \"QuickLinks vom ", @oldest_date, " bis zum ", @newest_date, "\"", "\n"
-        # Write the current date and time. Format: "2012-03-13 13:21" 
+        # Write the current date and time. Format: "2012-03-13 13:21"
         f.print "date: ", Time.now.strftime("%F %R"), "\n"
         f.puts "comments: true"
         f.puts "published: false"
@@ -176,7 +173,7 @@ def write_blogpost
         f.puts " "
         f.puts "---"
         f.puts " "
-        f.print "Meine [pinboard.in-Links](http://pinboard.in/u:der_dennis) vom ", @oldest_date, " bis zum ", @newest_date, ":", "\n" 
+        f.print "Meine [pinboard.in-Links](http://pinboard.in/u:der_dennis) vom ", @oldest_date, " bis zum ", @newest_date, ":", "\n"
         f.puts " "
         # Spit out the bookmark array in reverse (newest bookmark first)
         f.puts @bookmark_array.reverse
@@ -208,13 +205,12 @@ def write_blogpost
         :enable_starttls_auto => true,
         :user_name            => CONFIG['smtp_user'],
         :password             => CONFIG['smtp_password'],
-        :authentication       => :plain, 
-        :domain               => "localhost.localdomain" 
+        :authentication       => :plain,
+        :domain               => "localhost.localdomain"
     } # End pony via options
     }) # End Pony.mail
 
 end # end def write_blogpost
-
 
 def write_yaml_and_array (yaml, array)
     # Function to dump the content of the arrays into a yaml-file for storing
@@ -223,7 +219,6 @@ def write_yaml_and_array (yaml, array)
         f.write YAML.dump(array)
     end
 end # end def write_yaml_and_array
-
 
 def load_array_from_yaml (yaml, array)
     # Load data from possibly existing yaml file (if it is not empty) into the
@@ -237,11 +232,9 @@ def load_array_from_yaml (yaml, array)
     end
 end # end def load_array_from_yaml
 
-
 ##########################################################################################
 # End of function definitions
 ##########################################################################################
-
 
 # If the pinboard_time_file exists and if it is not zero,  get the feed_times
 # hash, else create a new one dated back to epoch.
@@ -251,11 +244,11 @@ feed_times = if File.exists?(pinboard_time_file) && !File.zero?(pinboard_time_fi
                 Hash.new( Time.mktime('1970') )
             end
 
-# Declare the subject for Feedzirra without the "dc:" part because colons can't
+# Declare the subject for Feedjira without the "dc:" part because colons can't
 # be easily parsed...
-Feedzirra::Feed.add_common_feed_entry_element('dc:subject', :as => :subject)
-# Go and fetch the feed with Feedzirra
-@rss = Feedzirra::Feed.fetch_and_parse(feed)
+Feedjira::Feed.add_common_feed_entry_element('dc:subject', :as => :subject)
+# Go and fetch the feed with Feedjira
+@rss = Feedjira::Feed.fetch_and_parse(feed)
 
 # Show me some info about the feed
 show_feed_info
@@ -276,10 +269,12 @@ load_array_from_yaml(bookmark_file, @bookmark_array)
 i = @bookmark_array.length
 
 # Loop over the rss feed in reverse to start with the oldest bookmark
-@rss.entries.reverse.each do|@e|
+@rss.entries.reverse.each do|e|
+    @entry = e
     # Only do something, when the publish date is newer than the conserved date
     # from the last run
-    if @e.published > feed_times[feed]
+    if @entry.published > feed_times[feed]
+        p @entry
         # Compare the counter "i" against -1 from bookmarks_per_post because
         # arrays start to count at 0.
         # So wee need to write a post at a count of 9, if we want the post to
@@ -295,14 +290,14 @@ i = @bookmark_array.length
             # So we reset the counter:
             i = 0
             # Build the last bookmark
-            bookmark_build 
+            bookmark_build
             # Write out the blogpost
             write_blogpost
 
         end # end the check for the bookmarks counter
 
         # Update the pinboard_time with the current bookmark's time
-        feed_times[feed] = @e.published
+        feed_times[feed] = @entry.published
         File.open( pinboard_time_file, 'w' ) do|f|
             f.write YAML.dump(feed_times)
         end # end the updating of the pinboard_time
@@ -319,5 +314,4 @@ i = @bookmark_array.length
         write_yaml_and_array(bookmark_file, @bookmark_array)
 
     end # end the if for the pinboard times check
-
 end # end the @rss.entries.reverse.each
