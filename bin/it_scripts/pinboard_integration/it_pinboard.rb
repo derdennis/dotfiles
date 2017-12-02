@@ -188,8 +188,8 @@ def write_blogpost
 
     blogpost_name =  Time.now.strftime("%F"), "-", "quicklinks-vom-", @oldest_date_day, "-", @oldest_date_month, "-bis-zum-", @newest_date_day, "-", @newest_date_month
 
-    message = "Hi #{CONFIG['recipient_name']}, \n\n the latest Quicklinks-Post: \n\n"+ blogpost_name.to_s + " \n\n is ready. \n\n Please check your _drafts-Folder.\n\n Best, \n\n #{CONFIG['from_name']}"
-    subject = "New Quicklinks ready: " + blogpost_name.to_s
+    message = "Hi #{CONFIG['recipient_name']}, \n\n the latest Quicklinks-Post: \n\n"+ blogpost_name.join.to_s + " \n\n is ready. \n\n Please check your _drafts-Folder.\n\n Best, \n\n #{CONFIG['from_name']}"
+    subject = "New Quicklinks ready: " + blogpost_name.join.to_s
 
     # Pony configuration for googlemail, reads almost all values from
     # config.yml
