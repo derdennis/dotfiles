@@ -254,6 +254,10 @@ set gdefault
 " Use the TaskList plugin via ,T to check for TODO, FIXME and XXX
 map <leader>T <Plug>TaskList
 
+" Use the standard "gs" mapping to switch things around with switch.vim:
+" https://github.com/AndrewRadev/switch.vim
+" true
+let g:switch_mapping = "gs"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Linebreaks, wrappings and format options
@@ -617,7 +621,7 @@ ab <expr> tts strftime("%Y-%m-%d %H:%M")
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("gui_macvim")
-    set guifont=Hack:h14
+    set guifont=Hack:h16
     " No Toolbar
     set guioptions-=T
 endif
