@@ -16,44 +16,61 @@ config windowHintsSpread true
 alias showNormalHint hint ASDFGHJKLQWERTZUIOPYXCVBNM
 
 # Locations aliases
-alias full          move screenOriginX;screenOriginY screenSizeX;screenSizeY
-alias center        move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
-alias lefthalf      move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
-alias left3         move screenOriginX;screenOriginY screenSizeX/3;screenSizeY
-alias left3-1       move screenOriginX+screenSizeX/6;screenOriginY 2*screenSizeX/6;screenSizeY
-alias left6-1       move screenOriginX;screenOriginY screenSizeX/6;screenSizeY
-alias left6-2       move screenOriginX+screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
-alias left6-3       move screenOriginX+2*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
-alias left7         move screenOriginX;screenOriginY 2*screenSizeX/3;screenSizeY
-alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
-alias right3        move screenOriginX+2*screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY
-alias right3-1      move screenOriginX+3*screenSizeX/6;screenOriginY 2*screenSizeX/6;screenSizeY
-alias right6-1      move screenOriginX+5*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
-alias right6-2      move screenOriginX+4*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
-alias right6-3      move screenOriginX+3*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
-alias right7        move screenOriginX+screenSizeX/3;screenOriginY 2*screenSizeX/3;screenSizeY
-alias tophalf       push top bar-resize:screenSizeY/2
-alias topcenter     move screenOriginX+screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY/2
-alias bottomhalf    push bottom bar-resize:screenSizeY/2
-alias bottomcenter  move screenOriginX+screenSizeX/3;screenOriginY+screenSizeY/2 screenSizeX/3;screenSizeY/2
-alias topleft       corner top-left resize:screenSizeX/2;screenSizeY/2
-alias topleft3      corner top-left resize:screenSizeX/3;screenSizeY/2
-alias topleft7      corner top-left resize:2*screenSizeX/3;screenSizeY/2
-alias topright      corner top-right resize:screenSizeX/2;screenSizeY/2
-alias topright3     corner top-right resize:screenSizeX/3;screenSizeY/2
-alias topright7     corner top-right resize:2*screenSizeX/3;screenSizeY/2
-alias bottomleft    corner bottom-left resize:screenSizeX/2;screenSizeY/2
-alias bottomleft3   corner bottom-left resize:screenSizeX/3;screenSizeY/2
-alias bottomleft7   corner bottom-left resize:2*screenSizeX/3;screenSizeY/2
-alias bottomright   corner bottom-right resize:screenSizeX/2;screenSizeY/2
-alias bottomright3  corner bottom-right resize:screenSizeX/3;screenSizeY/2
-alias bottomright7  corner bottom-right resize:2*screenSizeX/3;screenSizeY/2
+alias full           move screenOriginX;screenOriginY screenSizeX;screenSizeY
+alias center         move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
+alias center3        move screenOriginX+2*screenSizeX/6;screenOriginY screenSizeX/3;screenSizeY
+alias lefthalf       move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+alias left3          move screenOriginX;screenOriginY screenSizeX/3;screenSizeY
+alias left3-1        move screenOriginX+screenSizeX/6;screenOriginY 2*screenSizeX/6;screenSizeY
+alias left6-1        move screenOriginX;screenOriginY screenSizeX/6;screenSizeY
+alias left6-2        move screenOriginX+screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
+alias left6-3        move screenOriginX+2*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
+alias left7          move screenOriginX;screenOriginY 2*screenSizeX/3;screenSizeY
+alias righthalf      move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+alias right3         move screenOriginX+2*screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY
+alias right3-1       move screenOriginX+3*screenSizeX/6;screenOriginY 2*screenSizeX/6;screenSizeY
+alias right6-1       move screenOriginX+5*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
+alias right6-2       move screenOriginX+4*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
+alias right6-3       move screenOriginX+3*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
+alias right7         move screenOriginX+screenSizeX/3;screenOriginY 2*screenSizeX/3;screenSizeY
+alias tophalf        push top bar-resize:screenSizeY/2
+alias topcenter      move screenOriginX+screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY/2
+alias bottomhalf     push bottom bar-resize:screenSizeY/2
+alias bottomcenter   move screenOriginX+screenSizeX/3;screenOriginY+screenSizeY/2 screenSizeX/3;screenSizeY/2
+alias topleft        corner top-left resize:screenSizeX/2;screenSizeY/2
+alias topleft3       corner top-left resize:screenSizeX/3;screenSizeY/2
+alias topleft3-1     move screenOriginX+screenSizeX/6;screenOriginY screenSizeX/3;screenSizeY/2
+alias topleft6-1     move screenOriginX;screenOriginY screenSizeX/6;screenSizeY/2
+alias topleft6-2     move screenOriginX+screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY/2
+alias topleft6-3     move screenOriginX+2*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY/2
+alias topleft7       corner top-left resize:2*screenSizeX/3;screenSizeY/2
+alias topright       corner top-right resize:screenSizeX/2;screenSizeY/2
+alias topright3-1    move screenOriginX+3*screenSizeX/6;screenOriginY screenSizeX/3;screenSizeY/2
+alias topright6-1    move screenOriginX+5*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY/2
+alias topright6-2    move screenOriginX+4*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY/2
+alias topright6-3    move screenOriginX+3*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY/2
+alias topright3      corner top-right resize:screenSizeX/3;screenSizeY/2
+alias topright7      corner top-right resize:2*screenSizeX/3;screenSizeY/2
+alias bottomleft     corner bottom-left resize:screenSizeX/2;screenSizeY/2
+alias bottomleft3    corner bottom-left resize:screenSizeX/3;screenSizeY/2
+alias bottomleft3-1  move screenOriginX+screenSizeX/6;screenOriginY+screenSizeY/2 screenSizeX/3;screenSizeY/2
+alias bottomleft6-1  move screenOriginX;screenOriginY+screenSizeY/2 screenSizeX/6;screenSizeY/2
+alias bottomleft6-2  move screenOriginX+screenSizeX/6;screenOriginY+screenSizeY/2 screenSizeX/6;screenSizeY/2
+alias bottomleft6-3  move screenOriginX+2*screenSizeX/6;screenOriginY+screenSizeY/2 screenSizeX/6;screenSizeY/2
+alias bottomleft7    corner bottom-left resize:2*screenSizeX/3;screenSizeY/2
+alias bottomright    corner bottom-right resize:screenSizeX/2;screenSizeY/2
+alias bottomright3   corner bottom-right resize:screenSizeX/3;screenSizeY/2
+alias bottomright3-1 move screenOriginX+3*screenSizeX/6;screenOriginY+screenSizeY/2 screenSizeX/3;screenSizeY/2
+alias bottomright6-1 move screenOriginX+5*screenSizeX/6;screenOriginY+screenSizeY/2 screenSizeX/6;screenSizeY/2
+alias bottomright6-2 move screenOriginX+4*screenSizeX/6;screenOriginY+screenSizeY/2 screenSizeX/6;screenSizeY/2
+alias bottomright6-3 move screenOriginX+3*screenSizeX/6;screenOriginY+screenSizeY/2 screenSizeX/6;screenSizeY/2
+alias bottomright7   corner bottom-right resize:2*screenSizeX/3;screenSizeY/2
 
 # The HYPER key
 alias hyper ctrl;shift;alt;cmd
 
 # Test bindings
-#bind 6:${hyper} chain ${right6-1} | ${right6-2} | ${right6-3} | ${right3-1}
+#bind 6:${hyper} chain ${center3}
 
 # Reload Slate configuration file
 bind 1:${hyper} relaunch
@@ -69,15 +86,15 @@ bind esc:${hyper} grid
 
 # Location bindings
 bind f:${hyper}     ${full}
-bind c:${hyper}     ${center}
+bind c:${hyper}     chain ${center} | ${center3}
 bind left:${hyper}  chain ${lefthalf} | ${left3} | ${left3-1} | ${left7} | ${left6-1} | ${left6-2} | ${left6-3}
-bind right:${hyper}  chain ${righthalf} | ${right3} | ${right3-1} | ${right7} | ${right6-1} | ${right6-2} | ${right6-3}
-bind up:${hyper}    chain ${tophalf} | ${topcenter}
-bind down:${hyper}  chain ${bottomhalf} | ${bottomcenter}
-bind j:${hyper}     chain ${topleft} | ${topleft3} | ${topleft7}
-bind k:${hyper}     chain ${topright} | ${topright3} | ${topright7}
-bind h:${hyper}     chain ${bottomleft} | ${bottomleft3} | ${bottomleft7}
-bind l:${hyper}     chain ${bottomright} | ${bottomright3} | ${bottomright7}
+bind right:${hyper} chain ${righthalf} | ${right3} | ${right3-1} | ${right7} | ${right6-1} | ${right6-2} | ${right6-3}
+bind up:${hyper}    chain ${topcenter} | ${center3} | ${tophalf}
+bind down:${hyper}  chain ${bottomcenter} | ${center3} | ${bottomhalf}
+bind j:${hyper}     chain ${topleft} | ${topleft3} | ${topleft3-1} | ${topleft7} | ${topleft6-1} | ${topleft6-2} | ${topleft6-3}
+bind k:${hyper}     chain ${topright} | ${topright3} | ${topright3-1} | ${topright7} | ${topright6-1} | ${topright6-2} | ${topright6-3}
+bind h:${hyper}     chain ${bottomleft} | ${bottomleft3} | ${bottomleft3-1} | ${bottomleft7} | ${bottomleft6-1} | ${bottomleft6-2} | ${bottomleft6-3}
+bind l:${hyper}     chain ${bottomright} | ${bottomright3} | ${bottomright3-1} | ${bottomright7} | ${bottomright6-1} | ${bottomright6-2} | ${bottomright6-3}
 
 # Focus Bindings
 # NOTE: some of these may *not* work if you have not removed the
