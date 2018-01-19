@@ -20,9 +20,17 @@ alias full          move screenOriginX;screenOriginY screenSizeX;screenSizeY
 alias center        move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
 alias lefthalf      move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
 alias left3         move screenOriginX;screenOriginY screenSizeX/3;screenSizeY
+alias left3-1       move screenOriginX+screenSizeX/6;screenOriginY 2*screenSizeX/6;screenSizeY
+alias left6-1       move screenOriginX;screenOriginY screenSizeX/6;screenSizeY
+alias left6-2       move screenOriginX+screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
+alias left6-3       move screenOriginX+2*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
 alias left7         move screenOriginX;screenOriginY 2*screenSizeX/3;screenSizeY
 alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
 alias right3        move screenOriginX+2*screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY
+alias right3-1      move screenOriginX+3*screenSizeX/6;screenOriginY 2*screenSizeX/6;screenSizeY
+alias right6-1      move screenOriginX+5*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
+alias right6-2      move screenOriginX+4*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
+alias right6-3      move screenOriginX+3*screenSizeX/6;screenOriginY screenSizeX/6;screenSizeY
 alias right7        move screenOriginX+screenSizeX/3;screenOriginY 2*screenSizeX/3;screenSizeY
 alias tophalf       push top bar-resize:screenSizeY/2
 alias topcenter     move screenOriginX+screenSizeX/3;screenOriginY screenSizeX/3;screenSizeY/2
@@ -44,6 +52,12 @@ alias bottomright7  corner bottom-right resize:2*screenSizeX/3;screenSizeY/2
 # The HYPER key
 alias hyper ctrl;shift;alt;cmd
 
+# Test bindings
+#bind 6:${hyper} chain ${right6-1} | ${right6-2} | ${right6-3} | ${right3-1}
+
+# Reload Slate configuration file
+bind 1:${hyper} relaunch
+
 # Show window hints
 bind space:${hyper}  ${showNormalHint}
 
@@ -55,9 +69,9 @@ bind esc:${hyper} grid
 
 # Location bindings
 bind f:${hyper}     ${full}
-bind c:${hyper}     ${center} 
-bind left:${hyper}  chain ${lefthalf} | ${left3} | ${left7}
-bind right:${hyper} chain ${righthalf} | ${right3} | ${right7}
+bind c:${hyper}     ${center}
+bind left:${hyper}  chain ${lefthalf} | ${left3} | ${left3-1} | ${left7} | ${left6-1} | ${left6-2} | ${left6-3}
+bind right:${hyper}  chain ${righthalf} | ${right3} | ${right3-1} | ${right7} | ${right6-1} | ${right6-2} | ${right6-3}
 bind up:${hyper}    chain ${tophalf} | ${topcenter}
 bind down:${hyper}  chain ${bottomhalf} | ${bottomcenter}
 bind j:${hyper}     chain ${topleft} | ${topleft3} | ${topleft7}
