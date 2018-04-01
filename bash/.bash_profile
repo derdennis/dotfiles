@@ -32,6 +32,8 @@ case $platform in
         # OS-X Specific, with MacPorts, Git and MySQL installed and some self
         # compiled stuff. ie upslug2 for installin nslu2...
         export PATH=/usr/local/bin:/usr/local/mysql/bin:/usr/local/sbin:/Library/TeX/texbin:$PATH
+        # Activate autojump
+        [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
         ;;
 esac
 
