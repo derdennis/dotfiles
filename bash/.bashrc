@@ -338,6 +338,14 @@ case $platform in
     }
     # Preview the clipboard content in terminal
     alias cbp="pbpaste|less"
+    # Identify the Model of your Mac on the command line
+    # via: https://apple.stackexchange.com/questions/98080/can-a-macs-model-year-be-determined-with-a-terminal-command
+    alias getmacmodel="curl -s https://support-sp.apple.com/sp/product?cc=`system_profiler SPHardwareDataType | awk '/Serial/ {print $4}' | cut -c 9-` | sed 's|.*<configCode>\(.*\)</configCode>.*|\1|'"
+    # When was the last TimeMachine Backup?
+    # via: https://superuser.com/questions/356901/when-was-the-latest-successful-time-machine-backup
+    lasttmbackup() {
+        date -jf "%Y-%m-%d-%H%M%S" "$(tmutil latestbackup | sed 's|.*/||')" +"%F %T"
+    }
     ;;
 esac
 
