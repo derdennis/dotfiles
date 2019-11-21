@@ -876,3 +876,11 @@ if [ "$HOSTNAME" == "dokuwiki" ]; then
     # Use the local cntlm proxy
     export http_proxy=http://localhost:3128
 fi
+
+# Configure ccache for usage with clang (note: Apple does not natively support
+# gcc anymore). Though clang is way better with compiler errors than gcc ever will
+# be, especially with boost.
+# via: https://icinga.com/2015/09/11/osx-adventures-icinga-2-and-icinga-web-2/
+export CC='ccache clang'
+export CXX='ccache clang++'
+export CCACHE_CPP2=yes
