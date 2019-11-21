@@ -53,6 +53,10 @@ if [ -d /usr/local/heroku/bin ]; then
     export PATH="/usr/local/heroku/bin:$PATH"
 fi
 
+### Add path to the Homebrew OpenSSL version if it is installed
+if [ -d /usr/local/opt/openssl/bin ]; then
+    export PATH="/usr/local/opt/openssl/bin:$PATH"
+fi
 # UTF-8 locale ----------------------------------------------------
 export LANG=de:DE.UTF-8
 export LC_ALL=de_DE.UTF-8
