@@ -8,11 +8,10 @@ date_file: 'dates.yaml'
 bookmark_file: 'bookmarks.yaml'
 
 # Absolute path to the _drafts-folder
-blogpost_path: '/Users/dennis/Dropbox/blog/_drafts/'
+blogpost_path: '/Users/dennis/instant-thinking/source/_drafts/'
 #
 # Number of bookmarks per post
 bookmarks_per_post: 10
-
 
 # Mail
 recipient_name: 'Dennis'
