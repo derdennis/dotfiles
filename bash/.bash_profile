@@ -117,6 +117,15 @@ if [[ "$TERM_PROGRAM" != "DTerm" ]]; then
 
 fi
 
+# Initialize rbenv and pyenv --------------------------------------
+if command -v rbenv 1>/dev/null 2>&1; then
+    eval "$(rbenv init -)"
+fi
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
 # Load in .bashrc -------------------------------------------------
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
@@ -141,4 +150,3 @@ fi
 #
 # via:
 # http://blog.toddwerth.com/entries/4
-eval "$(rbenv init -)"
