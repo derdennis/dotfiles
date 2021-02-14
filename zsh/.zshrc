@@ -99,3 +99,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Functions (copied over from ye' ol' .bashrc
+
+# Use sssh in place of ssh to reconnect or start a new tmux or screen session
+# on the remote side. Via:
+# http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
+sssh (){ ssh -t "$1" 'source ~/.bash_profile && tmux -u attach || tmux -u new || screen -DR'; }
