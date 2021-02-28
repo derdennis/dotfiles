@@ -146,6 +146,7 @@ endif
 " Use the pre-patched Hack Font for the airline status bar
 set guifont=Hack:h12
 let g:airline_powerline_fonts = 1
+let g:airline_theme='solarized'
 
 " Show invisible characters (only here to remind me how to turn it on and off)
 " See http://vimcasts.org/episodes/show-invisibles/ for more information
@@ -624,6 +625,22 @@ if has("gui_macvim")
     set guifont=Hack:h16
     " No Toolbar
     set guioptions-=T
+
+    " Set Background and Color according to the macOS DarkMode
+    func! ChangeBackground()
+        if (v:os_appearance == 1)
+            set background=dark
+            colorscheme solarized
+        else
+            set background=light
+            colorscheme solarized
+        endif
+        redraw!
+        AirlineRefresh " if vim-airline is installed
+    endfunc
+
+    au OSAppearanceChanged * call ChangeBackground()
+
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
