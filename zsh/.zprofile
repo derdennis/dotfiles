@@ -59,6 +59,12 @@ fi
 if [ -d /usr/local/opt/openssl/bin ]; then
     export PATH="/usr/local/opt/openssl/bin:$PATH"
 fi
+#
+### Add path to Python 3.9 bin directory if it is installed (added ocrmypdf
+### via pip3 install --user ocrmypdf) and it landed there...
+if [ -d $HOME/Library/Python/3.9/bin ]; then
+    export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+fi
 # UTF-8 locale ----------------------------------------------------
 export LANG=de:DE.UTF-8
 export LC_ALL=de_DE.UTF-8
