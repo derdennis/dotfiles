@@ -1,6 +1,19 @@
 # See following for more information: http://www.infinitered.com/blog/?p=19
 
-# If not running interactively, don't do anything
+# If a bin in my home dir is present, add it to the $PATH
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# If a /usr/local/bin is present, add it to the $PATH (mostly for mosh)
+# See: https://github.com/mobile-shell/mosh/issues/102#issuecomment-12503646
+if [ -d "/usr/local/bin" ]; then
+    export PATH="/usr/local/bin:$PATH"
+fi
+export POWERLINE_COMMAND=powerline
+export POWERLINE_CONFIG_COMMAND=powerline-config
+
+# If not running interactively, don't do anything else
 [ -z "$PS1" ] && return
 
 # Set a Variable to yes if we are on interactive
@@ -720,17 +733,12 @@ fi
 # on the remote side. Via:
 # http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
 sssh (){ ssh -t "$1" 'source ~/.bash_profile && tmux -u attach || tmux -u new || screen -DR'; }
+moshh (){ mosh "$1" 'source ~/.bash_profile && tmux -u attach || tmux -u new || screen -DR'; }
 
 # Get the current weather in Essen, Germany
 alias weather='weatherman "Essen, Germany"'
 # Export the yahoo weather code for Essen, Germany for tmux-powerline
 export TMUX_POWERLINE_SEG_WEATHER_LOCATION="648820"
-
-if [ -d "$HOME/.local/bin" ]; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-export POWERLINE_COMMAND=powerline
-export POWERLINE_CONFIG_COMMAND=powerline-config
 
 # Be nice to your computer
 alias please='sudo'
