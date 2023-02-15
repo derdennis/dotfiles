@@ -733,7 +733,7 @@ fi
 # on the remote side. Via:
 # http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
 sssh (){ ssh -t "$1" 'source ~/.bash_profile && tmux -u attach || tmux -u new || screen -DR'; }
-moshh (){ mosh "$1" 'source ~/.bash_profile && tmux -u attach || tmux -u new || screen -DR'; }
+moshh (){ mosh "$1" -- tmux -u attach || tmux -u new || screen -DR; }
 
 # Get the current weather in Essen, Germany
 alias weather='weatherman "Essen, Germany"'
