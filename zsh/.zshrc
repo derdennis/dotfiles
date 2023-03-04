@@ -100,9 +100,23 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Edit PDF Metadata with pdftk
+# via: https://askubuntu.com/a/1037498
+editPDFmetadata() {
+OUTPUT="${1}-new.pdf"
+METADATA="tmp${1}-report.txt"
+pdftk "${1}" dump_data output "$METADATA"
+$EDITOR "$METADATA"
+pdftk "${1}" update_info "$METADATA"  output "$OUTPUT"
+touch -r "${1}" "${OUTPUT}"
+}
+
 # Functions (copied over from ye' ol' .bashrc
 
 # Use sssh in place of ssh to reconnect or start a new tmux or screen session
 # on the remote side. Via:
 # http://alias.sh/reconnect-or-start-tmux-or-screen-session-over-ssh
 sssh (){ ssh -t "$1" 'source ~/.bash_profile && tmux -u attach || tmux -u new || screen -DR'; }
+
+moshh (){ mosh "$1" -- tmux -u attach || tmux -u new || screen -DR; }
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
