@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import sys
 import re
@@ -52,5 +52,4 @@ text = link.sub(refrepl, text)
 # Remove the many empty lines we possibly just added.
 while "\n\n\n" in text: text = text.replace("\n\n\n", "\n\n")
 
-print text
-
+print (text)
