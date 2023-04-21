@@ -1,0 +1,48 @@
+-- imapfilter configuration file
+
+-- General options
+options.timeout = 200
+options.create = true
+options.subscribe = true
+options.expunge = true
+
+-- Get the iCloud IMAP username from the keychain (removing surrounding quotes and the newline)
+status, user = pipe_from('security find-internet-password -s "icloudimap" | grep "acct" | cut -d "=" -f 2')
+user = string.gsub(user, '"', '')
+user = string.gsub(user, "\n", "")
+
+-- Get the iCloud IMAP password from the keychain (removing the newline)
+status, passwd = pipe_from('/usr/bin/security find-internet-password -w -s "icloudimap"')
+passwd = string.gsub(passwd, "\n", "")
+
+-- iCloud connection parameters
+icloud = IMAP {
+server = 'imap.mail.me.com',
+username = user,
+password = passwd,
+ssl = 'tls1',
+}
+
+-- Check the inbox
+icloud.INBOX:check_status()
+
+-- Use IMAP IDLE to keep a constant look on the Inbox
+--while true do
+    --icloud.INBOX:enter_idle()
+
+-- Sort Verbraucherinformationen
+messages =  icloud["INBOX"]:contain_from("irgendeine@werbung.de")
++ icloud["INBOX"]:contain_from("somead@advertisement.com")
++ icloud["INBOX"]:contain_from("newsletter@irgendnefirma.de")
+messages:move_messages(icloud["Lists/Verbraucherinformationen"])
+
+-- Sort mailing list
+messages = icloud["INBOX"]:contain_to("obscure-cli-tool@googlegroups.com")
+messages:move_messages(icloud["Lists/obscure-cli-tool"])
+
+-- Sort forwarded newsletter (should be forwarded and marked as read by iCloud server rules)
+messages =  icloud["INBOX"]:contain_from("news@something.com") *
+icloud.INBOX:is_seen()
+messages:move_messages(icloud["Lists/Newsletter"])
+
+--end
